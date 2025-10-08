@@ -1,15 +1,11 @@
-import { Text, View } from "react-native";
+import { View, Text } from 'react-native';
+import { Link } from 'expo-router';
 
-export default function Index() {
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
-  );
+export default function LoginScreen() {
+    return (
+        <View>
+            <Text> Login screen </Text>
+            <Link href="/(drawer)/(home)"> Home </Link>
+        </View>
+    );
 }
