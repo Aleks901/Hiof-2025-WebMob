@@ -1,3 +1,8 @@
+import { Role } from "./role";
+
 export interface User{
-    name: string
+    id: number,
+    name: string,
+    role: Role,
+    dateJoined: Date
 }
