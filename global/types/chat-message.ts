@@ -21,4 +21,5 @@ export interface ChatMessage{
     id: number,
     message: string,
     user: User
+    dateSent?: Date
 }
