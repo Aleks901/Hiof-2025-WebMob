@@ -12,7 +12,8 @@ import { User } from "./user";
  *      name: "Meowingtons",
  *      role: "regular",
  *      dateJoined: new Date("2025-11-15T09:00:00Z")
- *  }
+ *  },
+ *  dateSent: new Date("2025-11-15T10:00:00Z")
  * };
  * 
  * ```
@@ -21,5 +22,5 @@ export interface ChatMessage{
     id: number,
     message: string,
     user: User
-    dateSent?: Date
+    dateSent: Date
 }
