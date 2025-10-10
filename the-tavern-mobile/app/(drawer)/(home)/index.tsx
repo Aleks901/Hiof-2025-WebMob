@@ -1,7 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
 import ChatMessageCard from '@/components/tavern-chat/chat-message';
-import { ChatMessage } from '../../../../global/types/chat-message'
-import { User } from '../../../../global/types/user'
+import { ChatMessage } from '../../../../global/types/chat-message';
+import { User } from '../../../../global/types/user';
+import { Link } from 'expo-router';
 
 // Test data
 const testUser: User = {
@@ -23,7 +24,12 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <Text>This will be the home page</Text>
+
+      {/* Test components, delete at will c: */}
       <ChatMessageCard message={testMessage} />
+      <Link href={'/(chat)/10'}>Test Chatroom</Link>
+
+
     </View>
   );
 }

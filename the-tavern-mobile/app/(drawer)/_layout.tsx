@@ -6,7 +6,7 @@ export default function DrawerLayout() {
     <Drawer >
 
       <Drawer.Screen
-        name="(home)/index"
+        name="(home)"
         options={{ 
           title: "Home",
           drawerIcon: () => ( 
