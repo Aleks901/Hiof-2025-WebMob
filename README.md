@@ -1,6 +1,9 @@
 # Hiof-2025-WebMob
 Repository for the web applications and mobile programming courses respectively at Østfold University College.
 
+# Til sensor
+Dette repo'et skal være et monorepo for både Web applikasjoner emnet og Mobil programmering emnet. Dette er mest for å spare tid på deler av koden som er lik i begge emnene, men også fordi deler av funksjonaliteten vi vil få fra WebApp prosjektet skal tas i bruk i Mobil appen. Her på github skrives alle commits / issues / pull requests og annen relevant tekst på engelsk slik at prosjektet kan være til bruk i fremtidig jobb søk.
+
 # The Tavern
 ## Project description
 The Tavern is a chatroom service not unlike discord. The goal of this project is to create a functional chat / social media esque service to test our ability to write proper mobile and desktop applications.
