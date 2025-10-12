@@ -43,7 +43,7 @@ export default function HomeScreen() {
       <ChatList messages={testMessages} />
 
       {/* Link to a chatroom */}
-      <Link href={'/(chat)/10'} style={styles.link}>
+      <Link href={'/(chat)/10'}>
         Go to Test Chatroom
       </Link>
     </View>
@@ -61,10 +61,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
-  },
-  link: {
-    marginTop: 20,
-    color: 'blue',
-    textDecorationLine: 'underline',
   },
 });
