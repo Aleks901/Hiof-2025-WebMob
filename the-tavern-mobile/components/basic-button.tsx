@@ -7,7 +7,7 @@ export default function BasicButton({
   style 
 }:{
     children: React.ReactNode, 
-    onPress: () => void, 
+    onPress?: () => void, 
     style?: object
   }) {
 
