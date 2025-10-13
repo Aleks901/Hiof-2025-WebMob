@@ -9,7 +9,8 @@ export default function HomeLayout() {
                 animation: 'flip',
             }}
         >
-            <Stack.Screen name="/(home)/(chat)" />
+            <Stack.Screen name="index" />
+            <Stack.Screen name="(chat)/[id]" />
         </Stack>
     );
 }
