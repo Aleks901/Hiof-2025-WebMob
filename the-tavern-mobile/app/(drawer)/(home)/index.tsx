@@ -6,31 +6,31 @@ const chatrooms = [
     id: "1",
     name: "The Tavern",
     description: "The main chatroom for adventurers!",
-    image: require('../../../assets/placeholder.png'),
+    image: require('../../../assets/tavern.jpg'),
   },
   {
     id: "2",
     name: "Call of Duty",
     description: "For the FPS lovers",
-    image: require('../../../assets/placeholder.png'),
+    image: require('../../../assets/mw2.png'),
   },
   {
     id: "3",
     name: "Among Us",
     description: "For the social deduction fans",
-    image: require('../../../assets/placeholder.png'),
+    image: require('../../../assets/sus.jpg'),
   },
   {
     id: "4",
     name: "Minecraft",
     description: "For the building and crafting fans",
-    image: require('../../../assets/placeholder.png'),
+    image: require('../../../assets/mc.png'),
   },
   {
     id: "5",
     name: "Fortnite",
     description: "For the battle royale fans",
-    image: require('../../../assets/placeholder.png'),
+    image: require('../../../assets/trashgame.jpg'),
   },
 ];
 
