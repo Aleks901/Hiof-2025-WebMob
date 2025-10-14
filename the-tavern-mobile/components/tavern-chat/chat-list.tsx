@@ -1,4 +1,4 @@
-import { FlatList, ScrollView, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { ChatMessage } from "../../../packages/types/chat-message";
 import ChatMessageCard from "./chat-message";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -11,7 +11,7 @@ export default function ChatList({ messages }: ChatListProps) {
   const insets = useSafeAreaInsets();
 
   return (
-    <ScrollView
+    <View
       style={{
         flex: 1,
         paddingTop: insets.top,
@@ -27,6 +27,6 @@ export default function ChatList({ messages }: ChatListProps) {
         keyExtractor={(item) => item.id.toString()}
         ItemSeparatorComponent={() => <View style={{ height: 10 }} />}
       />
-    </ScrollView>
+    </View>
   );
 }
