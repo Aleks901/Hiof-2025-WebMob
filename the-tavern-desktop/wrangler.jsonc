@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "simple-start",
+  "main": "src/worker.tsx",
+  "compatibility_date": "2025-08-29",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "assets": {
+    "binding": "ASSETS",
+    "directory": "public"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "vars": {},
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "simple-start",
+      "database_id": "__change_me__",
+      "migrations_dir": "drizzle"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "simple-start"
+    },
+  ]
+}

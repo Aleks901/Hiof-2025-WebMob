@@ -1,5 +1,5 @@
 {
-  "name": "the-tavern-mobile",
+  "name": "@hiof-2025-webmob/the-tavern-mobile",
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {

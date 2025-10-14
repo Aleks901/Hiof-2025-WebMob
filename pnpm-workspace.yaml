@@ -1,0 +1,4 @@
+packages:
+  - "the-tavern-mobile"
+  - "the-tavern-desktop"
+  - "packages/*"

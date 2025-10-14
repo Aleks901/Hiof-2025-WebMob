@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
 import BasicButton from '../basic-button';
 import { Link } from 'expo-router';
-import { Chatroom } from '../../../global/types/chat-room';
+import { Chatroom } from '../../../packages/types/chat-room';
 
 type Props = {
     chatroom: Chatroom;
