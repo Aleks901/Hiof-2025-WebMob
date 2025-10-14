@@ -1,24 +1,22 @@
 import { View, Text, StyleSheet, Image } from 'react-native';
-import BasicButton from './basic-button';
+import BasicButton from '../basic-button';
 import { Link } from 'expo-router';
+import { Chatroom } from '../../../global/types/chat-room';
 
 type Props = {
-    id: string;
-    name: string;
-    description: string;
-    image: any;
+    chatroom: Chatroom;
 }
 
-export default function ChatroomCard({ id, name, description, image }: Props) {
+export default function ChatroomCard({ chatroom }: Props) {
 
     return (
       <View>
-        <Link href={`/(chat)/${id}`} asChild>
+        <Link href={`/(chat)/${chatroom.id}`} asChild>
             <BasicButton>
                 <View style={styles.card}>
-                    <Image source={image} style={styles.image} /> 
-                    <Text style={styles.name}>{name}</Text>
-                    <Text style={styles.description}>{description}</Text>
+                    <Image source={chatroom.image} style={styles.image} /> 
+                    <Text style={styles.name}>{chatroom.name}</Text>
+                    <Text style={styles.description}>{chatroom.description}</Text>
                 </View>
             </BasicButton>
         </Link>

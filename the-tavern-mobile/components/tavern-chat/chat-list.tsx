@@ -1,10 +1,9 @@
-import React from "react";
 import { FlatList, ScrollView, View } from "react-native";
 import { ChatMessage } from "../../../global/types/chat-message";
 import ChatMessageCard from "./chat-message";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-interface ChatListProps {
+type ChatListProps = {
   messages: ChatMessage[];
 }
 

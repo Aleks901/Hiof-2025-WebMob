@@ -1,7 +1,38 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { Link } from 'expo-router';
-import ChatroomCard from '@/components/chatroomCard';
+import ChatroomList from '@/components/tavern-chat/chatroom-list';
 
+const chatrooms = [
+  {
+    id: "1",
+    name: "The Tavern",
+    description: "The main chatroom for adventurers!",
+    image: require('../../../assets/placeholder.png'),
+  },
+  {
+    id: "2",
+    name: "Call of Duty",
+    description: "For the FPS lovers",
+    image: require('../../../assets/placeholder.png'),
+  },
+  {
+    id: "3",
+    name: "Among Us",
+    description: "For the social deduction fans",
+    image: require('../../../assets/placeholder.png'),
+  },
+  {
+    id: "4",
+    name: "Minecraft",
+    description: "For the building and crafting fans",
+    image: require('../../../assets/placeholder.png'),
+  },
+  {
+    id: "5",
+    name: "Fortnite",
+    description: "For the battle royale fans",
+    image: require('../../../assets/placeholder.png'),
+  },
+];
 
 export default function HomeScreen() {
   return (
@@ -9,24 +40,8 @@ export default function HomeScreen() {
       <Text style={styles.header}>Welcome to The Tavern!</Text>
       <Text>Pick a table!</Text>
 
-      <View style={styles.cardsContainer}>
-        <ChatroomCard
-          id="1"
-          name="The Tavern"
-          description="The main chatroom for adventurers!"
-          image={require('../../../assets/placeholder.png')}
-        />
-        <ChatroomCard
-          id="2"
-          name="Call of Duty"
-          description="For the FPS lovers"
-          image={require('../../../assets/placeholder.png')}
-        />
-      </View>
+      <ChatroomList chatrooms={chatrooms} />
 
-      <Link href={'/(chat)/10'}>
-        Go to Test Chatroom
-      </Link>
     </View>
 
   );
