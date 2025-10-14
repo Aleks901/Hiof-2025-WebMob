@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { ChatMessage } from '../../../global/types/chat-message'
+import { ChatMessage } from '../../../packages/types/chat-message'
 
 
 type Props = {

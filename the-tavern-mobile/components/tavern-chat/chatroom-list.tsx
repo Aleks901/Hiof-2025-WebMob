@@ -1,7 +1,7 @@
 import { FlatList, StyleSheet } from "react-native";
 import ChatroomCard from "./chatroomCard";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Chatroom } from "../../../global/types/chat-room";
+import { Chatroom } from "../../../packages/types/chat-room";
 
 type Props = {
   chatrooms: Chatroom[];

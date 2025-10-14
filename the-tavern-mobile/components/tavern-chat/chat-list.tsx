@@ -1,5 +1,5 @@
 import { FlatList, ScrollView, View } from "react-native";
-import { ChatMessage } from "../../../global/types/chat-message";
+import { ChatMessage } from "../../../packages/types/chat-message";
 import ChatMessageCard from "./chat-message";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 

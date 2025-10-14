@@ -1,7 +1,7 @@
 import {Text} from 'react-native';
 import ChatList from '@/components/tavern-chat/chat-list';
-import { ChatMessage } from '../../../../../global/types/chat-message';
-import { User } from '../../../../../global/types/user';
+import { ChatMessage } from '../../../../../packages/types/chat-message';
+import { User } from '../../../../../packages/types/user';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 
