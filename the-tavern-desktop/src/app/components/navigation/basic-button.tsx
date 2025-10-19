@@ -1,20 +1,19 @@
-import React from 'react';
+"use client"
+
 
 export default function BasicButton({ 
   children, 
   onClick,
-  style
+  className,
 }: {
     children: React.ReactNode, 
     onClick?: () => void, 
-    style?: object
+    className?: string
   }) {
 
   return (
-    <button onClick={onClick}>
-        <div style={style}>
-            {children}
-        </div>
+    <button onClick={onClick} className={className}>
+      {children}
     </button>
     );
   };
