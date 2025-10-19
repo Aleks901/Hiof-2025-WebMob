@@ -1,6 +1,4 @@
 "use client"
-import { title } from "process";
-import BasicButton from "./basic-button";
 
 export default function NavButton({
     children,
