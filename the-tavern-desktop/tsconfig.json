@@ -21,6 +21,7 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
+      "@packages/*": ["../packages/*"],
       "@generated/*": ["./generated/*"]
     },
     /* Enable importing .json files */
@@ -44,5 +45,16 @@
 
     /* Skip type checking all .d.ts files. */
     "skipLibCheck": true
-  }
+  },
+  "include": [
+    "src",
+    "app",
+    "packages",
+    "../packages",
+    "types",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx"
+  ]
 }

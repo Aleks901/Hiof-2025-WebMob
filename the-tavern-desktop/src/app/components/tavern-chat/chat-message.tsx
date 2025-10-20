@@ -1,10 +1,6 @@
-"use client";
+"use client"
 
-type ChatMessage = {
-    user: { name:string },
-    message: string,
-    dateSent: string | Date
-};
+import { ChatMessage } from "@packages/types/chat-message"
 
 type Props = {
     message: ChatMessage;
@@ -12,13 +8,8 @@ type Props = {
 
 export default function ChatMessageCard({ message }: Props) {
 
-    const date = 
-    message.dateSent instanceof Date 
-    ? message.dateSent : new Date(message.dateSent);
-
     return (
         <div style={styles.messageContainer}>
-
             <p style={styles.userName}>
                 {message.user.name} Said:
             </p>
@@ -29,12 +20,10 @@ export default function ChatMessageCard({ message }: Props) {
                 </p>
             </div>
 
-            <p style={styles.dateSent}> {date.toLocaleTimeString()} </p>
-
+            <p style={styles.dateSent}> {message.dateSent.toLocaleTimeString()} </p>
         </div>
     );
 };
-
 
 const styles = {
     messageContainer: {
@@ -80,6 +69,5 @@ const styles = {
         fontStyle: "italic",
         textAlign: "right" as const,
         textShadow: "0 0 4px #5500ff",
-},
-
+    },
 };
