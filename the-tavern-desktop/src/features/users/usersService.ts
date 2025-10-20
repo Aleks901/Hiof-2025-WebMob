@@ -20,7 +20,7 @@ export function createUserService(userRepository: UserRepository): UserService {
                 ...repositoryResult,
             };
         },
-        async createUser(userData: Partial<User>) {
+        async createUser(userData: User) {
             const repositoryResult = await userRepository.create(userData);
             // You get the deal
             return {

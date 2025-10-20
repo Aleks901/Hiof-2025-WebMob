@@ -62,8 +62,22 @@ export function createUserController(usersService: UserService) {
          * POST api/v1/users - Creates a new user
          */
         async createUser(context: RequestInfo) {
-            const data = await context.request.json() as Partial<User>;
+          try {
+            const data = await context.request.json() as User;
             const dataFromService = await usersService.createUser(data);
+            const validRole = ["regular", "admin"].includes(data.role);
+            if (!validRole) {
+              return new Response(
+                JSON.stringify({
+                  error: "Invalid user role. Role must be either 'regular' or 'admin'.",
+                  success: false,
+                }),
+                {
+                  status: 400,
+                  headers: { "Content-Type": "application/json" },
+                }
+              );
+            }
             return new Response(
               JSON.stringify({
                 ...dataFromService,
@@ -73,6 +87,18 @@ export function createUserController(usersService: UserService) {
                 headers: { "Content-Type": "application/json" },
               }
             );
+          } catch {
+            return new Response(
+              JSON.stringify({
+                error: "Failed to create user, user must be of type: { name: string; role: string; }",
+                success: false,
+              }),
+              {
+                status: 500,
+                headers: { "Content-Type": "application/json" },
+              }
+            );
+          }
         },
         /**
          * PUT api/v1/users/<id> - Updates a user by id

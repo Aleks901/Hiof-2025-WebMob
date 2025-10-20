@@ -19,7 +19,7 @@ export function createUserRepository(): UserRepository {
                 id: users.length + 1,
                 name: data.name,
                 role: data.role,
-                dateJoined: data.dateJoined,
+                dateJoined: new Date(),
             };
             users.push(newUser);
             return { success: true, data: newUser };
