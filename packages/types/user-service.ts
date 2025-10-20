@@ -1,6 +1,6 @@
-import { User } from "@packages/types/user";
-import { UserQueryParams } from "@packages/types/userquery";
-import { Result } from "@packages/types/result";
+import { User } from "./user";
+import { UserQueryParams } from "./userquery";
+import { Result } from "./result";
 
 export interface UserService {
     listUsers(params?: UserQueryParams): Promise<Result<User[]>>;

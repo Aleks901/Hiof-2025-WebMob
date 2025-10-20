@@ -1,4 +1,4 @@
-import { Result } from "@packages/types/result";
+import { Result } from "./result";
 
 
 export interface UserRepository {
