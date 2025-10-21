@@ -10,6 +10,8 @@ import { About } from "./app/pages/About";
 import { Friends } from "./app/pages/Friends"
 import { AppLayout } from "./app/layouts/AppLayout";
 import { userRoutes } from "./features/users/usersRoutes";
+import { UserPage } from "./app/pages/UserPage";
+import { ChatPage } from "./app/pages/ChatPage";
 
 export interface Env {
   DB: D1Database;
@@ -36,7 +38,9 @@ export default defineApp([
         );
       }),
       route("/about", About),
-      route("/friends", Friends)
+      route("/friends", Friends),
+      route("/user/:id", UserPage),
+      route("/chat/:id", ChatPage)
     ]),
   ])
 ]);
