@@ -1,18 +1,17 @@
-"use client"
-
 
 export default function BasicButton({ 
   children, 
   onClick,
-  className,
-}: {
-    children: React.ReactNode, 
+  buttonStyle,
+  }: {
+    children?: React.ReactNode, 
     onClick?: () => void, 
-    className?: string
-  }) {
+    className?: string,
+    buttonStyle: React.CSSProperties | undefined; }
+  ) {
 
   return (
-    <button onClick={onClick} className={className}>
+    <button onClick={onClick} style={buttonStyle}>
       {children}
     </button>
     );
