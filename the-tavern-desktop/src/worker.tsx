@@ -12,6 +12,7 @@ import { AppLayout } from "./app/layouts/AppLayout";
 import { userRoutes } from "./features/users/usersRoutes";
 import { UserPage } from "./app/pages/UserPage";
 import { ChatPage } from "./app/pages/ChatPage";
+import LoginForm from "./app/components/login-form";
 
 export interface Env {
   DB: D1Database;
@@ -34,6 +35,7 @@ export default defineApp([
             <h1>Start</h1>
             <p>Velkommen til eksempel</p>
             <p>Databasen har {userResult.length} brukere</p>
+            <LoginForm/>
           </div>
         );
       }),

@@ -1,22 +1,26 @@
 import BasicButton from "./navigation/basic-button";
 
-"use client"
-
 export function BasicForm({
     children, 
     title, 
+    formStyles,
     onSubmit}: {
         children: React.ReactNode; 
-        title: string; 
-        onSubmit: () => void}) {
+        title: string;
+        formStyles?: {
+          titleStyle?: React.CSSProperties
+          formStyle?: React.CSSProperties
+          buttonStyle?: React.CSSProperties
+        };
+        onSubmit?: () => void}) {
   return (
-    <form>
+    <form style={formStyles?.formStyle}>
         
-      <p>{title}</p>
+      <h1 style={formStyles?.titleStyle}>{title}</h1>
 
       {children}
 
-      <BasicButton onClick={onSubmit}> 
+      <BasicButton onClick={onSubmit} buttonStyle={formStyles?.buttonStyle}>
         Submit
       </BasicButton>
 
