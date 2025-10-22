@@ -5,13 +5,14 @@ import { Chatroom } from '../../../packages/types/chat-room';
 
 type Props = {
     chatroom: Chatroom;
+    href: string;
 }
 
-export default function ChatroomCard({ chatroom }: Props) {
+export default function BasicCard({ chatroom, href }: Props) {
 
     return (
       <View>
-        <Link href={`/(chat)/${chatroom.id}`} asChild>
+        <Link href={`/${href}${chatroom.id}`} asChild>
             <BasicButton>
                 <View style={styles.card}>
                     <Image source={chatroom.image} style={styles.image} /> 

@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet } from "react-native";
-import ChatroomCard from "./chatroomCard";
+import BasicCard from "./basic-card";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Chatroom } from "../../../packages/types/chat-room";
 
@@ -13,7 +13,7 @@ export default function ChatroomList({ chatrooms }: Props) {
   return (
     <FlatList
       data={chatrooms}
-      renderItem={({ item }) => <ChatroomCard chatroom={item} />}
+      renderItem={({ item }) => <BasicCard href="./chat/" chatroom={item} />}
       keyExtractor={(item) => item.id}
       contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}
       numColumns={2}
