@@ -4,32 +4,48 @@ import { UserRepository } from "@packages/types/user-repository";
 import { createUserRepository } from "./usersRepository";
 
 export function createUserService(userRepository: UserRepository): UserService {
+    // So since the user service is going to be mostly useless and empty in this project,
+    // I'm gonna take it upon myself to make a point of how we might've used this for "bussiness logic"
+    const blackListedWords = ["AVeryBadWord"]
+    // See where I'm going with this? :D
+    // So anyways, what I figured is that typical "business logic" could be something such as checking
+    // if the user has named themselves something we don't like.
+
     return {
         async listUsers(params = {}) {
             const repositoryResult = await userRepository.findMany(params);
-            // Bussiness logic might go here but honestly I don't see the point yet,
-            // I'll literally just slip through this file like a ninja for now.
             return {
                 ...repositoryResult,
             };
         },
         async getUserById(id: User["id"]) {
             const repositoryResult = await userRepository.findById(id);
-            // You get the deal
             return {
                 ...repositoryResult,
             };
         },
         async createUser(userData: User) {
-            const repositoryResult = await userRepository.create(userData);
-            // You get the deal
-            return {
-                ...repositoryResult,
+            // There we go. Hope that serves as a decent enough example.
+            // I'm sure I could've optimized this, even put it in a handlers file to reduce clutter.
+            // But you get the gist.
+            const invalidName = blackListedWords.includes(userData.name)
+            if (invalidName){
+                return {
+                    error: {
+                        message: "That's a bad word! How dare you!",
+                        code: 403
+                    },
+                    success: false
+                };
             };
+            const repositoryResult = await userRepository.create(userData);
+                return {
+                ...repositoryResult,
+            }
+            
         },
-        async updateUser(id: User["id"], userData: Partial<User>) {
+        async updateUser(id: User["id"], userData: User) {
             const repositoryResult = await userRepository.update(id, userData);
-            // You get the deal
             return {
                 ...repositoryResult,
             };
