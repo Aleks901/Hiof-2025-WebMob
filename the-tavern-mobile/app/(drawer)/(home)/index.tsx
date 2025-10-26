@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import ChatroomList from '@/components/tavern-chat/chatroom-list';
-import { useTheme } from '@/components/useTheme';
+import { useTheme } from '@packages/ui/useTheme';
 
 const chatrooms = [
   {
