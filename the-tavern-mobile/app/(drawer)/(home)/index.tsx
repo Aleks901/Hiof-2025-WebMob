@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import ChatroomList from '@/components/tavern-chat/chatroom-list';
+import { useTheme } from '@/components/useTheme';
 
 const chatrooms = [
   {
@@ -35,10 +36,12 @@ const chatrooms = [
 ];
 
 export default function HomeScreen() {
+  const theme = useTheme();
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Welcome to The Tavern!</Text>
-      <Text>Pick a table!</Text>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <Text style={[styles.header, { color: theme.highlight }]}>Welcome to The Tavern!</Text>
+      <Text style={{ color: theme.text }}>Pick a table!</Text>
 
       <ChatroomList chatrooms={chatrooms} />
 
