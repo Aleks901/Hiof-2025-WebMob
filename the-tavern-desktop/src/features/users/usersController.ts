@@ -46,8 +46,9 @@ export function createUserController(usersService: UserService) {
          * GET api/v1/users/<id> - Returns user by id
          */
         async getUserById(context: RequestInfo) {
+          try {
             const { id } = context.params;
-            const dataFromService = await usersService.getUserById(id);
+            const dataFromService = await usersService.getUserById(Number(id));
             return new Response(
               JSON.stringify({
                 ...dataFromService,
@@ -57,6 +58,18 @@ export function createUserController(usersService: UserService) {
                 headers: { "Content-Type": "application/json" },
               }
             );
+          }catch {
+            return new Response(
+              JSON.stringify({
+                error: "Failed to fetch user",
+                success: false,
+              }),
+              {
+                status: 500,
+                headers: { "Content-Type": "application/json"}
+              }
+            );
+          }
         },
         /**
          * POST api/v1/users - Creates a new user
@@ -69,7 +82,7 @@ export function createUserController(usersService: UserService) {
             if (!validRole) {
               return new Response(
                 JSON.stringify({
-                  error: "Invalid user role. Role must be either 'regular' or 'admin'.",
+                  error: "Missing information.",
                   success: false,
                 }),
                 {
@@ -105,8 +118,20 @@ export function createUserController(usersService: UserService) {
          */
         async updateUser(context: RequestInfo) {
             const { id } = context.params;
-            const data = await context.request.json() as Partial<User>;
-            const dataFromService = await usersService.updateUser(id, data);
+            const data = await context.request.json() as User;
+            const dataFromService = await usersService.updateUser(Number(id), data);
+            if (dataFromService == null){
+              return new Response(
+                JSON.stringify({
+                  message: "User doesn't exist",
+                  success: false,
+                }),
+                {
+                  status: 400,
+                  headers: { "Content-Type": "application/json" },
+                }
+              );
+            }
             return new Response(
               JSON.stringify({
                 ...dataFromService,

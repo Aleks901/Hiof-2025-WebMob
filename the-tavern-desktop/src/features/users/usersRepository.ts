@@ -4,7 +4,8 @@ import { User } from "@packages/types/user";
 
 
 export function createUserRepository(): UserRepository {
-    const users: User[] = [];
+    // Temp list to hold users before we get the db up and running
+    const users: User[] = [{id: 1, name: "Aleks", role: "admin", dateJoined: new Date()}];
 
     return {
         async findMany(params = {}) {
@@ -12,7 +13,20 @@ export function createUserRepository(): UserRepository {
         },
         async findById(id: number) {
             const user = users.find((user) => user.id === id);
-            return { success: true, data: user || null };
+            if (user == null)
+                return {
+                    success: false,
+                    error: {
+                        message: "User not found",
+                        code: 404
+                    }
+                };
+            else {
+                return { 
+                    success: true, 
+                    data: user
+                };
+            }
         },
         async create(data: User) {
             const newUser: User = {
@@ -21,10 +35,30 @@ export function createUserRepository(): UserRepository {
                 role: data.role,
                 dateJoined: new Date(),
             };
-            users.push(newUser);
-            return { success: true, data: newUser };
+            const validateNewUser = (user: User): boolean => {
+                return user.id != null && 
+                       user.name != null && 
+                       user.role != null && 
+                       user.dateJoined != null;
+            };
+
+            if (!validateNewUser(newUser)) {
+                return {
+                    success: false,
+                    error: {
+                        message: "Invalid user data, try again.",
+                        code: 400
+                    }
+                };
+            }
+            else {
+                users.push(newUser);
+                return { 
+                    success: true, 
+                    data: newUser };
+            }
         },
-        async update(id: number, data: Partial<User>) {
+        async update(id: number, data: User) {
             const userIndex = users.findIndex((user) => user.id === id);
             if (userIndex === -1) 
                 return { 
