@@ -1,20 +1,17 @@
 // src/db/index.ts
 
-import { drizzle } from "drizzle-orm/better-sqlite3"; // Import drizzle for better-sqlite3
-import sqlite from "better-sqlite3";
-
-// Import all schemaspn
+import { drizzle, type DrizzleD1Database } from "drizzle-orm/d1";
+import { env } from "cloudflare:workers";
+import * as schema from "./schema";
 import { users } from "./schema/user-schema";
 import { chatrooms } from "./schema/chatroom-schema";
 import { userChatrooms } from "./schema/user-chatroom-schema";
 import { messages } from "./schema/message-schema";
 
-// Initialize SQLite database connection
-const sqliteInstance = sqlite("database.db"); // Replace "database.db" with your database file path
-sqliteInstance.pragma("foreign_keys = ON"); // Enable foreign key constraints
+export const db = drizzle(env.DB, { schema });
 
-// Create Drizzle ORM instance
-export const db = drizzle(sqliteInstance);
+export const getDb = (D1: D1Database) => drizzle(D1, { schema });
 
-// Export schemas for use in other parts of the application
+export type DB = DrizzleD1Database<typeof schema>;
+
 export { users, chatrooms, userChatrooms, messages };

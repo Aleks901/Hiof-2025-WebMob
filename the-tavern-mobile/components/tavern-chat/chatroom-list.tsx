@@ -14,7 +14,7 @@ export default function ChatroomList({ chatrooms }: Props) {
     <FlatList
       data={chatrooms}
       renderItem={({ item }) => <BasicCard href="./chat/" chatroom={item} />}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}
       numColumns={2}
       columnWrapperStyle={styles.columnWrapper}

@@ -2,65 +2,69 @@
 
 import { defineScript } from "rwsdk/worker";
 import { drizzle } from "drizzle-orm/d1";
-import { users, chatrooms, userChatrooms, messages } from "./schema";
+import { chatrooms, users } from "./schema";
+import { env as WorkerEnv } from "cloudflare:workers";
+
+// Remove ensureTables - let Drizzle migrations handle this
+
+export const seedData = async (maybeEnv?: { DB: D1Database }) => {
+  try {
+    const D1 = (maybeEnv?.DB ?? WorkerEnv.DB) as D1Database;
+    const db = drizzle(D1);
+    
+    const existing = await db.select().from(chatrooms).limit(1);
+    if (existing.length > 0) {
+      return { seeded: false, message: "Chatrooms already exist. Skipping." };
+    }
+
+    type ChatroomInsert = typeof chatrooms.$inferInsert;
+    const chatData: ChatroomInsert[] = [
+      { name: "The Tavern", 
+        description: "The Tavern general chatroom", 
+        imgref: null 
+      },
+      { name: "Call of Duty", 
+        description: "Call of Duty chatroom", 
+        imgref: null 
+      },
+    ];
+
+    await db.insert(chatrooms).values(chatData);
+    const allChatrooms = await db.select().from(chatrooms).all();
+
+    type UserInsert = typeof users.$inferInsert;
+    const userData: UserInsert[] = [
+      {
+        name: "testuser",
+        password: "password123",
+        joinedAt: new Date().toISOString(),
+        role: "user",
+        token: null,
+      },
+    ];
+
+    await db.insert(users).values(userData);
+    const allUsers = await db.select().from(users).all();
+
+    return { 
+      seeded: true, 
+      chatrooms: allChatrooms, 
+      users: allUsers
+    };
+    
+  } catch (error) {
+    console.error("Error seeding database:", error);
+    throw error;
+  }
+};
+
 
 export default defineScript(async ({ env }) => {
   try {
-    const db = drizzle(env.DB);
-    await db.delete(users);
-    await db.delete(chatrooms);
-    await db.delete(userChatrooms);
-    await db.delete(messages);
-
-    // Insert a user
-    await db.insert(users).values({
-      name: "Test user",
-      password: "password123", // Replace with hashed password in production
-      joinedAt: new Date().toISOString(),
-      role: "admin",
-      token: null,
-    });
-
-    // Insert chatroom
-    await db.insert(chatrooms).values({
-      name: "General",
-      description: "A general chatroom for everyone",
-      imgref: null,
-    });
-
-    // Insert user-chatroom relationship
-    await db.insert(userChatrooms).values({
-      userId: 1,
-      chatroomId: 1,
-    });
-
-    // Insert message
-    await db.insert(messages).values({
-      userId: 1,
-      chatroomId: 1,
-      message: "Hello, world!",
-      datesendt: new Date().toISOString(),
-    });
-
-    // Verify the inserts
-    const allUsers = await db.select().from(users).all();
-    const allChatrooms = await db.select().from(chatrooms).all();
-    const allUserChatrooms = await db.select().from(userChatrooms).all();
-    const allMessages = await db.select().from(messages).all();
-
-    console.log("🌱 Finished seeding");
-
-    return Response.json({
-      users: allUsers,
-      chatrooms: allChatrooms,
-      userChatrooms: allUserChatrooms,
-      messages: allMessages,
-    });
+    const result = await seedData(env);
+    return Response.json({ success: true, result });
   } catch (error) {
-    console.error("Error seeding database:", error);
-    return Response.json({
-      success: false,
-      error: "Failed to seed database",
-    });
+    console.error("Seeding script failed:", error);
+    return Response.json({ success: false, error: "Failed to seed database" }, { status: 500 });
   }
 });

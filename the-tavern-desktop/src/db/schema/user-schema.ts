@@ -1,9 +1,9 @@
 // src/db/schema/user-schema.ts
 
-import { sqliteTable, text, int} from "drizzle-orm/sqlite-core";
+import { sqliteTable, text, integer} from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
-  id: int().primaryKey({ autoIncrement: true }),
+  id: integer().primaryKey({ autoIncrement: true }),
   name: text("name").notNull(),
   password: text("password").notNull(),
   joinedAt: text("joined_at").notNull(),

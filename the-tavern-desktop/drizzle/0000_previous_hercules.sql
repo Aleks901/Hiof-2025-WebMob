@@ -23,9 +23,11 @@ CREATE TABLE `user_chatrooms` (
 	FOREIGN KEY (`chatroom_id`) REFERENCES `chatrooms`(`id`) ON UPDATE no action ON DELETE no action
 );
 --> statement-breakpoint
-DROP INDEX `users_email_unique`;--> statement-breakpoint
-ALTER TABLE `users` ADD `password` text NOT NULL;--> statement-breakpoint
-ALTER TABLE `users` ADD `joined_at` text NOT NULL;--> statement-breakpoint
-ALTER TABLE `users` ADD `role` text NOT NULL;--> statement-breakpoint
-ALTER TABLE `users` ADD `token` text;--> statement-breakpoint
-ALTER TABLE `users` DROP COLUMN `email`;
+CREATE TABLE `users` (
+	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+	`name` text NOT NULL,
+	`password` text NOT NULL,
+	`joined_at` text NOT NULL,
+	`role` text NOT NULL,
+	`token` text
+);
