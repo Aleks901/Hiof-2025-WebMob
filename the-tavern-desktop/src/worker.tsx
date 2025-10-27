@@ -1,7 +1,6 @@
 import { defineApp } from "rwsdk/worker";
 import { layout, prefix, render, route } from "rwsdk/router";
 import { Document } from "@/app/Document";
-
 import { User, users } from "./db/schema/user-schema";
 import { setCommonHeaders } from "./app/headers";
 import { env } from "cloudflare:workers";
@@ -13,10 +12,7 @@ import { userRoutes } from "./features/users/usersRoutes";
 import { UserPage } from "./app/pages/UserPage";
 import { ChatPage } from "./app/pages/ChatPage";
 import LoginForm from "./app/components/login-form";
-
-export interface Env {
-  DB: D1Database;
-}
+import { seedData } from "./db/seed";
 
 export type AppContext = {
   user: User | undefined;
@@ -25,6 +21,10 @@ export type AppContext = {
 
 export default defineApp([
   setCommonHeaders(),
+  route("/api/seed", async () => {
+    const result = await seedData(env);
+    return Response.json({ success: true, ...result});
+  }),
   prefix("/api/v1/users", userRoutes),
   render(Document, [
     layout(AppLayout, [

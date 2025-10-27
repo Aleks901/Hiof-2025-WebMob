@@ -8,14 +8,14 @@
  *  id: "1",
  *  name: "General Chat",
  *  description: "A chatroom for generals :^)",
- *  image: "path/to/image.png"
+ *  imageref: "path/to/image.png"
  * };
  * ```
  */
 
 export interface Chatroom {
-  id: string;
+  id: number;
   name: string;
   description: string;
-  image: any;
+  imgref: any;
 }

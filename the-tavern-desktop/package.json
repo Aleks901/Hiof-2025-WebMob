@@ -20,14 +20,16 @@
     "migrate:new": "drizzle-kit generate",
     "migrate:dev": "wrangler d1 migrations apply DB --local",
     "migrate:prod": "wrangler d1 migrations apply DB --remote",
-    "seed": "npm run worker:run ./src/db/seed.ts"
+    "seed": "npm run worker:run ./src/db/seed.ts",
+    "seed:prod": "wrangler d1 execute DB --remote --file=./seed.sql"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.14",
+    "better-sqlite3": "^12.4.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
-    "drizzle-orm": "^0.44.6",
+    "drizzle-orm": "^0.44.7",
     "lucide-react": "^0.545.0",
     "nanoid": "^5.1.6",
     "ohash": "^2.0.11",
@@ -43,7 +45,8 @@
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.13.10",
     "@cloudflare/workers-types": "^4.20251004.0",
-    "@types/node": "^24.7.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^24.9.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.4",

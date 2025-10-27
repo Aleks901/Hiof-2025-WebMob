@@ -18,6 +18,8 @@ import { Role } from "./role";
 export interface User{
     id: number,
     name: string,
+    password: string,
+    joinedAt: Date,
     role: Role,
-    dateJoined: Date
+    token?: string | undefined
 }
