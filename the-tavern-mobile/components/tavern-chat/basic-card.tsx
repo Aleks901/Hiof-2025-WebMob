@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import BasicButton from '../basic-button';
 import { Link } from 'expo-router';
 import { Chatroom } from '../../../packages/types/chat-room';
+import { useTheme } from '@packages/ui/useTheme';
 
 type Props = {
     chatroom: Chatroom;
@@ -9,6 +10,45 @@ type Props = {
 }
 
 export default function BasicCard({ chatroom, href }: Props) {
+
+    const theme = useTheme();
+
+    const styles = StyleSheet.create({
+    card: {
+        width: 150,
+        height: 200,
+        borderWidth: 1,
+        borderColor: theme.highlight,
+        borderRadius: 10,
+        overflow: 'hidden',
+        marginBottom: 12,
+        backgroundColor: theme.card,
+    },
+
+    image: {
+        width: '100%',
+        height: '70%',
+        borderBottomWidth: 1,
+        borderBottomColor: theme.highlight,
+    },
+
+    name: {
+        fontWeight: '600',
+        color: theme.text,
+        fontSize: 12,
+        textAlign: 'center',
+        marginVertical: 4,
+    },
+
+    description: {
+        color: theme.highlight,
+        fontSize: 10,
+        textAlign: 'center',
+        padding: 4,
+    },
+
+});
+
 
     return (
       <View>
@@ -26,38 +66,3 @@ export default function BasicCard({ chatroom, href }: Props) {
 }
 
 
-const styles = StyleSheet.create({
-    card: {
-        width: 150,
-        height: 200,
-        borderWidth: 1,
-        borderColor: '#ff00ff',
-        borderRadius: 10,
-        overflow: 'hidden',
-        marginBottom: 12,
-        backgroundColor: '#0a0a0f',
-    },
-
-    image: {
-        width: '100%',
-        height: '70%',
-        borderBottomWidth: 1,
-        borderBottomColor: '#ff00ff',
-    },
-
-    name: {
-        fontWeight: '600',
-        color: '#ff33cc',
-        fontSize: 12,
-        textAlign: 'center',
-        marginVertical: 4,
-    },
-
-    description: {
-        color: '#00ffff',
-        fontSize: 10,
-        textAlign: 'center',
-        padding: 4,
-    },
-
-});
