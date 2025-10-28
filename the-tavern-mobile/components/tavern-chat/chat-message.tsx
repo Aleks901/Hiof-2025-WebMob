@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { ChatMessage } from '../../../packages/types/chat-message'
+import { useTheme } from '@packages/ui/useTheme';
 
 
 type Props = {
@@ -8,7 +9,52 @@ type Props = {
 
 export default function ChatMessageCard(props: Props) {
 
+    const theme = useTheme();
+
     const { message } = props;
+
+    const styles = StyleSheet.create({
+    messageContainer: {
+        marginVertical: 10,
+        padding: 14,
+        borderRadius: 12,
+        backgroundColor: theme.background, 
+        borderWidth: 1,
+        borderColor: theme.highlight, 
+        shadowColor: theme.highlight,
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.8,
+        shadowRadius: 10,
+        elevation: 10,
+    },
+    userName: {
+        fontWeight: 'bold',
+        color: theme.text, 
+        fontSize: 16,
+        textShadowColor: theme.highlight,
+        letterSpacing: 1,
+    },
+    messageText: {
+        marginTop: 6,
+        color: theme.text,
+        borderColor: theme.highlight,
+        borderWidth: 1,
+        padding: 10,
+        borderRadius: 6,
+        backgroundColor: theme.card,
+        textShadowColor: theme.highlight,
+        fontSize: 15,
+        lineHeight: 20,
+    },
+    dateSent: {
+        marginTop: 6,
+        color: theme.mutedText,
+        fontSize: 12,
+        fontStyle: 'italic',
+        textAlign: 'right',
+    },
+});
+
 
     return (
         <View style={styles.messageContainer}>
@@ -29,52 +75,5 @@ export default function ChatMessageCard(props: Props) {
     );
 };
 
-const styles = StyleSheet.create({
-    messageContainer: {
-        marginVertical: 10,
-        padding: 14,
-        borderRadius: 12,
-        backgroundColor: '#0a0a0f', 
-        borderWidth: 1,
-        borderColor: '#1affff', 
-        shadowColor: '#1affff',
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.8,
-        shadowRadius: 10,
-        elevation: 10,
-    },
-    userName: {
-        fontWeight: 'bold',
-        color: '#ff00ff', 
-        fontSize: 16,
-        textShadowColor: '#ff33cc',
-        textShadowOffset: { width: 0, height: 0 },
-        textShadowRadius: 6,
-        letterSpacing: 1,
-    },
-    messageText: {
-        marginTop: 6,
-        color: '#00ffff',
-        borderColor: '#ff00ff',
-        borderWidth: 1,
-        padding: 10,
-        borderRadius: 6,
-        backgroundColor: 'rgba(10, 10, 25, 0.8)',
-        textShadowColor: '#00ffff',
-        textShadowOffset: { width: 0, height: 0 },
-        textShadowRadius: 8,
-        fontSize: 15,
-        lineHeight: 20,
-    },
-    dateSent: {
-        marginTop: 6,
-        color: '#8888ff',
-        fontSize: 12,
-        fontStyle: 'italic',
-        textAlign: 'right',
-        textShadowColor: '#5500ff',
-        textShadowOffset: { width: 0, height: 0 },
-        textShadowRadius: 4,
-    },
-});
+
 
