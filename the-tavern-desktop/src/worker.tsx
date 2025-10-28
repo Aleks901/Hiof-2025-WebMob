@@ -13,6 +13,7 @@ import { UserPage } from "./app/pages/UserPage";
 import { ChatPage } from "./app/pages/ChatPage";
 import LoginForm from "./app/components/login-form";
 import { seedData } from "./db/seed";
+import { Home } from "./app/pages/Home";
 
 export type AppContext = {
   user: User | undefined;
@@ -42,7 +43,8 @@ export default defineApp([
       route("/about", About),
       route("/friends", Friends),
       route("/user/:id", UserPage),
-      route("/chat/:id", ChatPage)
+      route("/chat/:id", ChatPage),
+      route("/home", Home)
     ]),
   ])
 ]);

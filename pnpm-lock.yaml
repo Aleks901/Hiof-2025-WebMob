@@ -13,6 +13,9 @@ importers:
       '@tailwindcss/vite':
         specifier: ^4.1.14
         version: 4.1.16(vite@7.1.12(@types/node@24.9.1)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.44.0)(tsx@4.20.6)(yaml@2.8.1))
+      better-sqlite3:
+        specifier: ^12.4.1
+        version: 12.4.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -23,8 +26,8 @@ importers:
         specifier: ^17.2.3
         version: 17.2.3
       drizzle-orm:
-        specifier: ^0.44.6
-        version: 0.44.7(@cloudflare/workers-types@4.20251014.0)(kysely@0.28.8)
+        specifier: ^0.44.7
+        version: 0.44.7(@cloudflare/workers-types@4.20251014.0)(@types/better-sqlite3@7.6.13)(better-sqlite3@12.4.1)(kysely@0.28.8)
       lucide-react:
         specifier: ^0.545.0
         version: 0.545.0(react@19.2.0)
@@ -65,8 +68,11 @@ importers:
       '@cloudflare/workers-types':
         specifier: ^4.20251004.0
         version: 4.20251014.0
+      '@types/better-sqlite3':
+        specifier: ^7.6.13
+        version: 7.6.13
       '@types/node':
-        specifier: ^24.7.0
+        specifier: ^24.9.1
         version: 24.9.1
       '@types/react':
         specifier: ^19.2.0
@@ -10231,9 +10237,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.44.7(@cloudflare/workers-types@4.20251014.0)(kysely@0.28.8):
+  drizzle-orm@0.44.7(@cloudflare/workers-types@4.20251014.0)(@types/better-sqlite3@7.6.13)(better-sqlite3@12.4.1)(kysely@0.28.8):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20251014.0
+      '@types/better-sqlite3': 7.6.13
+      better-sqlite3: 12.4.1
       kysely: 0.28.8
 
   dunder-proto@1.0.1:
@@ -10754,6 +10762,8 @@ snapshots:
       yoctocolors: 2.1.2
 
   exit-hook@2.2.1: {}
+
+  expand-template@2.0.3: {}
 
   expo-asset@12.0.9(expo@54.0.20)(react-native@0.81.4(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0):
     dependencies:
