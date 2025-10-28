@@ -48,3 +48,22 @@ docker compose up --build
 
 I fremtiden kan du bare bruke `docker compose up` for å starte serveren igjen
 
+# Database
+Når du har fått satt opp Docker containeren så vil du være nødt til å gjøre følgende commands for å sette opp / Seede databasen
+
+```bash
+pnpm run migrate:dev
+```
+Dette vil fungere ettersom vi for øyeblikket har produksjons databasen liggende under "0000_previous_hercules"
+
+Så må du gå til følgende endepunkt for å seede databasen:
+
+```
+http://localhost:5173/api/seed
+```
+Du vil da forhåpentligvis ha fått en success melding. Gå så til roten av localhost så vil du kunne se at du har en bruker i databasen.
+
+
+
+
+
