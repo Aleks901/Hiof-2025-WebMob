@@ -40,6 +40,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     border: "1px solid #08d4d4ff",
     backgroundColor: "rgba(14, 14, 14, 1)",
     boxShadow: "0 4px 10px rgba(26, 255, 255, 0.6)",
+    color: '#ffffff'
   },
 
   link: {
