@@ -55,7 +55,7 @@ export default function BasicCard({ chatroom, href }: Props) {
         <Link href={`/${href}${chatroom.id}`} asChild>
             <BasicButton>
                 <View style={styles.card}>
-                    <Image source={chatroom.image} style={styles.image} /> 
+                    <Image source={chatroom.imgref} style={styles.image} /> 
                     <Text style={styles.name}>{chatroom.name}</Text>
                     <Text style={styles.description}>{chatroom.description}</Text>
                 </View>
