@@ -4,7 +4,7 @@ import BasicButton from './basic-button';
 import { useTheme } from '@packages/ui/useTheme';
 import type { User } from '@packages/types/user';
 
-interface UserCardProps {
+type UserCardProps = {
   user: User;
   href?: string;
 }
