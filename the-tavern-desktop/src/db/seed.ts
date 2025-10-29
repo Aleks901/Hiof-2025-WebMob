@@ -14,6 +14,7 @@ export const seedData = async (maybeEnv?: { DB: D1Database }) => {
     
     const existing = await db.select().from(chatrooms).limit(1);
     if (existing.length > 0) {
+      console.log("Seed successful, already seeded.")
       return { seeded: false, message: "Chatrooms already exist. Skipping." };
     }
 
@@ -45,7 +46,7 @@ export const seedData = async (maybeEnv?: { DB: D1Database }) => {
 
     await db.insert(users).values(userData);
     const allUsers = await db.select().from(users).all();
-
+    console.log("Seed successful!")
     return { 
       seeded: true, 
       chatrooms: allChatrooms, 
@@ -61,6 +62,7 @@ export const seedData = async (maybeEnv?: { DB: D1Database }) => {
 
 export default defineScript(async ({ env }) => {
   try {
+    console.log("Seeding going through definescript..")
     const result = await seedData(env);
     return Response.json({ success: true, result });
   } catch (error) {
