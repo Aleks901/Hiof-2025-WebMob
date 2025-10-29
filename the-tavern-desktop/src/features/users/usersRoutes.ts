@@ -32,6 +32,8 @@ export const userRoutes = [
           return usersController.getUserById(ctx);
         case "put":
           return usersController.updateUser(ctx);
+        case "delete":
+          return usersController.deleteUser(ctx);
         default:
           return new Response(
             JSON.stringify({
