@@ -1,6 +1,6 @@
-import { UserService } from "@packages/types/user-service";
+import { UserService } from "@packages/types/api/users/user-service";
 import { User } from "@packages/types/user";
-import { UserRepository } from "@packages/types/user-repository";
+import { UserRepository } from "@packages/types/api/users/user-repository";
 import { createUserRepository } from "./usersRepository";
 
 export function createUserService(userRepository: UserRepository): UserService {
@@ -46,6 +46,12 @@ export function createUserService(userRepository: UserRepository): UserService {
         },
         async updateUser(id: User["id"], userData: User) {
             const repositoryResult = await userRepository.update(id, userData);
+            return {
+                ...repositoryResult,
+            };
+        },
+        async deleteUser(id: User["id"]) {
+            const repositoryResult = await userRepository.delete(id);
             return {
                 ...repositoryResult,
             };
