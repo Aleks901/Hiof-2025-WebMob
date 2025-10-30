@@ -19,7 +19,7 @@ export interface User{
     id: number,
     name: string,
     password: string,
-    joinedAt: Date,
+    joinedAt: string,
     role: Role,
-    token?: string | undefined
+    token?: string | null
 }

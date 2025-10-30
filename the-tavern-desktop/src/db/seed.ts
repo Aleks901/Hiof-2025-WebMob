@@ -1,72 +1,69 @@
 // src/db/seed.ts
 
+import {chatrooms, users, messages} from './schema';
 import { defineScript } from "rwsdk/worker";
-import { drizzle } from "drizzle-orm/d1";
-import { chatrooms, users } from "./schema";
-import { env as WorkerEnv } from "cloudflare:workers";
-
-// Remove ensureTables - let Drizzle migrations handle this
-
-export const seedData = async (maybeEnv?: { DB: D1Database }) => {
-  try {
-    const D1 = (maybeEnv?.DB ?? WorkerEnv.DB) as D1Database;
-    const db = drizzle(D1);
-    
-    const existing = await db.select().from(chatrooms).limit(1);
-    if (existing.length > 0) {
-      console.log("Seed successful, already seeded.")
-      return { seeded: false, message: "Chatrooms already exist. Skipping." };
-    }
-
-    type ChatroomInsert = typeof chatrooms.$inferInsert;
-    const chatData: ChatroomInsert[] = [
-      { name: "The Tavern", 
-        description: "The Tavern general chatroom", 
-        imgref: null 
-      },
-      { name: "Call of Duty", 
-        description: "Call of Duty chatroom", 
-        imgref: null 
-      },
-    ];
-
-    await db.insert(chatrooms).values(chatData);
-    const allChatrooms = await db.select().from(chatrooms).all();
-
-    type UserInsert = typeof users.$inferInsert;
-    const userData: UserInsert[] = [
-      {
-        name: "testuser",
-        password: "password123",
-        joinedAt: new Date().toISOString(),
-        role: "user",
-        token: null,
-      },
-    ];
-
-    await db.insert(users).values(userData);
-    const allUsers = await db.select().from(users).all();
-    console.log("Seed successful!")
-    return { 
-      seeded: true, 
-      chatrooms: allChatrooms, 
-      users: allUsers
-    };
-    
-  } catch (error) {
-    console.error("Error seeding database:", error);
-    throw error;
-  }
-};
-
+import { getDb, setupDb } from ".";
 
 export default defineScript(async ({ env }) => {
   try {
-    console.log("Seeding going through definescript..")
-    const result = await seedData(env);
-    return Response.json({ success: true, result });
+    console.log("Starting seeding process..")
+    await setupDb(env.DB);
+    const db = await getDb();
+    console.log("Attempting to reset tables..")
+    try { await db.delete(messages); } catch {console.log("The messages table contained no data, no reset necessary. Moving on..")}
+    try { await db.delete(chatrooms); } catch {console.log("The chatrooms table contained no data, no reset necessary. Moving on..")}
+    try { await db.delete(users); } catch {console.log("The users table contained no data, no reset necessary. Moving on..")}
+    console.log("Successfully reset existing tables..")
+
+    const [user] = await db
+      .insert(users)
+      .values({
+        name: "TestUser",
+        password: "UnhashedShamelessPassword", // WIP, nothing to see here :^)
+        joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
+        role: "regular",
+      })
+      .returning();
+
+    const [user2] = await db
+      .insert(users)
+      .values({
+        name: "TestUser2",
+        password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
+        joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
+        role: "regular",
+      })
+      .returning();
+
+      console.log("Successfully inserted users..")
+
+      const [chatroom] = await db
+        .insert(chatrooms)
+        .values({
+          name: "The Tavern Testroom",
+          description: "Test Chatroom for test purposes..",
+        })
+      .returning();
+
+      const [chatroom2] = await db
+        .insert(chatrooms)
+        .values({
+          name: "Call of Duty",
+          description: "Test Chatroom for 1337 gaming purposes..",
+        })
+      .returning();
+
+    console.log("Successfully inserted chatrooms..")
+    console.log("Finished seeding! ..wait nothing went wrong? How unusual..");
+
+    return Response.json({
+      success: true,
+    });
   } catch (error) {
-    console.error("Seeding script failed:", error);
-    return Response.json({ success: false, error: "Failed to seed database" }, { status: 500 });
+    console.error("Error seeding database:", error);
+    return Response.json({
+      success: false,
+      error: "Failed to seed database!",
+    });
   }
 });

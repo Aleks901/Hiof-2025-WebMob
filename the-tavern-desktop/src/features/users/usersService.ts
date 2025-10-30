@@ -2,6 +2,7 @@ import { UserService } from "@packages/types/api/users/user-service";
 import { User } from "@packages/types/user";
 import { UserRepository } from "@packages/types/api/users/user-repository";
 import { createUserRepository } from "./usersRepository";
+import { getDb, type DB } from "@/db";
 
 export function createUserService(userRepository: UserRepository): UserService {
     // So since the user service is going to be mostly useless and empty in this project,
@@ -12,8 +13,8 @@ export function createUserService(userRepository: UserRepository): UserService {
     // if the user has named themselves something we don't like.
 
     return {
-        async listUsers(params = {}) {
-            const repositoryResult = await userRepository.findMany(params);
+        async listUsers() {
+            const repositoryResult = await userRepository.findMany();
             return {
                 ...repositoryResult,
             };
@@ -59,4 +60,4 @@ export function createUserService(userRepository: UserRepository): UserService {
     };
 }
 
-export const usersService = createUserService(createUserRepository());
+export const usersService = createUserService(createUserRepository(await getDb()));
