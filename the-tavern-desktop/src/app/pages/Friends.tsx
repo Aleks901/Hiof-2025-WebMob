@@ -19,8 +19,6 @@ export function Friends(){
                     <UserCard 
                         key={user.id}
                         user={user} 
-                        showRole 
-                        showJoinedDate 
                     />
                 ))}
             </div>
