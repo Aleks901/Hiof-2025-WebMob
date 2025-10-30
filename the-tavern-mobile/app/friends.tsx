@@ -104,8 +104,6 @@ export default function FriendsScreen() {
         renderItem={({ item }) => (
           <UserCard
             user={item}
-            showRole={true}
-            showJoinedDate={true}
           />
         )}
         keyExtractor={(item) => item.id.toString()}
