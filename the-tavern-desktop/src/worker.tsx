@@ -12,20 +12,30 @@ import { userRoutes } from "./features/users/usersRoutes";
 import { UserPage } from "./app/pages/UserPage";
 import { ChatPage } from "./app/pages/ChatPage";
 import LoginForm from "./app/components/login-form";
-import { seedData } from "./db/seed";
 import { Home } from "./app/pages/Home";
+import { setupDb, type DB} from "@/db"
+
+export interface Env {
+  DB: D1Database;
+}
 
 export type AppContext = {
-  user: User | undefined;
-  authUrl: string;
+  db: DB;
 };
 
 export default defineApp([
   setCommonHeaders(),
-  route("/api/seed", async () => {
+  // Below is a relic of the past upon which many windows users have fallen..
+  // It is kept around in case the rwsdk team neglects us once more..
+  /* route("/api/seed", async () => {
     const result = await seedData(env);
     return Response.json({ success: true, ...result});
-  }),
+  }), */
+
+  async function setup({ ctx }) {
+    ctx.db = await setupDb(env.DB);
+  },
+
   prefix("/api/v1/users", userRoutes),
   render(Document, [
     layout(AppLayout, [

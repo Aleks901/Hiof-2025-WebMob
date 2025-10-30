@@ -1,90 +1,140 @@
 
 import { UserRepository } from "@packages/types/api/users/user-repository";
-import { User } from "@packages/types/user";
+import { User } from "@/db/schema/user-schema";
+import { users } from "@/db/schema"
+import { eq } from "drizzle-orm";
+import {type DB} from "@/db"
 
-
-export function createUserRepository(): UserRepository {
-    // Temp list to hold users before we get the db up and running
-    const users: User[] = [{id: 1, name: "Aleks", role: "admin", joinedAt: new Date(), password: "password123"}];
+export function createUserRepository(db: DB): UserRepository {
 
     return {
-        async findMany(params = {}) {
-            return { success: true, data: users };
+        async findMany() {
+            try {
+                const data = await db
+                    .select()
+                    .from(users)
+                return { success: true, data}
+            }   catch (error) {
+                console.error("Error grabbing all users", error)
+                return { 
+                    success: false,
+                    error: {
+                        message: "Error grabbing all users",
+                        status: 500
+                    }
+                }
+            }
         },
         async findById(id: number) {
-            const user = users.find((user) => user.id === id);
-            if (user == null)
+            try {
+                const result = await db
+                    .select()
+                    .from(users)
+                    .where(eq(users.id, id))
+                    .limit(1);
+                const fetchedUser = result[0] || null;
+                return { success: true, data: fetchedUser }
+            }   catch (error) {
+                console.error("Error finding user with that id:", error);
                 return {
                     success: false,
                     error: {
-                        message: "User not found",
-                        code: 404
+                        message: "No such user in db",
+                        code: 500,
                     }
-                };
-            else {
-                return { 
-                    success: true, 
-                    data: user
-                };
+                }
             }
+            
         },
-        async create(data: User) {
-            const newUser: User = {
-                id: users.length + 1,
-                name: data.name,
-                password: data.password,
-                role: data.role,
-                joinedAt: new Date(),
-            };
-            const validateNewUser = (user: User): boolean => {
-                return user.id != null && 
-                       user.name != null && 
-                       user.role != null && 
-                       user.joinedAt != null;
-            };
 
-            if (!validateNewUser(newUser)) {
-                return {
-                    success: false,
-                    error: {
-                        message: "Invalid user data, try again.",
-                        code: 400
-                    }
-                };
-            }
-            else {
-                users.push(newUser);
-                return { 
-                    success: true, 
-                    data: newUser };
-            }
-        },
-        async update(id: number, data: User) {
-            const userIndex = users.findIndex((user) => user.id === id);
-            if (userIndex === -1) 
+        async create(data: User) {
+            try {
+                const [newUser] = await db
+                    .insert(users)
+                    .values(data)
+                    .returning({
+                    id: users.id,
+                    name: users.name,
+                    password: users.password,
+                    joinedAt: users.joinedAt,
+                    role: users.role,
+                    token: users.token,
+                });
+
+                return { success: true, data: newUser}
+            }   catch (error) {
+                console.error("Error creating user:", error);
                 return { 
                     success: false, 
-                    data: null,
                     error: {
-                        message: "User not found",
-                        code: 404
+                        message: "Failed creating user", 
+                        code: 500,
                     }
-                };
-            users[userIndex] = { ...users[userIndex], ...data };
-            return { success: true, data: users[userIndex] };
+                }
+            }
         },
-        async delete(id: number) {
-            const userIndex = users.findIndex((user) => user.id === id);
-            if (userIndex === -1) 
-                return { 
+
+        async update(id: number, data: Partial<User>) {
+            try {
+                const userToUpdate = await db.select().from(users).where(eq(users.id, id)).limit(1);                
+                if (!userToUpdate.length) {
+                    console.log("No user in db with that id..")
+                    return {
+                        success: false,
+                        error: {
+                            message: "Failed updating user info, no users found with that id.",
+                            code: 404,
+                        }
+                    }
+                }
+                const mergedData = { ...userToUpdate[0], ...data };
+                const { id: _, ...updatedUserData } = mergedData;
+
+                const [updatedUser] = await db
+                    .update(users)
+                    .set(updatedUserData)
+                    .where(eq(users.id, id))
+                    .returning({
+                        id: users.id,
+                        name: users.name,
+                        password: users.password,
+                        joinedAt: users.joinedAt,
+                        role: users.role,
+                        token: users.token,
+                    });
+
+                return { success: true, data: updatedUser };
+            } catch (error) {
+                console.error("Error updating user:", error);
+                return {
                     success: false,
                     error: {
-                        message: "User not found",
-                        code: 404
+                        message: "Failed updating user",
+                        code: 500,
                     }
-                };
-            const deletedUser = users.splice(userIndex, 1)[0];
-            return { success: true, data: deletedUser, message: "User deleted successfully"};
+                }
+            }
+        },
+        async delete(id: number) {
+            const userToDelete = await db.select().from(users).where(eq(users.id, id))
+            if (userToDelete === null) {
+                return {
+                    success: false,
+                    error: {
+                        message: "Failed deleting user, no such user.",
+                        code: 500,
+                    }
+                }
+            }
+            else {
+                const [deletedUser] = await db.delete(users).where(eq(users.id, id)).returning();
+                console.log("Deleting user..")
+                return {
+                    success: true,
+                    data: deletedUser
+                }
+            }
+
         }
     };
 }
