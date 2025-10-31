@@ -9,11 +9,12 @@ Dette repo'et skal være et monorepo for både Web applikasjoner emnet og Mobil 
    ```bash
    npm install -g pnpm
    ```
-1. ```bash
+1. Åpne terminal i roten av prosjektet.
+   ```bash
    pnpm install
    ```
-2. Hvis du tester for mobil vil du være nødt til å kjøre igang serveren i web applikasjoner prosjektet the-tavern-desktop. Så gå videre ved å kjøre quick starten som ligger i det prosjektets README.md
-3. Hvis du tester for Web applikasjoner kan du nå gå rett til the-tavern-desktop å gjøre quick starten derfra.
+3. Hvis du tester for mobil vil du være nødt til å kjøre igang serveren i web applikasjoner prosjektet the-tavern-desktop. Så gå videre ved å kjøre quick starten som ligger i det prosjektets README.md
+4. Hvis du tester for Web applikasjoner kan du nå gå rett til the-tavern-desktop å gjøre quick starten derfra.
 
 # The Tavern
 ## Project description
