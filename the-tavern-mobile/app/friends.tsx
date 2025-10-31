@@ -11,56 +11,56 @@ const mockUsers: User[] = [
     name: "Eirik the Bold",
     password: "hashed_password_1",
     role: "regular",
-    joinedAt: new Date("2024-01-15")
+    joinedAt: "2024-01-15T00:00:00Z"
   },
   {
     id: 2,
     name: "Astrid Moonwhisper",
     password: "hashed_password_2",
     role: "moderator",
-    joinedAt: new Date("2024-02-20")
+    joinedAt: "2024-02-20T00:00:00Z"
   },
   {
     id: 3,
     name: "Bjorn Ironforge",
     password: "hashed_password_3",
     role: "regular",
-    joinedAt: new Date("2024-03-10")
+    joinedAt: "2024-03-10T00:00:00Z"
   },
   {
     id: 4,
     name: "Freya Stormcaller",
     password: "hashed_password_4",
     role: "admin",
-    joinedAt: new Date("2024-04-05")
+    joinedAt: "2024-04-05T00:00:00Z"
   },
   {
     id: 5,
     name: "Ragnar Bloodaxe",
     password: "hashed_password_5",
     role: "regular",
-    joinedAt: new Date("2024-05-12")
+    joinedAt: "2024-05-12T00:00:00Z"
   },
   {
     id: 6,
     name: "Ingrid Frostborn",
     password: "hashed_password_6",
     role: "moderator",
-    joinedAt: new Date("2024-06-08")
+    joinedAt: "2024-06-08T00:00:00Z"
   },
   {
     id: 7,
     name: "Olaf Stormbeard",
     password: "hashed_password_7",
     role: "regular",
-    joinedAt: new Date("2024-07-20")
+    joinedAt: "2024-07-20T00:00:00Z"
   },
   {
     id: 8,
     name: "Sigrid Moonblade",
     password: "hashed_password_8",
     role: "admin",
-    joinedAt: new Date("2024-08-15")
+    joinedAt: "2024-08-15T00:00:00Z"
   }
 ];
 
