@@ -1,67 +1,30 @@
-# Info
+# Desktop / Database / API Quick start.
+(This part is going to be in Norwegian because it'll be used in an exam..)
+Velkommen! Ettersom denne delen skal brukes både for mobil programmering og web applikasjoner emnet så skal vi forsøke å gjøre en så kort og konsis quick start guide så du kan påbegynne vurdering smertefritt.
 
-For å bruke denne må du ha docker installert lokalt.
-
-Se [docker sin hjemmeside](https://www.docker.com/get-started/) for installasjonsinstruksjoner
-
-Hvis på Mac så anbefales det å bruke [orbstack](https://orbstack.dev/) som er en lettere og raskere versjon av docker desktop
-
-Når docker er installert, så kan du starte prosjektet med
-
-```bash
-docker compose up --build
-```
-
-Hvis du vil kjøre i bakgrunnen kan du legge til `-d` flagget
-
-```bash
-docker compose up --build -d
-```
-
-Hvis du vil stoppe serveren kan du bruke
-
-```bash
-docker compose down
-```
-
-Hvis denne feiler så kan det hende du først må slette node_modules og lock filen. Deretter installere og prøve å starte serveren med uten docker. Dette for å få laget ".wrangler" mappen.
-
-Med pnpm:
+Start med å installere dependencies (Denne biten kan det hende man må gjøre uansett om prosjektet er strukturert som et monorepository ettersom det var over gjennomsnittet vanskelig å gjøre det ordentlig.)
 
 ```bash
 pnpm install
+```
+Kjør igang serveren for at API og Database skal være tilgjengelig (Uansett om du vurderer mobil eller web app)
+```bash
 pnpm run dev
 ```
-
-Med npm:
-
-```bash
-npm install
-npm run dev
-```
-
-Deretter prøver å starte med docker igjen.
-
-```bash
-docker compose up --build
-```
-
-I fremtiden kan du bare bruke `docker compose up` for å starte serveren igjen
-
-# Database
-Når du har fått satt opp Docker containeren så vil du være nødt til å gjøre følgende commands for å sette opp / Seede databasen
+Åpne så en ny terminal i the-tavern-desktop. Herfra skal vi forsøke å sette igang databasen. Ettersom produksjons databasen shippes med repo når du kloner skal det i teorien fungere å bare migrate til dev.
 
 ```bash
 pnpm run migrate:dev
 ```
-Dette vil fungere ettersom vi for øyeblikket har produksjons databasen liggende under "0000_previous_hercules"
-
-Så må du gå til følgende endepunkt for å seede databasen:
-
+Seed så databasen så du får testet med noe i tabellene.
+```bash
+pnpm run seed
 ```
-http://localhost:5173/api/seed
-```
-Du vil da forhåpentligvis ha fått en success melding. Gå så til roten av localhost så vil du kunne se at du har en bruker i databasen.
+
+Dersom du tester for mobil programmering kan du nå gå videre ved å hoppe over til the-tavern-mobile sin quick start. Ikke steng terminalen som kjører serveren til the-tavern-desktop da denne selvsagt brukes for å holde database / API aktivt.
+
+(README WIP - Testing in progress..)
+
 
 
 

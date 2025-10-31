@@ -1,5 +1,4 @@
 import { UserService } from "@packages/types/api/users/user-service";
-import { UserQueryParams } from "@packages/types/api/users/userquery";
 import { usersService } from "./usersService";
 import { RequestInfo } from "rwsdk/worker";
 import { User } from "@packages/types/user";
@@ -8,21 +7,12 @@ import { User } from "@packages/types/user";
 export function createUserController(usersService: UserService) {
 
     return {
-        /**
-         * GET api/v1/users - returns all users
-         * 
-         * GET api/v1/users?search=params - returns users based on search params
-         */
         async listUsers(context: RequestInfo) {
             try {
-                /* const searchParams = new URL(context.request.url).searchParams;
-                const searchEntries = Object.fromEntries(searchParams.entries());
-                const query = searchEntries as unknown as UserQueryParams; */
-                const dataFromService = await usersService.listUsers(/* query */);
+                const dataFromService = await usersService.listUsers();
                 return new Response(
                 JSON.stringify({
                     ...dataFromService,
-                    /* params: searchEntries, */
                 }),
                 {
                     status: 200,
@@ -42,9 +32,6 @@ export function createUserController(usersService: UserService) {
                 );
             }
         },
-        /**
-         * GET api/v1/users/<id> - Returns user by id
-         */
         async getUserById(context: RequestInfo) {
           try {
             const { id } = context.params;
@@ -71,26 +58,10 @@ export function createUserController(usersService: UserService) {
             );
           }
         },
-        /**
-         * POST api/v1/users - Creates a new user
-         */
         async createUser(context: RequestInfo) {
           try {
             const data = await context.request.json() as User;
             const dataFromService = await usersService.createUser(data);
-            const validRole = ["regular", "admin"].includes(data.role);
-            if (!validRole) {
-              return new Response(
-                JSON.stringify({
-                  error: "Missing information.",
-                  success: false,
-                }),
-                {
-                  status: 400,
-                  headers: { "Content-Type": "application/json" },
-                }
-              );
-            }
             return new Response(
               JSON.stringify({
                 ...dataFromService,
@@ -113,9 +84,6 @@ export function createUserController(usersService: UserService) {
             );
           }
         },
-        /**
-         * PUT api/v1/users/<id> - Updates a user by id
-         */
         async updateUser(context: RequestInfo) {
             const { id } = context.params;
             const data = await context.request.json() as User;
@@ -167,7 +135,36 @@ export function createUserController(usersService: UserService) {
                 headers: { "Content-Type": "application/json" },
               }
             );
-        }
+        },
+
+        async listUserFriends(context: RequestInfo) {
+          const { id } = context.params;
+          const dataFromService = await usersService.listUserFriends(Number(id));
+          return new Response(
+            JSON.stringify({
+              ...dataFromService,
+            }),
+            {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+        },
+
+        async addFriend(context: RequestInfo) {
+          const { id } = context.params;
+          const data = await context.request.json() as { friendId: number };
+          const dataFromService = await usersService.addFriend(Number(id), data.friendId);
+          return new Response(
+            JSON.stringify({
+              ...dataFromService,
+            }),
+            {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+        },
     };
 }
 

@@ -2,20 +2,15 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## Quick start
 
-0. If you don't have pnpm yet
-   ```bash
-   npm install -g pnpm
-   ```
-
-2. Install dependencies
+1. Installer dependencies
 
    ```bash
    pnpm install
    ```
 
-3. Start the app
+2. Start appen
 
    ```bash
    pnpm expo start

@@ -1,16 +1,15 @@
-
 import { route } from "rwsdk/router";
-import { usersController } from "./usersController";
+import { chatsController } from "./chatsController";
 
-export const userRoutes = [
+export const chatsRoutes = [
     route("/",
       async (ctx) => {
         const method = ctx.request.method.toLowerCase();
         switch (method) {
           case "get":
-            return usersController.listUsers(ctx);
+            return chatsController.listChats(ctx);
           case "post":
-            return usersController.createUser(ctx);
+            return chatsController.createChat(ctx);
           default:
             return new Response(
               JSON.stringify({
@@ -29,11 +28,11 @@ export const userRoutes = [
       const method = ctx.request.method.toLowerCase();
       switch (method) {
         case "get":
-          return usersController.getUserById(ctx);
+          return chatsController.getChatById(ctx);
         case "put":
-          return usersController.updateUser(ctx);
+          return chatsController.updateChat(ctx);
         case "delete":
-          return usersController.deleteUser(ctx);
+          return chatsController.deleteChat(ctx);
         default:
           return new Response(
             JSON.stringify({
@@ -46,15 +45,15 @@ export const userRoutes = [
             }
           );
       }
-    }),
-
-    route("/:id/friends", (ctx) => {
+    }
+    ),
+    route("/:id/users", (ctx) => {
       const method = ctx.request.method.toLowerCase();
       switch (method) {
-        case "get":
-          return usersController.listUserFriends(ctx);
         case "post":
-          return usersController.addFriend(ctx);
+          return chatsController.addUserToChat(ctx);
+        case "get":
+          return chatsController.listChatUsers(ctx);
         default:
           return new Response(
             JSON.stringify({

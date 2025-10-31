@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "simple-start",
+  "name": "the-tavern",
   "main": "src/worker.tsx",
   "compatibility_date": "2025-08-29",
   "compatibility_flags": [
@@ -17,7 +17,7 @@
   "d1_databases": [
     {
       "binding": "DB",
-      "database_name": "simple-start",
+      "database_name": "the-tavern",
       "database_id": "a4271743-6f8d-438c-be82-88eabda2609e",
       "migrations_dir": "drizzle"
     }
