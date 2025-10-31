@@ -4,10 +4,17 @@ Repository for the web applications and mobile programming courses respectively 
 # Til sensor
 Dette repo'et skal være et monorepo for både Web applikasjoner emnet og Mobil programmering emnet. Dette er mest for å spare tid på deler av koden som er lik i begge emnene, men også fordi deler av funksjonaliteten vi vil få fra WebApp prosjektet skal tas i bruk i Mobil appen. Her på github skrives alle commits / issues / pull requests og annen relevant tekst på engelsk slik at prosjektet kan være til bruk i fremtidig jobb søk.
 
-# Quick start
-1. pnpm install
-2. If you're testing the mobile app change directory to "the-tavern-mobile" and follow the README from there.
-3. If you're testing the web app change directory to "the-tavern-desktop" and follow the README from there.
+# Quick start (This part will be in Norwegian for exam purposes.)
+0. Dersom du ikke enda har pnpm vil du være nødt til å installere det først.
+   ```bash
+   npm install -g pnpm
+   ```
+1. Åpne terminal i roten av prosjektet.
+   ```bash
+   pnpm install
+   ```
+3. Hvis du tester for mobil vil du være nødt til å kjøre igang serveren i web applikasjoner prosjektet the-tavern-desktop. Så gå videre ved å kjøre quick starten som ligger i det prosjektets README.md
+4. Hvis du tester for Web applikasjoner kan du nå gå rett til the-tavern-desktop å gjøre quick starten derfra.
 
 # The Tavern
 ## Project description

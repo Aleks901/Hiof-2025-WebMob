@@ -1,7 +1,7 @@
 
 import { UserRepository } from "@packages/types/api/users/user-repository";
 import { User } from "@/db/schema/user-schema";
-import { users } from "@/db/schema"
+import { userFriends, users } from "@/db/schema"
 import { eq } from "drizzle-orm";
 import {type DB} from "@/db"
 
@@ -48,6 +48,20 @@ export function createUserRepository(db: DB): UserRepository {
         },
 
         async create(data: User) {
+            const invalidName = await db
+                .select()
+                .from(users)
+                .where(eq(users.name, data.name))
+                .limit(1);
+            if (invalidName.length > 0) {
+                return {
+                    success: false,
+                    error: {
+                        message: "User with that name already exists.",
+                        code: 409,
+                    }
+                }
+            }
             try {
                 const [newUser] = await db
                     .insert(users)
@@ -76,7 +90,11 @@ export function createUserRepository(db: DB): UserRepository {
 
         async update(id: number, data: Partial<User>) {
             try {
-                const userToUpdate = await db.select().from(users).where(eq(users.id, id)).limit(1);                
+                const userToUpdate = await db
+                    .select()
+                    .from(users)
+                    .where(eq(users.id, id))
+                    .limit(1);                
                 if (!userToUpdate.length) {
                     console.log("No user in db with that id..")
                     return {
@@ -116,7 +134,10 @@ export function createUserRepository(db: DB): UserRepository {
             }
         },
         async delete(id: number) {
-            const userToDelete = await db.select().from(users).where(eq(users.id, id))
+            const userToDelete = await db
+                .select()
+                .from(users)
+                .where(eq(users.id, id))
             if (userToDelete === null) {
                 return {
                     success: false,
@@ -127,7 +148,10 @@ export function createUserRepository(db: DB): UserRepository {
                 }
             }
             else {
-                const [deletedUser] = await db.delete(users).where(eq(users.id, id)).returning();
+                const [deletedUser] = await db
+                    .delete(users)
+                    .where(eq(users.id, id))
+                    .returning();
                 console.log("Deleting user..")
                 return {
                     success: true,
@@ -135,6 +159,57 @@ export function createUserRepository(db: DB): UserRepository {
                 }
             }
 
+        },
+        async findUserFriends(id: number) {
+            const friends = await db
+                .select({
+                    id: users.id,
+                    name: users.name,
+                    password: users.password,
+                    joinedAt: users.joinedAt,
+                    role: users.role,
+                    token: users.token,
+                })
+                .from(userFriends)
+                .innerJoin(users, eq(users.id, userFriends.friend_id))
+                .where(eq(userFriends.user_id, id));
+
+            return {
+                success: true,
+                data: friends as User[]
+            };
+        },
+        async addFriend(id: number, friendId: number) {
+            const userResult = await db
+                .select()
+                .from(users)
+                .where(eq(users.id, id))
+                .limit(1);
+            const friendResult = await db
+                .select()
+                .from(users)
+                .where(eq(users.id, friendId))
+                .limit(1);
+
+            if (!userResult.length || !friendResult.length) {
+                return {
+                    success: false,
+                    error: {
+                        message: "User or friend not found",
+                        code: 404,
+                    }
+                };
+            }
+
+            await db.insert(userFriends).values({
+                user_id: id,
+                friend_id: friendId
+            });
+            const user = userResult[0];
+            return {
+                success: true,
+                data: user
+            };
         }
     };
 }

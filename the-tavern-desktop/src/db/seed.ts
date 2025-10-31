@@ -1,6 +1,6 @@
 // src/db/seed.ts
 
-import {chatrooms, users, messages} from './schema';
+import {chatrooms, users, messages, userChatrooms, userFriends } from './schema';
 import { defineScript } from "rwsdk/worker";
 import { getDb, setupDb } from ".";
 
@@ -13,6 +13,8 @@ export default defineScript(async ({ env }) => {
     try { await db.delete(messages); } catch {console.log("The messages table contained no data, no reset necessary. Moving on..")}
     try { await db.delete(chatrooms); } catch {console.log("The chatrooms table contained no data, no reset necessary. Moving on..")}
     try { await db.delete(users); } catch {console.log("The users table contained no data, no reset necessary. Moving on..")}
+    try { await db.delete(userChatrooms); } catch {console.log("The userChatrooms table contained no data, no reset necessary. Moving on..", userChatrooms)}
+    try { await db.delete(userFriends); } catch {console.log("The userFriends table contained no data, no reset necessary. Moving on..")}
     console.log("Successfully reset existing tables..")
 
     const [user] = await db
@@ -52,6 +54,15 @@ export default defineScript(async ({ env }) => {
           description: "Test Chatroom for 1337 gaming purposes..",
         })
       .returning();
+
+      await db
+        .insert(userChatrooms)
+        .values([
+          { userId: user.id, chatroomId: chatroom.id },
+          { userId: user2.id, chatroomId: chatroom.id },
+          { userId: user.id, chatroomId: chatroom2.id },
+          { userId: user2.id, chatroomId: chatroom2.id },
+        ]);
 
     console.log("Successfully inserted chatrooms..")
     console.log("Finished seeding! ..wait nothing went wrong? How unusual..");

@@ -2,20 +2,16 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## Quick start
+### Dette steget tar utgangspunkt i at du har fulgt quick start fra prosjektets rot.
 
-0. If you don't have pnpm yet
-   ```bash
-   npm install -g pnpm
-   ```
-
-2. Install dependencies
+0. Installer dependencies dersom noe feiler ved oppstart. (Skal være unødvendig pga monorepo setup.)
 
    ```bash
    pnpm install
    ```
 
-3. Start the app
+1. Start appen
 
    ```bash
    pnpm expo start

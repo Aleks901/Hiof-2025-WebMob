@@ -56,7 +56,21 @@ export function createUserService(userRepository: UserRepository): UserService {
             return {
                 ...repositoryResult,
             };
-        }
+        },
+
+        async listUserFriends(id: User["id"]) {
+            const repositoryResult = await userRepository.findUserFriends(id);
+            return {
+                ...repositoryResult,
+            };
+        },
+
+        async addFriend(id: User["id"], friendId: User["id"]) {
+            const repositoryResult = await userRepository.addFriend(id, friendId);
+            return {
+                ...repositoryResult,
+            };
+        },
     };
 }
 

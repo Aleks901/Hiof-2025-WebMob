@@ -9,11 +9,14 @@ import { About } from "./app/pages/About";
 import { Friends } from "./app/pages/Friends"
 import { AppLayout } from "./app/layouts/AppLayout";
 import { userRoutes } from "./features/users/usersRoutes";
+import { chatsRoutes } from "./features/chats/chatsRoutes";
 import { UserPage } from "./app/pages/UserPage";
 import { ChatPage } from "./app/pages/ChatPage";
 import LoginForm from "./app/components/login-form";
 import { Home } from "./app/pages/Home";
 import { setupDb, type DB} from "@/db"
+import { chatrooms } from "./db/schema";
+
 
 export interface Env {
   DB: D1Database;
@@ -36,16 +39,18 @@ export default defineApp([
     ctx.db = await setupDb(env.DB);
   },
 
-  prefix("/api/v1/users", userRoutes),
+  prefix("/api/v2/users", userRoutes),
+  prefix("/api/v2/chats", chatsRoutes),
   render(Document, [
     layout(AppLayout, [
       route("/", async () => {
         const userResult = await drizzle(env.DB).select().from(users);
+        const chatResult = await drizzle(env.DB).select().from(chatrooms);
         return (
           <div style={{ padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>
             <h1>Start</h1>
             <p>Velkommen til eksempel</p>
-            <p>Databasen har {userResult.length} brukere</p>
+            <p>Databasen har {userResult.length} brukere og {chatResult.length} chatrooms aktive.</p>
             <LoginForm/>
           </div>
         );
