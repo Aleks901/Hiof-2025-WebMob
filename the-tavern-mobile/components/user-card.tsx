@@ -39,7 +39,7 @@ export default function UserCard({
               </Text>
               
               <Text style={styles.joinedDate}>
-                {user.joinedAt.toLocaleDateString()}
+                {new Date(user.joinedAt).toLocaleDateString()}
               </Text>
             </View>
           </View>
