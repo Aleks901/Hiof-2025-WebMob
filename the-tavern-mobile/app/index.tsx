@@ -1,4 +1,4 @@
-import { View, Text, TextInput } from 'react-native';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
 import { BasicForm } from '@/components/basic-form';
 import React from 'react';
@@ -8,11 +8,14 @@ export default function LoginScreen() {
     const [username, setUsername] = React.useState('')
     const [password, setPassword] = React.useState('')
 
-    const { user } = useUser();
+    const { login } = useUser();
 
-    const handleSubmit = () => {
-        console.log('Current user:',user)
-        console.log('Logging in with', username, password)
+    const handleSubmit = async () => {
+        try {
+            await login(username, password)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -22,26 +25,28 @@ export default function LoginScreen() {
                     placeholder="Username"
                     value={username}
                     onChangeText={setUsername}
-                    style={{ 
-                        margin: 6,
-                        borderWidth: 1,
-                        padding: 8,
-                        borderRadius: 6
-                     }}
+                    style={styles.input}
                     />
                 <TextInput
                     placeholder="Password"
                     value={password}
                     onChangeText={setPassword}
                     secureTextEntry
-                    style={{ 
-                        margin: 6,
-                        borderWidth: 1,
-                        padding: 8,
-                        borderRadius: 6
-                     }}/>
+                    style={styles.input}/>
                 </BasicForm>
+
+                <Link href="/register"> Don't have an account? Register here!</Link>
+
             <Link href="/(drawer)/(home)"> Home </Link>
         </View>
     );
 }
+
+const styles = StyleSheet.create ({ 
+    input: {
+        margin: 6,
+        borderWidth: 1,
+        padding: 8,
+        borderRadius: 6
+    }
+ });
