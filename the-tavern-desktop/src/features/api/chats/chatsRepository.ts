@@ -1,8 +1,9 @@
 import { ChatRepository } from "@packages/types/api/chats/chat-repository";
 import { Chatroom } from "@/db/schema/chatroom-schema";
-import { chatrooms, userChatrooms, users } from "@/db/schema"
+import { chatrooms, messages, userChatrooms, users } from "@/db/schema"
 import { eq, and } from "drizzle-orm"; // changed: add `and`
 import {type DB} from "@/db"
+import { ChatMessage } from "@packages/types/chat-message";
 
 export function createChatRepository(db: DB): ChatRepository {
 
@@ -201,5 +202,80 @@ export function createChatRepository(db: DB): ChatRepository {
                 };
             }
         },
+        
+        async listChatMessages(chatId: number) {
+            try {
+                const rows = await db
+                    .select({ message: messages, user: users })
+                    .from(messages)
+                    .innerJoin(users, eq(messages.userId, users.id))
+                    .where(eq(messages.chatroomId, chatId));
+
+                const data: ChatMessage[] = rows.map((r) => ({
+                    id: r.message.id,
+                    message: r.message.message,
+                    user: r.user,
+                    dateSent: r.message.datesendt,
+                }));
+
+                return {
+                    success: true,
+                    data,
+                };
+            } catch (error) {
+                console.error("Error listing chat messages:", { chatId, error });
+                return {
+                    success: false,
+                    error: {
+                        message: "Error listing chat messages",
+                        code: 500,
+                    }
+                };
+            }
+        },
+
+        async createChatMessage(chatId: number, messageData: ChatMessage) {
+            try {
+                const messager = await db
+                    .select()
+                    .from(users)
+                    .where(eq(users.id, messageData.user["id"]))
+                    .limit(1);
+                const chatRoom = await db
+                    .select()
+                    .from(chatrooms)
+                    .where(eq(chatrooms.id, chatId))
+                    .limit(1);
+                if (chatRoom.length === 0) {
+                    return {
+                        success: false,
+                        error: {
+                            message: "Chatroom not found",
+                            code: 404,
+                        }
+                    };
+                }
+                await db
+                    .insert(messages)
+                    .values({
+                        userId: messager[0].id,
+                        chatroomId: chatId,
+                        message: messageData.message,
+                    });
+                return {
+                    success: true,
+                    data: messageData,
+                };
+            } catch (error) {
+                console.error("Error creating chat message:", { chatId, messageData, error });
+                return {
+                    success: false,
+                    error: {
+                        message: "Error creating chat message",
+                        code: 500,
+                    }
+                };
+            }
+        }
     };
 }

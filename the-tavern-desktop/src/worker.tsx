@@ -8,8 +8,8 @@ import { drizzle } from "drizzle-orm/d1";
 import { About } from "./app/pages/About";
 import { Friends } from "./app/pages/Friends"
 import { AppLayout } from "./app/layouts/AppLayout";
-import { userRoutes } from "./features/users/usersRoutes";
-import { chatsRoutes } from "./features/chats/chatsRoutes";
+import { userRoutes } from "./features/api/users/usersRoutes";
+import { chatsRoutes } from "./features/api/chats/chatsRoutes";
 import { UserPage } from "./app/pages/UserPage";
 import { ChatPage } from "./app/pages/ChatPage";
 import LoginForm from "./app/components/login-form";

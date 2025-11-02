@@ -14,7 +14,9 @@
 - GET api/v2/chats - returns all chatrooms
 - GET api/v2/chats/(id) - returns user based on ID
 - GET api/v2/chats/(id)/users - returns all users in a chatroom based on ID
+- GET api/v2/chats/(id)/messages - returns all messages in a chatroom based on ID (For filling chatrooms with messages)
 - POST api/v2/chats - Creates a new chatroom
 - POST api/v2/chats/(id)/users - adds a user into a chatroom based on the chatroom id and the user id as abody. {"userId": (id)}
-- PUT api/v2/chats/(id) Updates a chatroom by ID
-- DELETE api/v2/users/(id) - Deletes a user by ID
+- POST api/v2/cahts/(id)/messages - Creates a chat message in a chatroom based on the chatroom ID. (For posting messages)
+- PUT api/v2/chats/(id) Updates a chatroom by ID (Might wanna change this one to patch)
+- DELETE api/v2/chats/(id) - Deletes a chatroom by ID
