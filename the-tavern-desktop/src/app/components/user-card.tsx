@@ -1,7 +1,7 @@
 "use client"
 
 import { useTheme } from "../lib/useTheme";
-import type { User } from "../../db/schema/user-schema";
+import type { User } from "@packages/types/user";
 
 interface UserCardProps {
   user: User;
