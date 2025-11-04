@@ -1,6 +1,7 @@
 import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 import { useTheme } from "@packages/ui/useTheme";
+import { Image } from "react-native";
 
 export default function RootLayout() {
   const theme = useTheme();
@@ -18,6 +19,18 @@ export default function RootLayout() {
         },
         tabBarActiveTintColor: theme.highlight,
         tabBarInactiveTintColor: theme.mutedText,
+
+        headerTitle: () => (
+          <Image source={require("../tmp/images/Logo.png")}
+          style={{
+            width: 120,
+            height: 120,
+            resizeMode: "contain",
+            alignSelf: "center",
+          }}
+          />
+        ),
+        headerTitleAlign: "center"
       }}
 
     >
