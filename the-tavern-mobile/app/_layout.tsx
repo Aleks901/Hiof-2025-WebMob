@@ -26,7 +26,7 @@ export default function RootLayout() {
       options={{
         title: "Home",
         tabBarIcon: () => (
-          <FontAwesome name="home" size={24}/>
+          <FontAwesome name="home" size={24} color={theme.highlight}/>
         ),
         headerShown: false
         }}/>
@@ -35,7 +35,7 @@ export default function RootLayout() {
       options={{ 
         title: "Direct message", 
         tabBarIcon: () => (
-          <FontAwesome name="envelope" size={24}/>
+          <FontAwesome name="envelope" size={24} color={theme.highlight}/>
       )}}/>
 
       <Tabs.Screen name='index'
@@ -48,7 +48,7 @@ export default function RootLayout() {
       options={{
         title:"User",
         tabBarIcon: () => (
-          <FontAwesome name="user" size={24}/>
+          <FontAwesome name="user" size={24} color={theme.highlight}/>
         ),
       }}/>
 
