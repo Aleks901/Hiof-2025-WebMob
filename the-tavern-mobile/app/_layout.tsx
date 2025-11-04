@@ -23,8 +23,8 @@ export default function RootLayout() {
         headerTitle: () => (
           <Image source={require("../tmp/images/Logo.png")}
           style={{
-            width: 120,
-            height: 120,
+            width: 110,
+            height: 110,
             resizeMode: "contain",
             alignSelf: "center",
           }}
@@ -80,3 +80,5 @@ export default function RootLayout() {
     </Tabs>
   );
 }
+
+
