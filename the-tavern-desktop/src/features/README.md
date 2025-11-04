@@ -8,7 +8,7 @@
 - GET api/v2/users/(id)/friends/friendsfriends - (Might be WIP, inspired by facebook's friend's friends finding. Silly looking url though. - Only work on if I have time D:)
 - POST api/v2/users - Creates a new user
 - POST api/v2/users/(id)/friends - adds a new friend to the user's friendslist. 
-- PUT api/v2/users/(id) - Updates a user by ID
+- PATCH api/v2/users/(id) - Updates a user by ID
 - DELETE api/v2/users/(id) - Deletes a user by ID
 ### api/v2/chats
 - GET api/v2/chats - returns all chatrooms
@@ -18,5 +18,5 @@
 - POST api/v2/chats - Creates a new chatroom
 - POST api/v2/chats/(id)/users - adds a user into a chatroom based on the chatroom id and the user id as abody. {"userId": (id)}
 - POST api/v2/cahts/(id)/messages - Creates a chat message in a chatroom based on the chatroom ID. (For posting messages)
-- PUT api/v2/chats/(id) Updates a chatroom by ID (Might wanna change this one to patch)
+- PATCH api/v2/chats/(id) Updates a chatroom by ID
 - DELETE api/v2/chats/(id) - Deletes a chatroom by ID
