@@ -12,13 +12,13 @@ const pretendAuthUser = {
 };
 
 async function fetchChatMessages(chatId: string): Promise<ChatMessage[]> {
-  const response = await fetch(`http://192.168.43.15:5173/api/v2/chats/${chatId}/messages`);
+  const response = await fetch(`http://localhost:5173/api/v2/chats/${chatId}/messages`);
   const { data } = (await response.json()) as { data: ChatMessage[] };
   return data;
 }
 
 async function postChatMessages(chatId: string, message: string): Promise<ChatMessage | ChatMessage[]> {
-  const response = await fetch(`http://192.168.43.15:5173/api/v2/chats/${chatId}/messages`, {
+  const response = await fetch(`http://localhost:5173/api/v2/chats/${chatId}/messages`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ userId: pretendAuthUser.id, message }),
