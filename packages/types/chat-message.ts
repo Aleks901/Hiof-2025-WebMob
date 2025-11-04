@@ -21,6 +21,6 @@ import { User } from "./user";
 export interface ChatMessage{
     id: number,
     message: string,
-    user: User
-    dateSent: Date
+    user: User,
+    dateSent: string
 }

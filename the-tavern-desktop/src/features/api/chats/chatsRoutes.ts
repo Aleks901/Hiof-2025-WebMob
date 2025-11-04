@@ -29,7 +29,7 @@ export const chatsRoutes = [
       switch (method) {
         case "get":
           return chatsController.getChatById(ctx);
-        case "put":
+        case "patch":
           return chatsController.updateChat(ctx);
         case "delete":
           return chatsController.deleteChat(ctx);
@@ -54,6 +54,26 @@ export const chatsRoutes = [
           return chatsController.addUserToChat(ctx);
         case "get":
           return chatsController.listChatUsers(ctx);
+        default:
+          return new Response(
+            JSON.stringify({
+              message: "Method not allowed",
+              success: false,
+            }),
+            {
+              status: 405,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+      }
+    }),
+    route("/:id/messages", (ctx) => {
+      const method = ctx.request.method.toLowerCase();
+      switch (method) {
+        case "get":
+          return chatsController.listChatMessages(ctx);
+        case "post":
+          return chatsController.createChatMessage(ctx);
         default:
           return new Response(
             JSON.stringify({

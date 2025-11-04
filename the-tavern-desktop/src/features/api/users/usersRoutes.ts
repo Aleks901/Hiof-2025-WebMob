@@ -30,7 +30,7 @@ export const userRoutes = [
       switch (method) {
         case "get":
           return usersController.getUserById(ctx);
-        case "put":
+        case "patch":
           return usersController.updateUser(ctx);
         case "delete":
           return usersController.deleteUser(ctx);

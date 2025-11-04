@@ -5,6 +5,8 @@ import { getDb, type DB } from "@/db";
 import { User } from "@packages/types/user";
 import { ChatRepository } from "@packages/types/api/chats/chat-repository";
 
+// TODO: Make business logic :p
+
 export function createChatService(chatsRepository: ChatRepository): ChatService {
     return {
         async listChats() {
@@ -49,6 +51,18 @@ export function createChatService(chatsRepository: ChatRepository): ChatService 
                 ...repositoryResult,
             };
         },
+        async listChatMessages(chatId: Chatroom["id"]) {
+            const repositoryResult = await chatsRepository.listChatMessages(chatId);
+            return {
+                ...repositoryResult,
+            };
+        },
+        async createChatMessage(chatId: Chatroom["id"], messageData) {
+            const repositoryResult = await chatsRepository.createChatMessage(chatId, messageData);
+            return {
+                ...repositoryResult,
+            };
+        }
     };
 }
 
