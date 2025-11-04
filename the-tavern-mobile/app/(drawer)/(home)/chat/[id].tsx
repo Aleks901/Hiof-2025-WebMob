@@ -3,6 +3,8 @@ import { View, Text } from "react-native";
 import ChatList from '@/components/tavern-chat/chat-list';
 import { ChatMessage } from '../../../../../packages/types/chat-message';
 import { User } from '../../../../../packages/types/user';
+import { useTheme } from "@packages/ui/useTheme";
+import { Background } from "@react-navigation/elements";
 /* 
   We'll be using this route for:
   - When you lookup a specific user through search.
@@ -16,6 +18,7 @@ const testUser: User = {
   role: "regular",
   dateJoined: new Date(),
 };
+
 
 const testMessages: ChatMessage[] = [
   {
@@ -59,12 +62,23 @@ const testMessages: ChatMessage[] = [
 export default function ChatRoom() {
   const { id } = useLocalSearchParams();
 
+  const theme = useTheme();
+
+  const styles = {
+  page: {
+    backgroundColor: theme.background},
+  text: {
+    color: theme.text,
+  }
+  }
+
   return (
-    <View>
-      <Text>A Chatroom</Text>
-      <Text>Chat ID: {id}</Text>
+    <View style={styles.page}>
+      <Text style={styles.text}>A Chatroom</Text>
+      <Text style={styles.text}>Chat ID: {id}</Text>
       <ChatList messages={testMessages} />
       
     </View>
   );
 }
+
