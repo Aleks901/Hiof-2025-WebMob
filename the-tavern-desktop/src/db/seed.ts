@@ -20,7 +20,7 @@ export default defineScript(async ({ env }) => {
     const [user] = await db
       .insert(users)
       .values({
-        name: "TestUser",
+        name: "Aleks",
         password: "UnhashedShamelessPassword", // WIP, nothing to see here :^)
         joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
         role: "regular",
@@ -30,7 +30,37 @@ export default defineScript(async ({ env }) => {
     const [user2] = await db
       .insert(users)
       .values({
-        name: "TestUser2",
+        name: "Bastian",
+        password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
+        joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
+        role: "regular",
+      })
+      .returning();
+
+    const [user3] = await db
+      .insert(users)
+      .values({
+        name: "Simen",
+        password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
+        joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
+        role: "regular",
+      })
+      .returning();
+
+    const [user4] = await db
+      .insert(users)
+      .values({
+        name: "Lukas",
+        password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
+        joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
+        role: "regular",
+      })
+      .returning();
+
+    const [user5] = await db
+      .insert(users)
+      .values({
+        name: "Studass",
         password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
         joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
         role: "regular",
@@ -44,6 +74,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "The Tavern Testroom",
           description: "Test Chatroom for test purposes..",
+          imgref: "https://lorewisegames.com/images/product_previews/SA071_Tavern_at_Night.jpg"
         })
       .returning();
 
@@ -52,6 +83,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "Call of Duty",
           description: "Test Chatroom for 1337 gaming purposes..",
+          imgref: "https://upload.wikimedia.org/wikipedia/en/5/52/Call_of_Duty_Modern_Warfare_2_%282009%29_cover.png"
         })
       .returning();
 
@@ -60,9 +92,48 @@ export default defineScript(async ({ env }) => {
         .values([
           { userId: user.id, chatroomId: chatroom.id },
           { userId: user2.id, chatroomId: chatroom.id },
+          { userId: user3.id, chatroomId: chatroom.id },
+          { userId: user4.id, chatroomId: chatroom.id },
+          { userId: user5.id, chatroomId: chatroom.id },
           { userId: user.id, chatroomId: chatroom2.id },
           { userId: user2.id, chatroomId: chatroom2.id },
         ]);
+
+      const [message1] = await db
+        .insert(messages)
+        .values({
+          userId: user.id,
+          chatroomId: chatroom.id,
+          message: "Hei",
+        })
+      .returning();
+
+      const [message2] = await db
+        .insert(messages)
+        .values({
+          userId: user2.id,
+          chatroomId: chatroom.id,
+          message: "fra",
+        })
+      .returning();
+
+      const [message3] = await db
+        .insert(messages)
+        .values({
+          userId: user3.id,
+          chatroomId: chatroom.id,
+          message: "oss",
+        })
+      .returning();
+
+      const [message4] = await db
+        .insert(messages)
+        .values({
+          userId: user4.id,
+          chatroomId: chatroom.id,
+          message: "!!!",
+        })
+      .returning();
 
     console.log("Successfully inserted chatrooms..")
     console.log("Finished seeding! ..wait nothing went wrong? How unusual..");
