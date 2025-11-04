@@ -21,16 +21,18 @@ export default function DrawerLayout() {
 <Drawer.Screen
         name="(home)"
         options={{
+          title: "Home",
           headerTitle: () => (
             <Image
-              source={require("../../tmp/images/Logo.png")}
+              source={require("../../tmp/images/Logo2.png")}
               style={{
-                width: 110,
-                height: 110,
+                width: 250,
+                height: 250,
                 resizeMode: "contain",
                 alignSelf: "center",
               }}
             />
+            
           ),
           drawerIcon: () => (
             <FontAwesome name="home" size={24} color={theme.highlight} />

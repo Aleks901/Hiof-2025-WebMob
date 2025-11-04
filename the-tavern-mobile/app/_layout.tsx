@@ -21,10 +21,10 @@ export default function RootLayout() {
         tabBarInactiveTintColor: theme.mutedText,
 
         headerTitle: () => (
-          <Image source={require("../tmp/images/Logo.png")}
+          <Image source={require("../tmp/images/Logo2.png")}
           style={{
-            width: 110,
-            height: 110,
+            width: 250,
+            height: 250,
             resizeMode: "contain",
             alignSelf: "center",
           }}
