@@ -1,72 +1,46 @@
 import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { useState, useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import UserCard from '../components/user-card';
 import { useTheme } from '../../packages/ui/useTheme';
 import type { User } from '../../packages/types/user';
 
-// Mock data for demonstration, made with copilot
-const mockUsers: User[] = [
-  {
-    id: 1,
-    name: "Eirik the Bold",
-    password: "hashed_password_1",
-    role: "regular",
-    joinedAt: "2024-01-15T00:00:00Z"
-  },
-  {
-    id: 2,
-    name: "Astrid Moonwhisper",
-    password: "hashed_password_2",
-    role: "moderator",
-    joinedAt: "2024-02-20T00:00:00Z"
-  },
-  {
-    id: 3,
-    name: "Bjorn Ironforge",
-    password: "hashed_password_3",
-    role: "regular",
-    joinedAt: "2024-03-10T00:00:00Z"
-  },
-  {
-    id: 4,
-    name: "Freya Stormcaller",
-    password: "hashed_password_4",
-    role: "admin",
-    joinedAt: "2024-04-05T00:00:00Z"
-  },
-  {
-    id: 5,
-    name: "Ragnar Bloodaxe",
-    password: "hashed_password_5",
-    role: "regular",
-    joinedAt: "2024-05-12T00:00:00Z"
-  },
-  {
-    id: 6,
-    name: "Ingrid Frostborn",
-    password: "hashed_password_6",
-    role: "moderator",
-    joinedAt: "2024-06-08T00:00:00Z"
-  },
-  {
-    id: 7,
-    name: "Olaf Stormbeard",
-    password: "hashed_password_7",
-    role: "regular",
-    joinedAt: "2024-07-20T00:00:00Z"
-  },
-  {
-    id: 8,
-    name: "Sigrid Moonblade",
-    password: "hashed_password_8",
-    role: "admin",
-    joinedAt: "2024-08-15T00:00:00Z"
-  }
-];
-
 export default function FriendsScreen() {
+  // stores all the users we get from the API
+  const [users, setUsers] = useState<User[]>([]);
+  
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+
+  // runs when the page loads
+  useEffect(() => {
+    // gets users from the server
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch('http://localhost:5173/api/v2/users');
+        
+        // turns the response into something we can use
+        const result = await response.json() as any;
+        console.log('API response:', result);
+        
+        // figures out what format the data is in
+        if (Array.isArray(result)) {
+          setUsers(result as User[]);
+        } else if (result.data && Array.isArray(result.data)) {
+          setUsers(result.data as User[]);
+        } else {
+          setUsers([]);
+        }
+      } catch (error) {
+        // something went wrong
+        console.log(error);
+        // make it empty so nothing breaks
+        setUsers([]);
+      }
+    };
+
+    fetchUsers();
+  }, []);
 
   const styles = StyleSheet.create({
     container: {
@@ -99,18 +73,23 @@ export default function FriendsScreen() {
       <Text style={styles.header}>Friends</Text>
       <Text style={styles.subtitle}>Connect with other tavern patrons</Text>
       
-      <FlatList
-        data={mockUsers}
-        renderItem={({ item }) => (
-          <UserCard
-            user={item}
-          />
-        )}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}
-        numColumns={2}
-        columnWrapperStyle={styles.columnWrapper}
-      />
+      {/* if there are no users it shows a message */}
+      {users.length === 0 ? (
+        <Text style={styles.subtitle}>No users found</Text>
+      ) : (
+        <FlatList
+          data={users}
+          renderItem={({ item }) => (
+            <UserCard
+              user={item}
+            />
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={[styles.contentContainer, { paddingBottom: insets.bottom }]}
+          numColumns={2}
+          columnWrapperStyle={styles.columnWrapper}
+        />
+      )}
     </View>
   );
 }
