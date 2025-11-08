@@ -1,8 +1,5 @@
-
-
+import { useTheme } from "../lib/useTheme";
 import BasicCard from "./basic-card";
-
-
 
 type ChatroomCardProps = {
     id: string;
@@ -28,6 +25,8 @@ export default function ChatroomCard({id, name, description, image }: ChatroomCa
     );
 }
 
+const theme = useTheme();
+
 const styles: { [key: string]: React.CSSProperties } = {
     chatcardContainer: {
     display: "flex",
@@ -37,9 +36,9 @@ const styles: { [key: string]: React.CSSProperties } = {
     padding: 10,
     boxSizing: "border-box",
     borderRadius: 12,
-    border: "1px solid #08d4d4ff",
-    backgroundColor: "rgba(14, 14, 14, 1)",
-    boxShadow: "0 4px 10px rgba(26, 255, 255, 0.6)",
+    border: `1px solid ${theme.highlight}`,
+    backgroundColor: theme.background,
+    boxShadow: `0 4px 10px ${theme.hover}`,
     color: '#ffffff'
   },
 
