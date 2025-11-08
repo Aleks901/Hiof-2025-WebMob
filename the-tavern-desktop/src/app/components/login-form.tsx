@@ -29,7 +29,11 @@ const styles = {
     inputContainer: {
         marginTop: 10,
         marginBottom: 10,
-        borderColor: '#000000ff'
+        borderColor: theme.highlight,
+        borderWidth: 1,
+        borderRadius: 6,
+        padding: 8,
+        backgroundColor: theme.background,
     },
 
     formStyle: {
@@ -41,7 +45,6 @@ const styles = {
         backgroundColor: theme.card,
         borderWidth: 1,
         borderColor: theme.highlight,
-        boxShadow: `0 0 10px ${theme.hover}`,
     },
 
     buttonStyle: {

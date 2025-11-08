@@ -38,8 +38,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     borderRadius: 12,
     border: `1px solid ${theme.highlight}`,
     backgroundColor: theme.background,
-    boxShadow: `0 4px 10px ${theme.hover}`,
-    color: '#ffffff'
+    color: theme.text,
   },
 
   link: {
