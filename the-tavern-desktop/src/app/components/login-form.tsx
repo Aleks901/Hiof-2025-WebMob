@@ -1,6 +1,8 @@
 import { BasicForm } from './basic-form'
+import { useTheme } from '../lib/useTheme';
 
 export default function LoginForm(){
+
     return (
         <BasicForm 
             title='Login' 
@@ -20,8 +22,10 @@ export default function LoginForm(){
     );
 }
 
+const theme = useTheme();
 
 const styles = {
+    
     inputContainer: {
         marginTop: 10,
         marginBottom: 10,
@@ -31,18 +35,18 @@ const styles = {
     formStyle: {
         display: 'flex',
         flexDirection: 'column' as const,
-        border: '10px solid #ddd',
+        border: `10px solid ${theme.highlight}`,
         padding: 14,
         borderRadius: 12,
-        backgroundColor: '#ffffff',
+        backgroundColor: theme.card,
         borderWidth: 1,
-        borderColor: '#1affff',
-        boxShadow: '0 0 10px rgba(26,255,255,0.8)',
+        borderColor: theme.highlight,
+        boxShadow: `0 0 10px ${theme.hover}`,
     },
 
     buttonStyle: {
-        background: 'aqua',
-        border: '2px solid #000',
+        background: theme.highlight,
+        border: `2px solid ${theme.card}`,
         borderRadius: 12,
     },
 
