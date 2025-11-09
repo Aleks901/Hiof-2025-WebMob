@@ -5,12 +5,15 @@ import { useTheme } from '../lib/useTheme';
 export function AppLayout({ children, requestInfo }: LayoutProps) {
 
   return (
-    <div className='min-h-screen flex flex-col' style={{ ...styles.header }}>
+    <div className='min-h-screen flex flex-col' style={{ ...styles(theme).header }}>
       <header>
-        <nav className="grid grid-cols-3 items-center p-4 bg-gray-800 text-white" style={{ ...styles.nav }}>
+        <nav className="grid grid-cols-3 items-center p-4 bg-gray-800 text-white" style={{ ...styles(theme).nav }}>
             <div className='col-start-1'>
                 <NavButton href='/home' className='hover:underline'>
-                  <img src="/tmp/images/Logo2.png" alt="Logo" style={{ ...styles.logo }} height={150} width={150}/>
+                  <div style={styles(theme).logoContainer}>
+                <img src="/tmp/images/Logo2.png" alt="Logo" style={styles(theme).logo}
+                />
+              </div>
                 </NavButton>
             </div>
             <div className='flex space-x-4 col-start-3 justify-center'>
@@ -24,19 +27,34 @@ export function AppLayout({ children, requestInfo }: LayoutProps) {
 
       <main>{children}</main>
 
-      <footer className='bg-gray-200 p-4 mt-6 text-center' style={{ ...styles.footer }}>&copy; The Tavern {new Date().getFullYear()}</footer>
+      <footer className='bg-gray-200 p-4 mt-6 text-center' style={{ ...styles(theme).footer }}>&copy; The Tavern {new Date().getFullYear()}</footer>
     </div>
   );
 }
 
  const theme = useTheme();
 
-const styles = {
+const styles = (theme: any) => ({
   header: {
     backgroundColor: theme.card,
     color: theme.text
   },
+
+  logoContainer: {
+    width: 140,
+    height: 60,
+    overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
   logo: {
+    width: '100%',
+    height: 'auto',
+    objectFit: 'contain' as const,
+    transform: 'scale(2)',
+    transformOrigin: 'center', 
   },
 
   nav : {
@@ -49,4 +67,4 @@ const styles = {
     color: theme.text
   }
 
-}
+});
