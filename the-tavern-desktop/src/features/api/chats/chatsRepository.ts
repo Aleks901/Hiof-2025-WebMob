@@ -95,12 +95,20 @@ export function createChatRepository(db: DB): ChatRepository {
         },
         async delete(id: number) {
             try {
-                const result = await db
+                await db
+                    .delete(messages)
+                    .where(eq(messages.chatroomId, id));
+
+                await db
+                    .delete(userChatrooms)
+                    .where(eq(userChatrooms.chatroomId, id));
+
+                const resultChatroom = await db
                     .delete(chatrooms)
                     .where(eq(chatrooms.id, id))
                     .returning();
-                const deletedChatroom = result[0] || null;
-                return { success: true, data: deletedChatroom }
+                const deletedChatroom = resultChatroom[0] || null;
+                return { success: true, data: deletedChatroom.name }
             } catch (error) {
                 console.error("Error deleting chatroom:", error);
                 return {

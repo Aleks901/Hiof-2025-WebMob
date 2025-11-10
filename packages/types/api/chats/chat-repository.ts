@@ -8,7 +8,7 @@ export interface ChatRepository {
     findById(id: Chatroom["id"]): Promise<Result<Chatroom | null>>;
     create(chatData: Chatroom): Promise<Result<Chatroom>>;
     update(id: Chatroom["id"], chatData: Partial<Chatroom>): Promise<Result<Chatroom | null>>;
-    delete(id: Chatroom["id"]): Promise<Result<Chatroom | null>>;
+    delete(id: Chatroom["id"]): Promise<Result<string | null>>;
     addUserToChat(chatId: Chatroom["id"], userId: User["id"]): Promise<Result<Chatroom>>;
     listChatUsers(chatId: Chatroom["id"]): Promise<Result<User[] | null>>;
     listChatMessages(chatId: Chatroom["id"]): Promise<Result<ChatMessage[] | null>>;

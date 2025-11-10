@@ -1,7 +1,6 @@
-
 import { UserRepository } from "@packages/types/api/users/user-repository";
 import { User } from "@/db/schema/user-schema";
-import { userFriends, users } from "@/db/schema"
+import { messages, userChatrooms, userFriends, users } from "@/db/schema"
 import { eq } from "drizzle-orm";
 import {type DB} from "@/db"
 
@@ -134,31 +133,56 @@ export function createUserRepository(db: DB): UserRepository {
             }
         },
         async delete(id: number) {
-            const userToDelete = await db
-                .select()
-                .from(users)
-                .where(eq(users.id, id))
-            if (userToDelete === null) {
-                return {
-                    success: false,
-                    error: {
-                        message: "Failed deleting user, no such user.",
-                        code: 500,
+            try {
+                await db
+                    .delete(messages)
+                    .where(eq(messages.userId, id));
+
+                await db
+                    .delete(userChatrooms)
+                    .where(eq(userChatrooms.userId, id));
+
+                await db
+                    .delete(userFriends)
+                    .where(eq(userFriends.user_id, id));
+
+                const userToDelete = await db
+                    .select()
+                    .from(users)
+                    .where(eq(users.id, id))
+                    .limit(1);
+
+                if (!userToDelete.length) {
+                    return {
+                        success: false,
+                        error: {
+                            message: "Failed deleting user, no such user.",
+                            code: 404,
+                        }
                     }
                 }
-            }
-            else {
+
                 const [deletedUser] = await db
                     .delete(users)
                     .where(eq(users.id, id))
                     .returning();
+
                 console.log("Deleting user..")
                 return {
                     success: true,
-                    data: deletedUser
+                    data: deletedUser.name,
+                    message: "User deleted successfully."
+                }
+            } catch (error) {
+                console.error("Error deleting user:", error);
+                return {
+                    success: false,
+                    error: {
+                        message: "Error deleting user",
+                        code: 500,
+                    }
                 }
             }
-
         },
         async findUserFriends(id: number) {
             const friends = await db
