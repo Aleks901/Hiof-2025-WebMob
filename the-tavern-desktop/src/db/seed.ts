@@ -10,11 +10,11 @@ export default defineScript(async ({ env }) => {
     await setupDb(env.DB);
     const db = await getDb();
     console.log("Attempting to reset tables..")
+    try { await db.delete(userChatrooms); } catch {console.log("The userChatrooms table contained no data, no reset necessary. Moving on..", userChatrooms)}
+    try { await db.delete(userFriends); } catch {console.log("The userFriends table contained no data, no reset necessary. Moving on..")}
     try { await db.delete(messages); } catch {console.log("The messages table contained no data, no reset necessary. Moving on..")}
     try { await db.delete(chatrooms); } catch {console.log("The chatrooms table contained no data, no reset necessary. Moving on..")}
     try { await db.delete(users); } catch {console.log("The users table contained no data, no reset necessary. Moving on..")}
-    try { await db.delete(userChatrooms); } catch {console.log("The userChatrooms table contained no data, no reset necessary. Moving on..", userChatrooms)}
-    try { await db.delete(userFriends); } catch {console.log("The userFriends table contained no data, no reset necessary. Moving on..")}
     console.log("Successfully reset existing tables..")
 
     const [user] = await db
@@ -22,7 +22,7 @@ export default defineScript(async ({ env }) => {
       .values({
         name: "Aleks",
         password: "UnhashedShamelessPassword", // WIP, nothing to see here :^)
-        joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
+        joinedAt: new Date().toISOString(),
         role: "regular",
       })
       .returning();
@@ -32,7 +32,7 @@ export default defineScript(async ({ env }) => {
       .values({
         name: "Bastian",
         password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
-        joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
+        joinedAt: new Date().toISOString(), 
         role: "regular",
       })
       .returning();
@@ -42,7 +42,7 @@ export default defineScript(async ({ env }) => {
       .values({
         name: "Simen",
         password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
-        joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
+        joinedAt: new Date().toISOString(), 
         role: "regular",
       })
       .returning();
