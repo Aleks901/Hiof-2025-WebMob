@@ -6,7 +6,7 @@ export interface UserService {
     getUserById(id: User["id"]): Promise<Result<User | null>>;
     createUser(userData: User): Promise<Result<User>>;
     updateUser(id: User["id"], userData: User): Promise<Result<User | null>>;
-    deleteUser(id: User["id"]): Promise<Result<User | null>>;
+    deleteUser(id: User["id"]): Promise<Result<String | null>>;
     listUserFriends(userId: User["id"]): Promise<Result<User[] | null>>;
     addFriend(userId: User["id"], friendId: User["id"]): Promise<Result<User | null>>;
 }
