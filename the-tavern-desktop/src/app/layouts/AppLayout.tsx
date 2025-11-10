@@ -20,6 +20,7 @@ export function AppLayout({ children, requestInfo }: LayoutProps) {
                 <NavButton href="/home" className='hover:underline'>Home</NavButton>
                 <NavButton href="/friends" className='hover:underline'>Friends</NavButton>
                 <NavButton href="/about" className='hover:underline'>About Us</NavButton>
+                <NavButton href="/user/1" className='hover:underline'>User</NavButton>
                 <NavButton href='/' className='hover:underline'>Logout</NavButton>
             </div>
         </nav>
