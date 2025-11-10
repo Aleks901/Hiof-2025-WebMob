@@ -108,7 +108,7 @@ export function createChatRepository(db: DB): ChatRepository {
                     .where(eq(chatrooms.id, id))
                     .returning();
                 const deletedChatroom = resultChatroom[0] || null;
-                return { success: true, data: deletedChatroom }
+                return { success: true, data: deletedChatroom.name }
             } catch (error) {
                 console.error("Error deleting chatroom:", error);
                 return {
