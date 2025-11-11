@@ -3,6 +3,7 @@ import { User } from "@/db/schema/user-schema";
 import { messages, userChatrooms, userFriends, users } from "@/db/schema"
 import { eq } from "drizzle-orm";
 import {type DB} from "@/db"
+import { hashPassword, verifyPassword } from "@/lib/password";
 
 export function createUserRepository(db: DB): UserRepository {
 
@@ -62,9 +63,10 @@ export function createUserRepository(db: DB): UserRepository {
                 }
             }
             try {
+                const hashedPassword = await hashPassword(data.password);
                 const [newUser] = await db
                     .insert(users)
-                    .values(data)
+                    .values({ ...data, password: hashedPassword })
                     .returning({
                     id: users.id,
                     name: users.name,
@@ -104,6 +106,12 @@ export function createUserRepository(db: DB): UserRepository {
                         }
                     }
                 }
+                
+                // Hash password if it's being updated
+                if (data.password) {
+                    data.password = await hashPassword(data.password);
+                }
+                
                 const mergedData = { ...userToUpdate[0], ...data };
                 const { id: _, ...updatedUserData } = mergedData;
 
