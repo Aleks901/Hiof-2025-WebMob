@@ -35,7 +35,13 @@ export function Home() {
       <p>Pick a table!</p>
 
       {chats.map((chat) => (
-        <ChatroomCard key={chat.id} id={String(chat.id)} name={chat.name} description={chat.description}/>
+      <ChatroomCard 
+        key={chat.id} 
+        id={String(chat.id)} 
+        name={chat.name} 
+        image={chat.imgref}
+        description={chat.description}
+      />
       ))}
     </div>
   )
