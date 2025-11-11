@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+"use client"
+
+import { useState, useEffect } from 'react';
 import { useTheme } from '@packages/ui/useTheme';
 import { Chatroom } from '@packages/types/chat-room';
 
