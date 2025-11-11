@@ -11,6 +11,13 @@ export function UserPage() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  
+  // edit mode state
+  const [isEditing, setIsEditing] = useState(false)
+  const [editUsername, setEditUsername] = useState('')
+  const [editPassword, setEditPassword] = useState('')
+  const [updateError, setUpdateError] = useState<string | null>(null)
+  const [updateSuccess, setUpdateSuccess] = useState(false)
 
   // runs when the page loads or ID changes
   useEffect(() => {
@@ -33,8 +40,10 @@ export function UserPage() {
         // figures out what format the data is in
         if (result && result.id) {
           setUser(result as User)
+          setEditUsername(result.name)
         } else if (result.data && result.data.id) {
           setUser(result.data as User)
+          setEditUsername(result.data.name)
         // if weird format just set error so the page does not break
         } else {
           throw new Error('User not found')
@@ -52,6 +61,66 @@ export function UserPage() {
 
     fetchUser()
   }, [id])
+
+  // handle update user
+  const handleUpdateUser = async () => {
+    if (!user || !id) return
+    
+    try {
+      setUpdateError(null)
+      setUpdateSuccess(false)
+      
+      // prepare update data - only send fields that can be changed
+      const updateData: any = {
+        name: editUsername,
+      }
+      
+      // only include password if it's been changed
+      if (editPassword.trim()) {
+        updateData.password = editPassword
+      }
+      
+      const response = await fetch(`/api/v2/users/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updateData),
+      })
+      
+      if (!response.ok) {
+        throw new Error('Failed to update user')
+      }
+      
+      const result = await response.json() as any
+      
+      // update user state with new data
+      if (result && result.id) {
+        setUser(result as User)
+      } else if (result.data && result.data.id) {
+        setUser(result.data as User)
+      }
+      
+      setUpdateSuccess(true)
+      setEditPassword('') // clear password field
+      setIsEditing(false)
+      
+      // clear success message after 3 seconds
+      setTimeout(() => setUpdateSuccess(false), 3000)
+    } catch (error) {
+      setUpdateError(error instanceof Error ? error.message : 'Failed to update user')
+    }
+  }
+
+  // handle cancel edit
+  const handleCancelEdit = () => {
+    if (user) {
+      setEditUsername(user.name)
+    }
+    setEditPassword('')
+    setUpdateError(null)
+    setIsEditing(false)
+  }
 
   // Loading state
   if (loading) {
@@ -205,6 +274,132 @@ export function UserPage() {
         </div>
       </div>
       
+      {/* Edit section */}
+      <div style={{
+        ...styles.editSection,
+        backgroundColor: theme.card,
+        borderColor: theme.mutedText,
+      }}>
+        <div style={styles.editHeader}>
+          <h4 style={{
+            ...styles.editTitle,
+            color: theme.text,
+          }}>
+            Edit Profile
+          </h4>
+          {!isEditing && (
+            <button
+              onClick={() => setIsEditing(true)}
+              style={{
+                ...styles.editButton,
+                backgroundColor: theme.highlight,
+                color: theme.background,
+              }}
+            >
+              Edit
+            </button>
+          )}
+        </div>
+        
+        {updateSuccess && (
+          <div style={{
+            ...styles.successMessage,
+            backgroundColor: '#4ade80',
+            color: '#ffffff',
+          }}>
+            User updated successfully!
+          </div>
+        )}
+        
+        {updateError && (
+          <div style={{
+            ...styles.errorMessage,
+            backgroundColor: '#ef4444',
+            color: '#ffffff',
+          }}>
+            {updateError}
+          </div>
+        )}
+        
+        {isEditing ? (
+          <div style={styles.editForm}>
+            <div style={styles.formGroup}>
+              <label style={{
+                ...styles.formLabel,
+                color: theme.text,
+              }}>
+                Username
+              </label>
+              <input
+                type="text"
+                value={editUsername}
+                onChange={(e) => setEditUsername(e.target.value)}
+                style={{
+                  ...styles.formInput,
+                  backgroundColor: theme.background,
+                  color: theme.text,
+                  borderColor: theme.mutedText,
+                }}
+              />
+            </div>
+            
+            <div style={styles.formGroup}>
+              <label style={{
+                ...styles.formLabel,
+                color: theme.text,
+              }}>
+                Password
+              </label>
+              <input
+                type="password"
+                value={editPassword}
+                onChange={(e) => setEditPassword(e.target.value)}
+                placeholder="Leave blank to keep current password"
+                style={{
+                  ...styles.formInput,
+                  backgroundColor: theme.background,
+                  color: theme.text,
+                  borderColor: theme.mutedText,
+                }}
+              />
+            </div>
+            
+            <div style={styles.buttonGroup}>
+              <button
+                onClick={handleUpdateUser}
+                style={{
+                  ...styles.saveButton,
+                  backgroundColor: theme.highlight,
+                  color: theme.background,
+                }}
+              >
+                Save Changes
+              </button>
+              <button
+                onClick={handleCancelEdit}
+                style={{
+                  ...styles.cancelButton,
+                  backgroundColor: theme.background,
+                  color: theme.text,
+                  borderColor: theme.mutedText,
+                }}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div style={styles.editPlaceholder}>
+            <p style={{
+              ...styles.placeholderText,
+              color: theme.mutedText,
+            }}>
+              Click "Edit" to update your username or password
+            </p>
+          </div>
+        )}
+      </div>
+      
       {/* About section moved outside and below the main box */}
       <div style={{
         ...styles.aboutSection,
@@ -343,6 +538,97 @@ const styles = {
     fontSize: '14px',
     margin: 0,
     lineHeight: 1.5,
+  },
+  editSection: {
+    marginTop: '20px',
+    padding: '20px',
+    borderRadius: '8px',
+    border: '1px solid',
+    width: '100%',
+  },
+  editHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: '16px',
+  },
+  editTitle: {
+    fontSize: '18px',
+    fontWeight: '600',
+    margin: 0,
+  },
+  editButton: {
+    padding: '8px 16px',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '14px',
+    fontWeight: '500',
+    cursor: 'pointer',
+  },
+  editForm: {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    gap: '16px',
+  },
+  formGroup: {
+    display: 'flex',
+    flexDirection: 'column' as const,
+    gap: '8px',
+  },
+  formLabel: {
+    fontSize: '14px',
+    fontWeight: '500',
+  },
+  formInput: {
+    padding: '10px 12px',
+    border: '1px solid',
+    borderRadius: '4px',
+    fontSize: '14px',
+    outline: 'none',
+  },
+  buttonGroup: {
+    display: 'flex',
+    gap: '12px',
+    marginTop: '8px',
+  },
+  saveButton: {
+    padding: '10px 20px',
+    border: 'none',
+    borderRadius: '4px',
+    fontSize: '14px',
+    fontWeight: '500',
+    cursor: 'pointer',
+  },
+  cancelButton: {
+    padding: '10px 20px',
+    border: '1px solid',
+    borderRadius: '4px',
+    fontSize: '14px',
+    fontWeight: '500',
+    cursor: 'pointer',
+    backgroundColor: 'transparent',
+  },
+  editPlaceholder: {
+    padding: '20px',
+    textAlign: 'center' as const,
+  },
+  placeholderText: {
+    fontSize: '14px',
+    margin: 0,
+  },
+  successMessage: {
+    padding: '12px',
+    borderRadius: '4px',
+    marginBottom: '16px',
+    fontSize: '14px',
+    fontWeight: '500',
+  },
+  errorMessage: {
+    padding: '12px',
+    borderRadius: '4px',
+    marginBottom: '16px',
+    fontSize: '14px',
+    fontWeight: '500',
   },
   loadingContainer: {
     display: 'flex',
