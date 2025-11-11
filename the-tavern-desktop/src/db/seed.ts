@@ -74,7 +74,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "The Tavern Testroom",
           description: "Test Chatroom for test purposes..",
-          imgref: "https://lorewisegames.com/images/product_previews/SA071_Tavern_at_Night.jpg"
+          imgref: "/assets/tavern.jpg"
         })
       .returning();
 
@@ -83,7 +83,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "Call of Duty",
           description: "Test Chatroom for 1337 gaming purposes..",
-          imgref: "https://upload.wikimedia.org/wikipedia/en/5/52/Call_of_Duty_Modern_Warfare_2_%282009%29_cover.png"
+          imgref: "/assets/mw2.png"
         })
       .returning();
 

@@ -1,92 +1,48 @@
-import { RequestInfo } from "rwsdk/worker";
-import ChatroomCard from "../components/chatroom-card";
+"use client"
 
+import { useState, useEffect } from 'react';
+import { useTheme } from '@packages/ui/useTheme';
+import { Chatroom } from '@packages/types/chat-room';
+import ChatroomCard from '../components/chatroom-card';
 
-
-export function Home({ ctx }: RequestInfo) {
-  return (
-    <><h1>Chatrooms</h1>
-     <div style={{
-        display: "flex",
-        flexWrap: "wrap",
-        gap: "12px",
-      }}>
-      <ChatroomCard
-      id="1"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-
-      <ChatroomCard
-      id="2"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-
-      <ChatroomCard
-      id="3"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-      <ChatroomCard
-      id="4"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-      <ChatroomCard
-      id="5"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-      <ChatroomCard
-      id="6"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-      <ChatroomCard
-      id="7"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-      <ChatroomCard
-      id="8"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-      <ChatroomCard
-      id="9"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-      <ChatroomCard
-      id="10"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-      <ChatroomCard
-      id="11"
-      name="The Tavern"
-      description="The main chatroom for adventurers!"
-      image="/assets/mc.png"
-      />
-
-      </div>
-      <div>
-        <p> Click the card above to enter the chatroom.
-        </p>
-      </div></>
-      
-  );
+async function fetchChatrooms(): Promise<Chatroom[]> {
+  const response = await fetch('http://localhost:5173/api/v2/chats');
+  const { data } = (await response.json()) as { data: Chatroom[] };
+  return data;
 }
 
+export function Home() {
+  const theme = useTheme();
+  const [chats, setChats] = useState<Chatroom[] | null>(null);
 
+  useEffect(() => {
+    fetchChatrooms().then(setChats).catch(() => setChats(null));
+  }, [])
+
+  if (!chats) return <div>Loading chatrooms...</div>
+
+  if (chats.length === 0)
+    return (
+      <div>
+        <p>Welcome to The Tavern!</p>
+        <p>No chatrooms available.</p>
+      </div>
+    )
+
+  return (
+    <div>
+      <p>Welcome to The Tavern!</p>
+      <p>Pick a table!</p>
+
+      {chats.map((chat) => (
+      <ChatroomCard 
+        key={chat.id} 
+        id={String(chat.id)} 
+        name={chat.name} 
+        image={chat.imgref}
+        description={chat.description}
+      />
+      ))}
+    </div>
+  )
+}
