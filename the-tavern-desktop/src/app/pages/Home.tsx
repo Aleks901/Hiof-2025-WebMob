@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from '@packages/ui/useTheme';
 import { Chatroom } from '@packages/types/chat-room';
+import ChatroomCard from '../components/chatroom-card';
 
 async function fetchChatrooms(): Promise<Chatroom[]> {
   const response = await fetch('http://localhost:5173/api/v2/chats');
@@ -19,7 +20,7 @@ export function Home() {
   }, [])
 
   if (!chats) return <div>Loading chatrooms...</div>
-  
+
   if (chats.length === 0)
     return (
       <div>
@@ -33,15 +34,9 @@ export function Home() {
       <p>Welcome to The Tavern!</p>
       <p>Pick a table!</p>
 
-      <div>
-        {chats.map((chat) => (
-          <div key={chat.id}>
-            <h2>{chat.name}</h2>
-            <p>{chat.description}</p>
-            {chat.imgref && <img src={chat.imgref} alt={chat.name} />}
-          </div>
-        ))}
-      </div>
+      {chats.map((chat) => (
+        <ChatroomCard key={chat.id} id={String(chat.id)} name={chat.name} description={chat.description}/>
+      ))}
     </div>
   )
 }
