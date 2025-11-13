@@ -39,6 +39,16 @@ export default function DrawerLayout() {
           ),
         }}
       />
+      
+      <Drawer.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+          drawerIcon: () => (
+            <FontAwesome name="cog" size={24} color={theme.highlight} />
+          ),
+        }}
+      />
     </Drawer>
   );
 }
