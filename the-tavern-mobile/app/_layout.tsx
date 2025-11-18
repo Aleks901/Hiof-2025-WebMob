@@ -2,6 +2,7 @@ import { Tabs } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
 import { useTheme } from "@packages/ui/useTheme";
 import { Image } from "react-native";
+import { UserProvider } from "@packages/contexts/UserContext";
 
 export default function RootLayout() {
   const theme = useTheme();
@@ -33,7 +34,7 @@ export default function RootLayout() {
         headerTitleAlign: "center"
       }}
 
-    >
+      >
 
       <Tabs.Screen name="(drawer)"
       options={{
@@ -51,11 +52,11 @@ export default function RootLayout() {
           <FontAwesome name="envelope" size={24} color={theme.highlight}/>
       )}}/>
 
-      <Tabs.Screen name='index'
-      options={{
-        tabBarItemStyle: {display: 'none'},
-        headerShown: false
-      }}/>
+        <Tabs.Screen name='index'
+        options={{
+          tabBarItemStyle: {display: 'none'},
+          headerShown: false
+        }}/>
 
       <Tabs.Screen name='(user)/index'
       options={{
@@ -65,19 +66,20 @@ export default function RootLayout() {
         ),
       }}/>
 
-      <Tabs.Screen name='(user)/[id]'
-      options={{
-        tabBarItemStyle: {display: 'none'},
-        headerShown: false
-      }}/>
+        <Tabs.Screen name='(user)/[id]'
+        options={{
+          tabBarItemStyle: {display: 'none'},
+          headerShown: false
+        }}/>
 
-      <Tabs.Screen name='+not-found'
-      options={{
-        tabBarItemStyle: {display: 'none'},
-        headerShown: false
-      }}/>
+        <Tabs.Screen name='+not-found'
+        options={{
+          tabBarItemStyle: {display: 'none'},
+          headerShown: false
+        }}/>
 
-    </Tabs>
+      </Tabs>
+    </UserProvider>  
   );
 }
 
