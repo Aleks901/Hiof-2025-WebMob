@@ -1,20 +1,44 @@
 import { Drawer } from 'expo-router/drawer';
 import { FontAwesome } from "@expo/vector-icons";
+import { useTheme } from "@packages/ui/useTheme";
+import { Image } from 'react-native';
 
 export default function DrawerLayout() {
+  const theme = useTheme();
   return (
-    <Drawer >
+    <Drawer
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.card},
+          headerTintColor: theme.text,
+          drawerStyle: {
+            backgroundColor: theme.background,
+          },
+          drawerActiveTintColor: theme.highlight,
+          drawerInactiveTintColor: theme.mutedText,
+          }}>
 
-      <Drawer.Screen
+<Drawer.Screen
         name="(home)"
-        options={{ 
+        options={{
           title: "Home",
-          drawerIcon: () => ( 
-          <FontAwesome name="home" size={24} color={"black"}/>
+          headerTitle: () => (
+            <Image
+              source={require("../../tmp/images/Logo2.png")}
+              style={{
+                width: 250,
+                height: 250,
+                resizeMode: "contain",
+                alignSelf: "center",
+              }}
+            />
+            
+          ),
+          drawerIcon: () => (
+            <FontAwesome name="home" size={24} color={theme.highlight} />
           ),
         }}
       />
-      
     </Drawer>
   );
 }

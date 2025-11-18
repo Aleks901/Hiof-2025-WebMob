@@ -1,7 +1,7 @@
 import { chatsService } from "./chatsService";
 import { ChatService } from "@packages/types/api/chats/chat-service";
+import { ChatMessage } from "@packages/types/chat-message";
 import { Chatroom } from "@packages/types/chat-room";
-import { get } from "http";
 import { RequestInfo } from "rwsdk/worker";
 
 
@@ -223,7 +223,93 @@ export function createChatController(chatsService: ChatService) {
                 );
             }
         },
-}
+
+        //^^^^^^^^^^^^^^^^^^^^
+        // These two functions are literally identical up until the repository layer. I feel like we could abstract
+        // This type of stuff. Just not sure how to do it in a way that would make sense. 
+        // Any PR review inputs? If you're reading this, send me a "Hello I read that". :p
+        // \/ \/ \/ \/ \/ \/ \/ 
+
+        async listChatMessages(context: RequestInfo) {
+            try {
+                const { id } = context.params;
+                const dataFromService = await chatsService.listChatMessages(Number(id));
+                return new Response(
+                    JSON.stringify({
+                        ...dataFromService,
+                    }),
+                    {
+                        status: 200,
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+            } catch (error) {
+                return new Response(
+                    JSON.stringify({
+                        message: "Failed to list chat messages",
+                        success: false,
+                    }),
+                    {
+                        status: 500,
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+            }
+        },
+
+        async createChatMessage(context: RequestInfo) {
+            try {
+                const { id } = context.params;
+                const chatId = Number(id);
+                const body = await context.request.json() as { message: string; userId: number };
+                const validMessage =
+                  Number.isInteger(chatId) &&
+                  Number.isInteger(body.userId) &&
+                  typeof body.message === "string" &&
+                  body.message.trim() !== "";
+
+                if (!validMessage) {
+                  return new Response(
+                    JSON.stringify({
+                      message: "Invalid chatId, userId or message",
+                      success: false,
+                    }),
+                    {
+                      status: 400,
+                      headers: { "Content-Type": "application/json" },
+                    }
+                  );
+                }
+
+                const messageData = {
+                    message: body.message,
+                    user: { id: body.userId },
+                } as any;
+
+                const dataFromService = await chatsService.createChatMessage(chatId, messageData);
+                return new Response(
+                    JSON.stringify({
+                        ...dataFromService,
+                    }),
+                    {
+                        status: 201,
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+            } catch (error) {
+                return new Response(
+                    JSON.stringify({
+                        message: "Failed to create chat message",
+                        success: false,
+                    }),
+                    {
+                        status: 500,
+                        headers: { "Content-Type": "application/json" },
+                    }
+                );
+            }
+        },
+    };
 }
 
 

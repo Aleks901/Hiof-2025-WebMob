@@ -6,7 +6,8 @@ import { useTheme } from '@packages/ui/useTheme';
 type Props = {
     message: ChatMessage
 }
-
+// We have to clean this shit up and figure out how we're going to do styling consistently, 
+// moving on for now though. I'm busy.
 export default function ChatMessageCard(props: Props) {
 
     const theme = useTheme();
@@ -21,11 +22,6 @@ export default function ChatMessageCard(props: Props) {
         backgroundColor: theme.background, 
         borderWidth: 1,
         borderColor: theme.highlight, 
-        shadowColor: theme.highlight,
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.8,
-        shadowRadius: 10,
-        elevation: 10,
     },
     userName: {
         fontWeight: 'bold',
@@ -69,7 +65,7 @@ export default function ChatMessageCard(props: Props) {
                 </Text>
             </View>
 
-            <Text style={styles.dateSent}> {message.dateSent.toLocaleTimeString()} </Text>
+            <Text style={styles.dateSent}> </Text>
 
         </View>
     );
