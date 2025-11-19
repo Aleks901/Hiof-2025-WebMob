@@ -1,6 +1,6 @@
 "use client"
 
-import { useTheme } from '../../lib/useTheme';
+import { useTheme } from '@packages/ui/useTheme';
 
 export default function NavButton({
     children,

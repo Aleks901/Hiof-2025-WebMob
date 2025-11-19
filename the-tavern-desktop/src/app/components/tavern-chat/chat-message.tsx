@@ -8,6 +8,45 @@ type Props = {
 }
 
 export default function ChatMessageCard({ message }: Props) {
+    const theme = useTheme();
+
+    const styles: { [key: string]: React.CSSProperties } = {
+        messageContainer: {
+            padding: 16,
+            borderRadius: 12,
+            backgroundColor: theme.card, 
+            border: `2px solid ${theme.highlight}`,
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+            transition: 'box-shadow 0.2s ease',
+        },
+        userName: {
+            fontWeight: '600',
+            color: theme.highlight, 
+            fontSize: 14,
+            letterSpacing: 0.5,
+            margin: '0 0 8px 0',
+            textTransform: 'uppercase' as const,
+        },
+        messageText: {
+            marginTop: 8,
+            color: theme.text,
+            padding: 14,
+            borderRadius: 8,
+            backgroundColor: theme.background,
+            fontSize: 15,
+            lineHeight: '1.6',
+            margin: 0,
+            wordWrap: 'break-word' as const,
+        },
+        dateSent: {
+            marginTop: 8,
+            color: theme.mutedText,
+            fontSize: 11,
+            fontStyle: 'italic',
+            textAlign: 'right',
+            margin: 0,
+        },
+    };
 
     return (
         <div style={styles.messageContainer}>
@@ -24,43 +63,4 @@ export default function ChatMessageCard({ message }: Props) {
             <p style={styles.dateSent}> {new Date(message.dateSent).toLocaleTimeString()} </p>
         </div>
     );
-};
-
-const theme = useTheme();
-
-const styles = {
-    messageContainer: {
-        marginVertical: 10,
-        padding: 14,
-        borderRadius: 12,
-        backgroundColor: theme.background, 
-        borderWidth: 1,
-        borderColor: theme.highlight, 
-    },
-    userName: {
-        fontWeight: 'bold',
-        color: theme.text, 
-        fontSize: 16,
-        textShadowColor: theme.highlight,
-        letterSpacing: 1,
-    },
-    messageText: {
-        marginTop: 6,
-        color: theme.text,
-        borderColor: theme.highlight,
-        borderWidth: 1,
-        padding: 10,
-        borderRadius: 6,
-        backgroundColor: theme.card,
-        textShadowColor: theme.highlight,
-        fontSize: 15,
-        lineHeight: 20,
-    },
-    dateSent: {
-        marginTop: 6,
-        color: theme.mutedText,
-        fontSize: 12,
-        fontStyle: 'italic',
-        textAlign: 'right' as const,
-    },
 };

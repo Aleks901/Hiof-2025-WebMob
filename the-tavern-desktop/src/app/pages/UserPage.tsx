@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { useTheme } from "../lib/useTheme"
+import { useTheme } from "@packages/ui/useTheme"
 import { User } from "@packages/types/user"
 
 export function UserPage() {

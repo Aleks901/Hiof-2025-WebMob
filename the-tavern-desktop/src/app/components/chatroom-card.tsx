@@ -1,4 +1,4 @@
-import { useTheme } from "../lib/useTheme";
+import { useTheme } from "@packages/ui/useTheme";
 import BasicCard from "./basic-card";
 
 type ChatroomCardProps = {

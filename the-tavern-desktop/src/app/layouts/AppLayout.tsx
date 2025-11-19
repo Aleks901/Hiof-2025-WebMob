@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import type { LayoutProps } from 'rwsdk/router'
 import NavButton from '../components/navigation/nav-button';
-import { useTheme } from '../lib/useTheme';
+import { useTheme } from '@packages/ui/useTheme';
 
 export function AppLayout({ children, requestInfo }: LayoutProps) {
   const theme = useTheme();
