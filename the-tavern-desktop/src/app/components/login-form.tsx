@@ -1,5 +1,5 @@
 import { BasicForm } from './basic-form'
-import { useTheme } from '../lib/useTheme';
+import { useTheme } from '@packages/ui/useTheme';
 
 export default function LoginForm(){
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useTheme } from "../lib/useTheme";
+import { useTheme } from "@packages/ui/useTheme";
 import type { User } from "@packages/types/user";
 
 interface UserCardProps {
