@@ -7,7 +7,7 @@ import ChatroomCard from '../components/chatroom-card';
 import { ProtectedRoute } from '../components/protected-route';
 
 async function fetchChatrooms(): Promise<Chatroom[]> {
-  const response = await fetch('http://localhost:5173/api/v2/chats');
+  const response = await fetch('/api/v2/chats');
   const { data } = (await response.json()) as { data: Chatroom[] };
   return data;
 }
