@@ -12,15 +12,23 @@ export function BasicForm({
           formStyle?: React.CSSProperties
           buttonStyle?: React.CSSProperties
         };
-        onSubmit?: () => void}) {
+        onSubmit?: (e: React.FormEvent) => void}) {
+  
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (onSubmit) {
+      onSubmit(e);
+    }
+  };
+
   return (
-    <form style={formStyles?.formStyle}>
+    <form style={formStyles?.formStyle} onSubmit={handleSubmit}>
         
       <h1 style={formStyles?.titleStyle}>{title}</h1>
 
       {children}
 
-      <BasicButton onClick={onSubmit} buttonStyle={formStyles?.buttonStyle}>
+      <BasicButton type="submit" buttonStyle={formStyles?.buttonStyle}>
         Submit
       </BasicButton>
 

@@ -3,8 +3,19 @@
 import { useState, useEffect } from 'react';
 import { UserCard } from '../components/user-card';
 import type { User } from '@packages/types/user';
+import { ProtectedRoute } from '../components/protected-route';
+import { useUser } from '@packages/contexts/UserContext';
 
 export function Friends() {
+    return (
+        <ProtectedRoute>
+            <FriendsContent />
+        </ProtectedRoute>
+    );
+}
+
+function FriendsContent() {
+    const { user } = useUser();
     // stores all the users we get from the API
     const [users, setUsers] = useState<User[]>([]);
 
@@ -13,7 +24,7 @@ export function Friends() {
         // gets users from the api
         const fetchUsers = async () => {
             try {
-                const response = await fetch('/api/v2/users');
+                const response = await fetch(`/api/v2/users/${user.id}/friends`);
                 const result = await response.json() as any;
                 console.log('API response:', result);
                 
