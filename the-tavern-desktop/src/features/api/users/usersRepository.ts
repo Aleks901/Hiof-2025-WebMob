@@ -10,9 +10,16 @@ export function createUserRepository(db: DB): UserRepository {
     return {
         async findMany() {
             try {
-                const data = await db
+                const allUsers = await db
                     .select()
                     .from(users)
+                
+                // Strip passwords from all users
+                const data = allUsers.map(user => {
+                    const { password, ...safeUser } = user;
+                    return safeUser as User;
+                });
+                
                 return { success: true, data}
             }   catch (error) {
                 console.error("Error grabbing all users", error)
@@ -32,12 +39,13 @@ export function createUserRepository(db: DB): UserRepository {
                     .from(users)
                     .where(eq(users.id, id))
                     .limit(1);
-                const fetchedUser = result[0] || null;
-                if (fetchedUser) {
-                    const { password, ...safeUser } = fetchedUser;
-                    return { success: true, data: safeUser as User };
+                
+                if (!result.length) {
+                    return { success: true, data: null };
                 }
-                return { success: true, data: fetchedUser };
+                
+                const { password, ...safeUser } = result[0];
+                return { success: true, data: safeUser as User };
             }   catch (error) {
                 console.error("Error finding user with that id:", error);
                 return {
