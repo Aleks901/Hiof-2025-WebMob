@@ -2,7 +2,7 @@ import { User } from "../../user";
 import { Result } from "../result";
 
 export interface UserService {
-    listUsers(): Promise<Result<User[] | null>>;
+    listUsers(): Promise<Result<Omit<User, 'password'>[] | null>>;
     getUserById(id: User["id"]): Promise<Result<Omit<User, 'password'> | null>>;
     createUser(userData: User): Promise<Result<Omit<User, 'password'>>>;
     updateUser(id: User["id"], userData: User): Promise<Result<Omit<User, 'password'> | null>>;
