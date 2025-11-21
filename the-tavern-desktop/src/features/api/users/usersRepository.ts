@@ -3,7 +3,7 @@ import { User } from "@/db/schema/user-schema";
 import { messages, userChatrooms, userFriends, users } from "@/db/schema"
 import { eq } from "drizzle-orm";
 import {type DB} from "@/db"
-import { hashPassword, verifyPassword } from "@/lib/password";
+import { hashPassword } from "@/lib/password";
 
 export function createUserRepository(db: DB): UserRepository {
 
@@ -33,7 +33,11 @@ export function createUserRepository(db: DB): UserRepository {
                     .where(eq(users.id, id))
                     .limit(1);
                 const fetchedUser = result[0] || null;
-                return { success: true, data: fetchedUser }
+                if (fetchedUser) {
+                    const { password, ...safeUser } = fetchedUser;
+                    return { success: true, data: safeUser as User };
+                }
+                return { success: true, data: fetchedUser };
             }   catch (error) {
                 console.error("Error finding user with that id:", error);
                 return {
@@ -70,7 +74,6 @@ export function createUserRepository(db: DB): UserRepository {
                     .returning({
                     id: users.id,
                     name: users.name,
-                    password: users.password,
                     joinedAt: users.joinedAt,
                     role: users.role,
                     token: users.token,
@@ -122,7 +125,6 @@ export function createUserRepository(db: DB): UserRepository {
                     .returning({
                         id: users.id,
                         name: users.name,
-                        password: users.password,
                         joinedAt: users.joinedAt,
                         role: users.role,
                         token: users.token,
@@ -197,7 +199,6 @@ export function createUserRepository(db: DB): UserRepository {
                 .select({
                     id: users.id,
                     name: users.name,
-                    password: users.password,
                     joinedAt: users.joinedAt,
                     role: users.role,
                     token: users.token,
@@ -238,9 +239,10 @@ export function createUserRepository(db: DB): UserRepository {
                 friend_id: friendId
             });
             const user = userResult[0];
+            const { password, ...safeUser } = user;
             return {
                 success: true,
-                data: user
+                data: safeUser as User
             };
         }
     };

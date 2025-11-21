@@ -25,8 +25,11 @@
       "@packages/*": ["../packages/*"],
       "@generated/*": ["./generated/*"]
     },
-    /* Enable importing .json files */
+    /* Allow importing .json files */
     "resolveJsonModule": true,
+    
+    /* Allow JS files to be imported */
+    "allowJs": true,
 
     /* Enable error reporting in type-checked JavaScript files. */
     "checkJs": false,

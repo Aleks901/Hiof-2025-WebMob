@@ -3,25 +3,30 @@
 import { useState, useEffect } from 'react';
 import { useTheme } from "../lib/useTheme"
 import { User } from "@packages/types/user"
+import { ProtectedRoute } from '../components/protected-route';
 
 export function UserPage() {
+  return (
+    <ProtectedRoute>
+      <UserPageContent />
+    </ProtectedRoute>
+  );
+}
+
+function UserPageContent() {
   const { id } = useParams()
   const theme = useTheme()
-  // stores the user we get from the API
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   
-  // edit mode state
   const [isEditing, setIsEditing] = useState(false)
   const [editUsername, setEditUsername] = useState('')
   const [editPassword, setEditPassword] = useState('')
   const [updateError, setUpdateError] = useState<string | null>(null)
   const [updateSuccess, setUpdateSuccess] = useState(false)
 
-  // runs when the page loads or ID changes
   useEffect(() => {
-    // gets user from the api
     const fetchUser = async () => {
       if (!id) return
       
@@ -37,22 +42,18 @@ export function UserPage() {
         const result = await response.json() as any
         console.log('API response:', result)
         
-        // figures out what format the data is in
         if (result && result.id) {
           setUser(result as User)
           setEditUsername(result.name)
         } else if (result.data && result.data.id) {
           setUser(result.data as User)
           setEditUsername(result.data.name)
-        // if weird format just set error so the page does not break
         } else {
           throw new Error('User not found')
         }
       } catch (error) {
-        // something went wrong
         console.log(error)
         setError(error instanceof Error ? error.message : 'Failed to fetch user')
-        // make it null so nothing breaks
         setUser(null)
       } finally {
         setLoading(false)
@@ -62,20 +63,16 @@ export function UserPage() {
     fetchUser()
   }, [id])
 
-  // handle update user
   const handleUpdateUser = async () => {
     if (!user || !id) return
     
     try {
       setUpdateError(null)
       setUpdateSuccess(false)
-      
-      // prepare update data - only send fields that can be changed
       const updateData: any = {
         name: editUsername,
       }
-      
-      // only include password if it's been changed
+    
       if (editPassword.trim()) {
         updateData.password = editPassword
       }
@@ -94,7 +91,6 @@ export function UserPage() {
       
       const result = await response.json() as any
       
-      // update user state with new data
       if (result && result.id) {
         setUser(result as User)
       } else if (result.data && result.data.id) {
@@ -102,17 +98,14 @@ export function UserPage() {
       }
       
       setUpdateSuccess(true)
-      setEditPassword('') // clear password field
+      setEditPassword('')
       setIsEditing(false)
-      
-      // clear success message after 3 seconds
       setTimeout(() => setUpdateSuccess(false), 3000)
     } catch (error) {
       setUpdateError(error instanceof Error ? error.message : 'Failed to update user')
     }
   }
 
-  // handle cancel edit
   const handleCancelEdit = () => {
     if (user) {
       setEditUsername(user.name)
@@ -122,7 +115,6 @@ export function UserPage() {
     setIsEditing(false)
   }
 
-  // Loading state
   if (loading) {
     return (
       <div style={styles.container}>
@@ -133,7 +125,6 @@ export function UserPage() {
     )
   }
 
-  // Error state
   if (error) {
     return (
       <div style={styles.container}>
@@ -145,7 +136,6 @@ export function UserPage() {
     )
   }
 
-  // User not found state
   if (!user) {
     return (
       <div style={styles.container}>
@@ -274,7 +264,6 @@ export function UserPage() {
         </div>
       </div>
       
-      {/* Edit section */}
       <div style={{
         ...styles.editSection,
         backgroundColor: theme.card,
@@ -399,8 +388,6 @@ export function UserPage() {
           </div>
         )}
       </div>
-      
-      {/* About section moved outside and below the main box */}
       <div style={{
         ...styles.aboutSection,
         backgroundColor: theme.card,

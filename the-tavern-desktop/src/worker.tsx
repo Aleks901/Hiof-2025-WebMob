@@ -10,6 +10,7 @@ import { Friends } from "./app/pages/Friends"
 import { AppLayout } from "./app/layouts/AppLayout";
 import { userRoutes } from "./features/api/users/usersRoutes";
 import { chatsRoutes } from "./features/api/chats/chatsRoutes";
+import { authRoutes } from "./features/api/auth";
 import { UserPage } from "./app/pages/UserPage";
 import { ChatPage } from "./app/pages/ChatPage";
 import LoginForm from "./app/components/login-form";
@@ -41,6 +42,7 @@ export default defineApp([
 
   prefix("/api/v2/users", userRoutes),
   prefix("/api/v2/chats", chatsRoutes),
+  prefix("/api/v2/auth", authRoutes),
   render(Document, [
     layout(AppLayout, [
       route("/", async () => {

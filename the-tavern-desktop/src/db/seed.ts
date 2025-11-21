@@ -3,6 +3,7 @@
 import {chatrooms, users, messages, userChatrooms, userFriends } from './schema';
 import { defineScript } from "rwsdk/worker";
 import { getDb, setupDb } from ".";
+import { hashPassword } from "@/lib/password";
 
 export default defineScript(async ({ env }) => {
   try {
@@ -21,7 +22,7 @@ export default defineScript(async ({ env }) => {
       .insert(users)
       .values({
         name: "Aleks",
-        password: "UnhashedShamelessPassword", // WIP, nothing to see here :^)
+        password: await hashPassword("password123"),
         joinedAt: new Date().toISOString(),
         role: "regular",
       })
@@ -31,7 +32,7 @@ export default defineScript(async ({ env }) => {
       .insert(users)
       .values({
         name: "Bastian",
-        password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
+        password: await hashPassword("password123"),
         joinedAt: new Date().toISOString(), 
         role: "regular",
       })
@@ -41,7 +42,7 @@ export default defineScript(async ({ env }) => {
       .insert(users)
       .values({
         name: "Simen",
-        password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
+        password: await hashPassword("password123"),
         joinedAt: new Date().toISOString(), 
         role: "regular",
       })
@@ -51,8 +52,8 @@ export default defineScript(async ({ env }) => {
       .insert(users)
       .values({
         name: "Lukas",
-        password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
-        joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
+        password: await hashPassword("password123"),
+        joinedAt: new Date().toISOString(),
         role: "regular",
       })
       .returning();
@@ -61,8 +62,8 @@ export default defineScript(async ({ env }) => {
       .insert(users)
       .values({
         name: "Studass",
-        password: "UnhashedShamelessPassword2", // WIP, nothing to see here :^)
-        joinedAt: new Date().toISOString(), // Could do this in the db.. too lazy to reformat.. ; _ ;
+        password: await hashPassword("password123"),
+        joinedAt: new Date().toISOString(),
         role: "regular",
       })
       .returning();
