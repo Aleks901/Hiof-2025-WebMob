@@ -65,7 +65,7 @@ export default function ChatMessageCard(props: Props) {
                 </Text>
             </View>
 
-            <Text style={styles.dateSent}> </Text>
+            <Text style={styles.dateSent}>{new Date(message.dateSent).toLocaleTimeString()}</Text>
 
         </View>
     );
