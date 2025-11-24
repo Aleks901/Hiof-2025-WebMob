@@ -3,7 +3,6 @@ import { View, Text, StyleSheet } from 'react-native';
 import UserCard from '@/components/user-card';
 import { User } from '@packages/types/user';
 import { useTheme } from '@packages/ui/useTheme';
-import { ProtectedRoute } from '@/components/protected-route';
 import { useUser } from '@packages/hooks/useUser';
 
 export default function UserProfile() {
@@ -27,19 +26,21 @@ export default function UserProfile() {
   }, [currentUser]);
 
   if (!user) {
-    return null;
+    return (
+      <View style={[styles.container, { backgroundColor: theme.background, justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={{ color: theme.text }}>Loading...</Text>
+      </View>
+    );
   }
 
   return (
-    <ProtectedRoute>
-      <View style={[styles.container, { backgroundColor: theme.background }]}>
-        <Text style={[styles.title, { color: theme.text }]}>User Profile</Text>
-        <View style={styles.content}>
-          <UserCard user={user} />
-          <Text style={[styles.details, { color: theme.text }]}>This page is a WIP, but here is a user object rendered as a UserCard to show you how it will work.</Text>
-        </View>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      <Text style={[styles.title, { color: theme.text }]}>Your Profile</Text>
+      <View style={styles.content}>
+        <UserCard user={user} />
+        <Text style={[styles.details, { color: theme.text }]}>This page is a WIP, but here is your user profile rendered as a UserCard.</Text>
       </View>
-    </ProtectedRoute>
+    </View>
   );
 }
 
