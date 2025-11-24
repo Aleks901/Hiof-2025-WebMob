@@ -6,7 +6,7 @@ export default function NotFoundScreen() {
     <View style={styles.container}>
       <Text> Something went terribly wrong! :D</Text>
       <Text> 404: Page does not exist </Text>
-      <Link href="/(drawer)">Go to home screen</Link>
+      <Link href="/home">Go to home screen</Link>
     </View>
   );
 }

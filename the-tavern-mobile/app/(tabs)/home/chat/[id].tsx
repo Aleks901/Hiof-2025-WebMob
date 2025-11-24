@@ -1,15 +1,10 @@
 import { useLocalSearchParams } from "expo-router";
-import { View, StyleSheet, TextInput, Button } from "react-native";
+import { View, StyleSheet, TextInput, Button, Text } from "react-native";
 import { useTheme } from "@packages/ui/useTheme";
 import { ChatMessage } from "@packages/types/chat-message";
 import { useEffect, useState, useCallback } from "react";
 import ChatList from "@/components/tavern-chat/chat-list";
-
-// THIS ENTIRE FILE IS WIP, ONLY EXISTS FOR PROOF OF CONCEPT.
-// Test user. we'll be removing and replacing this whenever AuthContext is done.
-const pretendAuthUser = {
-  id: 5,
-};
+import { useUser } from "@packages/hooks/useUser";
 
 async function fetchChatMessages(chatId: string): Promise<ChatMessage[]> {
   const response = await fetch(`http://localhost:5173/api/v2/chats/${chatId}/messages`);
@@ -17,19 +12,20 @@ async function fetchChatMessages(chatId: string): Promise<ChatMessage[]> {
   return data;
 }
 
-async function postChatMessages(chatId: string, message: string): Promise<ChatMessage | ChatMessage[]> {
+async function postChatMessages(chatId: string, message: string, userId: number): Promise<ChatMessage | ChatMessage[]> {
   const response = await fetch(`http://localhost:5173/api/v2/chats/${chatId}/messages`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId: pretendAuthUser.id, message }),
+    body: JSON.stringify({ userId, message }),
   });
-  const { data } = await response.json();
+  const { data} = await response.json();
   return data;
 }
 
 export default function ChatRoom() {
   const { id } = useLocalSearchParams<{ id: string | string[] }>();
   const chatId = Array.isArray(id) ? id[0] : id;
+  const { user } = useUser();
 
   const theme = useTheme();
 
@@ -55,26 +51,34 @@ export default function ChatRoom() {
 
   const sendMessage = useCallback(
     async () => {
-      if (!chatId) return;
+      if (!chatId || !user) return;
       const trimmed = newMessage.trim();
       if (!trimmed || isSending) return;
 
       setIsSending(true);
       try {
-        await postChatMessages(chatId, trimmed);
+        await postChatMessages(chatId, trimmed, user.id);
         setNewMessage("");
         await refreshMessages();
       } finally {
         setIsSending(false);
       }
     },
-    [chatId, newMessage, isSending, refreshMessages]
+    [chatId, newMessage, isSending, refreshMessages, user]
   );
+
+  if (!user) {
+    return (
+      <View style={[styles.page, { backgroundColor: theme.background, justifyContent: 'center', alignItems: 'center' }]}>
+        <Text style={{ color: theme.text }}>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={[styles.page, { backgroundColor: theme.background }]}>
       <View style={styles.chatLists}>
-        <ChatList messages={messages} myUserId={pretendAuthUser.id} />
+        <ChatList messages={messages} myUserId={user.id} />
       </View>
       <View style={styles.chatForm}>
         <TextInput
@@ -126,4 +130,3 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
 });
-

@@ -1,9 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '@packages/ui/useTheme';
+import { useUser } from '@packages/contexts/UserContext';
+import { useRouter } from 'expo-router';
 
 export default function Settings() {
   const theme = useTheme();
+  const { user, logout } = useUser();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    router.replace('/');
+  };
 
   const styles = StyleSheet.create({
     container: {
@@ -36,12 +45,41 @@ export default function Settings() {
       fontSize: 16,
       color: theme.text,
     },
+    logoutButton: {
+      padding: 15,
+      backgroundColor: '#ff4444',
+      borderRadius: 8,
+      marginTop: 20,
+      alignItems: 'center',
+    },
+    logoutText: {
+      fontSize: 16,
+      color: '#ffffff',
+      fontWeight: '600',
+    },
+    userInfo: {
+      padding: 15,
+      backgroundColor: theme.card,
+      borderRadius: 8,
+      marginBottom: 20,
+    },
+    userName: {
+      fontSize: 18,
+      color: theme.text,
+      fontWeight: '600',
+    },
   });
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Settings</Text>
       
+      {user && (
+        <View style={styles.userInfo}>
+          <Text style={styles.userName}>Logged in as: {user.name}</Text>
+        </View>
+      )}
+
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Appearance</Text>
         <View style={styles.option}>
@@ -68,6 +106,10 @@ export default function Settings() {
           <Text style={styles.optionText}>Help & Support</Text>
         </View>
       </View>
+
+      <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <Text style={styles.logoutText}>Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 }
