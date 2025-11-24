@@ -4,9 +4,11 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import UserCard from '@/components/user-card';
 import { useTheme } from '@packages/ui/useTheme';
 import type { User } from '@packages/types/user';
+import { useUser } from '@packages/contexts/UserContext';
 
 export default function FriendsScreen() {
   const [users, setUsers] = useState<User[]>([]);
+  const { user } = useUser();
   
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -14,7 +16,7 @@ export default function FriendsScreen() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:5173/api/v2/users');
+        const response = await fetch(`http://localhost:5173/api/v2/users/${user.id}/friends`);
         const result = await response.json() as any;
         
         if (Array.isArray(result)) {
