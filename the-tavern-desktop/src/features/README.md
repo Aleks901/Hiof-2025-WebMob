@@ -20,3 +20,6 @@
 - POST api/v2/cahts/(id)/messages - Creates a chat message in a chatroom based on the chatroom ID. (For posting messages)
 - PATCH api/v2/chats/(id) Updates a chatroom by ID
 - DELETE api/v2/chats/(id) - Deletes a chatroom by ID
+### api/v2/auth
+- POST api/v2/auth/login - Logs in the user. Body must be a name and password
+- POST api/v2/auth/logout - Logs the user back out, id needed in body.
