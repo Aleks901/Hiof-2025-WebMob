@@ -4,12 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import { useTheme } from "@packages/ui/useTheme";
 import { ChatMessage } from "@packages/types/chat-message";
 import ChatList from "../components/tavern-chat/chat-list";
-
-
-// Test user. we'll be removing and replacing this whenever AuthContext is done.
-const pretendAuthUser = {
-  id: 5,
-};
+import { useUser } from "@packages/hooks/useUser";
+import { User } from "@packages/types/user";
 
 async function fetchChatMessages(chatId: string): Promise<ChatMessage[]> {
   const response = await fetch(`/api/v2/chats/${chatId}/messages`);
@@ -17,11 +13,11 @@ async function fetchChatMessages(chatId: string): Promise<ChatMessage[]> {
   return data;
 }
 
-async function postChatMessages(chatId: string, message: string): Promise<ChatMessage | ChatMessage[]> {
+async function postChatMessages(chatId: string, message: string, user: User): Promise<ChatMessage | ChatMessage[]> {
   const response = await fetch(`/api/v2/chats/${chatId}/messages`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId: pretendAuthUser.id, message }),
+    body: JSON.stringify({ userId: user.id, message }),
   });
   const result = await response.json() as any;
   return result.data;
@@ -30,6 +26,7 @@ async function postChatMessages(chatId: string, message: string): Promise<ChatMe
 export function ChatPage() {
   const { id } = useParams();
   const chatId = id;
+  const { user } = useUser();
 
   const theme = useTheme();
 
@@ -56,21 +53,25 @@ export function ChatPage() {
   const sendMessage = useCallback(
     async (e?: React.FormEvent) => {
       e?.preventDefault();
-      if (!chatId) return;
+      if (!chatId || !user) return;
       const trimmed = newMessage.trim();
       if (!trimmed || isSending) return;
 
       setIsSending(true);
       try {
-        await postChatMessages(chatId, trimmed);
+        await postChatMessages(chatId, trimmed, user);
         setNewMessage("");
         await refreshMessages();
       } finally {
         setIsSending(false);
       }
     },
-    [chatId, newMessage, isSending, refreshMessages]
+    [chatId, newMessage, isSending, refreshMessages, user]
   );
+
+  if (!user) {
+    return <div style={{ padding: "20px", color: theme.text }}>Loading...</div>;
+  }
 
   const styles: { [key: string]: React.CSSProperties } = {
     page: {
@@ -133,7 +134,7 @@ export function ChatPage() {
   return (
     <div style={styles.page}>
       <div style={styles.chatLists}>
-        <ChatList messages={messages} myUserId={pretendAuthUser.id} />
+        <ChatList messages={messages} myUserId={user.id} />
       </div>
       <form style={styles.chatForm} onSubmit={sendMessage}>
         <input
