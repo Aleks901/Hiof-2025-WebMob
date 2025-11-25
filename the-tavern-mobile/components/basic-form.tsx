@@ -1,7 +1,8 @@
 import { View, Text, StyleSheet } from 'react-native';
 import BasicButton from './basic-button';
 
-export function BasicForm({children, title, onSubmit}: {children: React.ReactNode; title: string; onSubmit: () => void}) {
+
+export function BasicForm({children, title, onSubmit, buttonStyle, buttonTextStyle}: {children: React.ReactNode; buttonStyle?: any; buttonTextStyle?: any; title: string; onSubmit: () => void}) {
   return (
     <View style={styles.container}>
         
@@ -9,8 +10,8 @@ export function BasicForm({children, title, onSubmit}: {children: React.ReactNod
 
       {children}
 
-      <BasicButton onPress={onSubmit} style={styles.button}> 
-        <Text>Submit</Text>
+      <BasicButton onPress={onSubmit} style={[styles.button, buttonStyle]}> 
+        <Text style={buttonTextStyle}>Submit</Text>
       </BasicButton>
 
     </View>
@@ -18,6 +19,7 @@ export function BasicForm({children, title, onSubmit}: {children: React.ReactNod
 }
 
 const styles = StyleSheet.create({
+  
     container: {
         padding: 16,
     },
@@ -25,6 +27,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 16,
+        color: "#EADFC8"
     },
     button: {
         marginTop: 16,
