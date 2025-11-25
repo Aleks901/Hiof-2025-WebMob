@@ -19,6 +19,7 @@ export function BasicForm({children, title, onSubmit, buttonStyle, buttonTextSty
 }
 
 const styles = StyleSheet.create({
+  
     container: {
         padding: 16,
     },
@@ -26,6 +27,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: 'bold',
         marginBottom: 16,
+        color: "#EADFC8"
     },
     button: {
         marginTop: 16,
