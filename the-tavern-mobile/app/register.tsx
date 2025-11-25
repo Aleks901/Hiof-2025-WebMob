@@ -28,7 +28,7 @@ export default function RegisterScreen() {
 
   return (
     <View style={{ backgroundColor: theme.background, flex: 1 }}>
-      <BasicForm title="Register" onSubmit={handleSubmit}>
+      <BasicForm title="Login" onSubmit={handleSubmit} buttonStyle={{ backgroundColor: theme.buttonBackground }} buttonTextStyle= {{ color: theme.buttonText}}>
         <TextInput
           placeholder="Choose a username"
           placeholderTextColor={theme.mutedText}

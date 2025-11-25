@@ -27,7 +27,7 @@ export default function LoginScreen() {
 
     return (
         <View style={{ backgroundColor: theme.background, flex: 1 }}>
-            <BasicForm title="Login" onSubmit={handleSubmit}>
+            <BasicForm title="Login" onSubmit={handleSubmit} buttonStyle={{ backgroundColor: theme.buttonBackground }} buttonTextStyle= {{ color: theme.buttonText}}>
                 <TextInput
                     placeholder="Username"
                     placeholderTextColor={theme.mutedText}
