@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import type { LayoutProps } from 'rwsdk/router'
 import NavButton from '../components/navigation/nav-button';
 import { useTheme } from '@packages/ui/useTheme';
-import { UserProvider, useUser } from '@packages/contexts/UserContext';
+import { useUser } from '@packages/hooks/useUser';
+import { UserProvider } from '@packages/contexts/UserContext';
 
 function AppLayoutContent({ children }: { children: React.ReactNode }) {
   const theme = useTheme();

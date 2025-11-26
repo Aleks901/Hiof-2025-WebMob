@@ -49,8 +49,12 @@ export default function RegisterScreen() {
           secureTextEntry
           style={[
             styles.input,
-            { borderColor: theme.highlight, color: theme.text } ]} /> {error ? (
-          <Text style={[styles.error, { color: theme.highlight }]}>{error}</Text>) : null}
+            { borderColor: theme.highlight, color: theme.text }
+          ]}
+        />
+        {error ? (
+          <Text style={[styles.error, { color: theme.highlight }]}>{error}</Text>
+        ) : null}
       </BasicForm>
 
       <Link href="/" style={[styles.link, { color: theme.highlight }]}>

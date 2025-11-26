@@ -42,8 +42,11 @@ export default function LoginScreen() {
                     value={password}
                     onChangeText={setPassword}
                     secureTextEntry
-                    style={[styles.input, { borderColor: theme.highlight, color: theme.text }]} /> {error ? (
-                    <Text style={[styles.error, { color: theme.highlight }]}> {error}</Text>) : null}
+                    style={[styles.input, { borderColor: theme.highlight, color: theme.text }]}
+                />
+                {error ? (
+                    <Text style={[styles.error, { color: theme.highlight }]}>{error}</Text>
+                ) : null}
             </BasicForm>
             <Link href="/register" style={[styles.link, { color: theme.highlight }]}> Don't have an account? Register here!
             </Link>

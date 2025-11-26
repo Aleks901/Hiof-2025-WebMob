@@ -1,6 +1,6 @@
 "use client"
 
-import { createContext, useState, useEffect, useContext, ReactNode } from 'react'
+import { createContext, useState, useEffect, ReactNode } from 'react'
 import { User } from '@packages/types/user'
 import { storage, secureStorage } from '@packages/lib/storage'
 
@@ -13,14 +13,6 @@ interface UserContextType {
 }
 
 export const UserContext = createContext<UserContextType | undefined>(undefined)
-
-export function useUser() {
-    const context = useContext(UserContext)
-    if (!context) {
-        throw new Error("useUser must be used within a UserProvider")
-    }
-    return context
-}
 
 export function UserProvider({ children }: { children: ReactNode }) {
 

@@ -17,7 +17,6 @@ export const tavernTheme = (): Theme => {
         hover: "#8C4B2D", //For hover effects
         text: "#EADFC8", //Main text color
         mutedText: "#A18B74", //For less important text
-
         buttonBackground: "#B38A5A", //Main button color
         buttonText: "#2A1B14", //Readable text for button
     }

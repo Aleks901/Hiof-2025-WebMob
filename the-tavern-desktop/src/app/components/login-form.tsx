@@ -3,7 +3,7 @@
 import { BasicForm } from './basic-form'
 import { useTheme } from '@packages/ui/useTheme';
 import { useState, useEffect } from 'react';
-import { useUser } from '@packages/contexts/UserContext';
+import { useUser } from '@packages/hooks/useUser';
 
 export default function LoginForm(){
     const [username, setUsername] = useState('');
