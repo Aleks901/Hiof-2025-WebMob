@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { useUser } from '@packages/contexts/UserContext';
+import { useUser } from '@packages/hooks/useUser';
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user } = useUser();

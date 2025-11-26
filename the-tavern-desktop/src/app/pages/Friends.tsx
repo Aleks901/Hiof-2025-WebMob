@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { UserCard } from '../components/user-card';
 import type { User } from '@packages/types/user';
 import { ProtectedRoute } from '../components/protected-route';
-import { useUser } from '@packages/contexts/UserContext';
+import { useUser } from '@packages/hooks/useUser';
 import { useTheme } from '@packages/ui/useTheme';
 
 export function Friends() {
