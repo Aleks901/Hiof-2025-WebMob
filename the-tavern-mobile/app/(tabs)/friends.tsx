@@ -4,7 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import UserCard from '@/components/user-card';
 import { useTheme } from '@packages/ui/useTheme';
 import type { User } from '@packages/types/user';
-import { useUser } from '@packages/contexts/UserContext';
+import { useUser } from '@packages/hooks/useUser';
 
 export default function FriendsScreen() {
   const [users, setUsers] = useState<User[]>([]);

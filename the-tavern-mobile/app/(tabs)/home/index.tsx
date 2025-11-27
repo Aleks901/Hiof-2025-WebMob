@@ -29,13 +29,18 @@ export default function HomeScreen() {
       fontSize: 36,
       fontWeight: 'bold',
       color: theme.text,
-      marginBottom: 20,
+      marginBottom: 5,
     },
+    text: {
+      color: theme.text,
+      marginBottom: 10
+    }
   });
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Chatrooms</Text>
+      <Text style={styles.title}>Welcome!</Text>
+      <Text style={styles.text}>Pick a table!</Text>
       {chats && <ChatroomList chatrooms={chats} />}
     </View>
   );
