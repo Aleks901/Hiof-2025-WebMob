@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { useTheme } from '@packages/ui/useTheme';
-import { useUser } from '@packages/contexts/UserContext';
+import { useUser } from '@packages/hooks/useUser';
 import { useRouter } from 'expo-router';
 
 export default function Settings() {
