@@ -95,7 +95,7 @@ export default function ChatRoom() {
           returnKeyType="send"
         />
         <View style={styles.sendButtonContainer}>
-          <Button title="Send" onPress={sendMessage} disabled={isSending} />
+          <Button title="Send" onPress={sendMessage} disabled={isSending} color={theme.buttonBackground}/>
         </View>
       </View>
     </View>
@@ -128,5 +128,6 @@ const styles = StyleSheet.create({
   sendButtonContainer: {
     width: "20%",
     paddingRight: 10,
+    
   },
 });
