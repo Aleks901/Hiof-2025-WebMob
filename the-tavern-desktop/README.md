@@ -5,20 +5,20 @@ Velkommen! Ettersom denne delen skal brukes både for mobil programmering og web
 ```bash
 pnpm install
 ```
-### Kjør igang serveren for at API og Database skal være tilgjengelig (Uansett om du vurderer mobil eller web app)
-```bash
-pnpm run dev
-```
-### Åpne så en ny terminal i the-tavern-desktop. Herfra må vi sørge for at databasen fylles med tabeller, de skal i teorien ligge klar i drizzle filen så det skal være så enkelt som å kjøre følgende command.
+### Åpne en ekstra terminal i the-tavern-desktop. Herfra må vi sørge for at databasen fylles med tabeller, de skal i teorien ligge klar i drizzle filen så det skal være så enkelt som å kjøre følgende command.
 ```bash
 pnpm run migrate:dev
+```
+### Kjør så igang serveren for at API og Database skal være tilgjengelig (Uansett om du vurderer mobil eller web app)
+```bash
+pnpm run dev
 ```
 ### Seed så databasen så du får testet med noe i tabellene.
 ```bash
 pnpm run seed
 ```
 ## Videre for Mobil:
-Dersom du tester for mobil programmering kan du nå gå videre ved å hoppe over til the-tavern-mobile sin quick start. Ikke steng terminalen som kjører serveren til the-tavern-desktop da denne selvsagt brukes for å holde database / API aktivt.
+Dersom du tester for mobil programmering kan du nå gå videre ved å hoppe over til the-tavern-mobile sin quick start ReadMe fil. Ikke steng terminalen som kjører serveren til the-tavern-desktop da denne brukes for å holde database / API aktivt.
 
 
 
