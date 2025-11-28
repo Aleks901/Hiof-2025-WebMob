@@ -1,4 +1,4 @@
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image } from 'react-native';
 import { Link, useRouter } from 'expo-router';
 import { BasicForm } from '@/components/basic-form';
 import React from 'react';
@@ -27,7 +27,20 @@ export default function LoginScreen() {
 
     return (
         <View style={{ backgroundColor: theme.background, flex: 1 }}>
-            <BasicForm title="Login" onSubmit={handleSubmit} buttonStyle={{ backgroundColor: theme.buttonBackground }} buttonTextStyle= {{ color: theme.buttonText}}>
+            
+            <View style={styles.logoContainer}>
+                <Image 
+                    source={require('../tmp/images/Logo2.png')} 
+                    style={styles.logo} 
+                />
+            </View>
+
+            <BasicForm
+                title="Login"
+                onSubmit={handleSubmit}
+                buttonStyle={{ backgroundColor: theme.buttonBackground }}
+                buttonTextStyle={{ color: theme.buttonText }}
+            >
                 <TextInput
                     placeholder="Username"
                     placeholderTextColor={theme.mutedText}
@@ -48,13 +61,31 @@ export default function LoginScreen() {
                     <Text style={[styles.error, { color: theme.highlight }]}>{error}</Text>
                 ) : null}
             </BasicForm>
-            <Link href="/register" style={[styles.link, { color: theme.highlight }]}> Don't have an account? Register here!
+
+            <Link href="/register" style={[styles.link, { color: theme.highlight }]}>
+                Don't have an account? Register here!
             </Link>
         </View>
     );
 }
 
-const styles = StyleSheet.create ({
+const styles = StyleSheet.create({
+     logoContainer: {
+        width: 160,
+        height: 150,
+        overflow: 'hidden',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginTop: 40,
+        marginBottom: 20,
+        alignSelf: 'center',
+    },
+    logo: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain',
+        transform: [{ scale: 1.8 }],
+    },
     input: {
         margin: 6,
         borderWidth: 1,
