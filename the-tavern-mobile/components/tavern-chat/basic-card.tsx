@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import BasicButton from '../basic-button';
 import { Link } from 'expo-router';
 import { Chatroom } from '../../../packages/types/chat-room';
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 
 type Props = {
     chatroom: Chatroom;
@@ -11,7 +11,7 @@ type Props = {
 
 export default function BasicCard({ chatroom, href }: Props) {
 
-    const theme = useTheme();
+    const { theme } = useTheme();
 
     const styles = StyleSheet.create({
     card: {

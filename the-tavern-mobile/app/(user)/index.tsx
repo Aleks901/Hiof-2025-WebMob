@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import UserCard from '@/components/user-card';
 import { User } from '@packages/types/user';
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 import { ProtectedRoute } from '@/components/protected-route';
 import { useUser } from '@packages/hooks/useUser';
 
 export default function UserProfile() {
-  const theme = useTheme();
+  const { theme } = useTheme();
   const { user: currentUser } = useUser();
   const [user, setUser] = useState<User | null>(null);
 

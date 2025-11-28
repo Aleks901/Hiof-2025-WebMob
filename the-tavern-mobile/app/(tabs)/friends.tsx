@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { useState, useEffect } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import UserCard from '@/components/user-card';
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 import type { User } from '@packages/types/user';
 import { useUser } from '@packages/hooks/useUser';
 
@@ -10,7 +10,7 @@ export default function FriendsScreen() {
   const [users, setUsers] = useState<User[]>([]);
   const { user } = useUser();
   
-  const theme = useTheme();
+  const { theme } = useTheme();
   const insets = useSafeAreaInsets();
 
   useEffect(() => {
