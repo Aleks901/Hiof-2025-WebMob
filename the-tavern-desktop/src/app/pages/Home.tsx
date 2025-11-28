@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 import { Chatroom } from '@packages/types/chat-room';
 import ChatroomCard from '../components/chatroom-card';
 import { ProtectedRoute } from '../components/protected-route';
@@ -13,7 +13,7 @@ async function fetchChatrooms(): Promise<Chatroom[]> {
 }
 
 export function Home() {
-  const theme = useTheme();
+  const { theme } = useTheme();
   const [chats, setChats] = useState<Chatroom[] | null>(null);
 
   useEffect(() => {

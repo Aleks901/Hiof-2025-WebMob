@@ -1,14 +1,14 @@
 "use client"
 
 import { ChatMessage } from "@packages/types/chat-message"
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 
 type Props = {
     message: ChatMessage;
 }
 
 export default function ChatMessageCard({ message }: Props) {
-    const theme = useTheme();
+    const { theme } = useTheme();
 
     const styles: { [key: string]: React.CSSProperties } = {
         messageContainer: {

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useCallback } from "react";
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 import { ChatMessage } from "@packages/types/chat-message";
 import ChatList from "../components/tavern-chat/chat-list";
 import { useUser } from "@packages/hooks/useUser";
@@ -28,7 +28,7 @@ export function ChatPage() {
   const chatId = id;
   const { user } = useUser();
 
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");
