@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 import { User } from "@packages/types/user";
 import { ProfileAvatar } from "./ProfileAvatar";
 
@@ -8,7 +8,7 @@ interface UserCardProps {
 }
 
 export function UserCard({ user }: UserCardProps) {
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   return (
     <View style={[styles.userCard, { backgroundColor: theme.card, borderColor: theme.mutedText }]}>

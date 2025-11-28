@@ -1,5 +1,5 @@
 import { View, Text, TextInput, TouchableOpacity, ActivityIndicator, StyleSheet } from "react-native";
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 
 interface EditProfileSectionProps {
   isEditing: boolean;
@@ -28,7 +28,7 @@ export function EditProfileSection({
   onSave,
   onCancel,
 }: EditProfileSectionProps) {
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   return (
     <View style={[styles.editSection, { backgroundColor: theme.card, borderColor: theme.mutedText }]}>

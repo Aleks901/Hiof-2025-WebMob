@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 import { User } from "@packages/types/user";
 
 interface AboutSectionProps {
@@ -7,7 +7,7 @@ interface AboutSectionProps {
 }
 
 export function AboutSection({ user }: AboutSectionProps) {
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   const getAboutText = (role: string) => {
     switch (role) {
