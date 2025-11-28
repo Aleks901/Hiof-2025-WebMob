@@ -1,6 +1,6 @@
 "use client"
 
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 
 export default function NavButton({
     children,
@@ -13,7 +13,7 @@ export default function NavButton({
     href: string,
     isActive?: boolean
 }) {
-    const theme = useTheme();
+    const { theme } = useTheme();
     
     return (
         <a 

@@ -1,7 +1,7 @@
 "use client"
 
 import { BasicForm } from './basic-form'
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 import { useState, useEffect } from 'react';
 import { useUser } from '@packages/hooks/useUser';
 
@@ -92,7 +92,7 @@ export default function LoginForm(){
     );
 }
 
-const theme = useTheme();
+const { theme } = useTheme();
 
 const styles = {
     

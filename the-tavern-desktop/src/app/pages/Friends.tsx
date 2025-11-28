@@ -5,7 +5,7 @@ import { UserCard } from '../components/user-card';
 import type { User } from '@packages/types/user';
 import { ProtectedRoute } from '../components/protected-route';
 import { useUser } from '@packages/hooks/useUser';
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 
 export function Friends() {
     return (
@@ -16,7 +16,7 @@ export function Friends() {
 }
 
 function FriendsContent() {
-    const theme = useTheme();
+    const { theme } = useTheme();
     const { user } = useUser();
     const [friends, setFriends] = useState<User[]>([]);
     const [allUsers, setAllUsers] = useState<User[]>([]);

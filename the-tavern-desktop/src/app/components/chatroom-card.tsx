@@ -1,4 +1,4 @@
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 import BasicCard from "./basic-card";
 
 type ChatroomCardProps = {
@@ -25,7 +25,7 @@ export default function ChatroomCard({id, name, description, image }: ChatroomCa
     );
 }
 
-const theme = useTheme();
+const { theme } = useTheme();
 
 const styles: { [key: string]: React.CSSProperties } = {
     chatcardContainer: {

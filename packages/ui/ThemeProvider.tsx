@@ -7,7 +7,13 @@ type ThemeContextType = {
     toggleTheme: () => void
 };
 
-const ThemeContext = createContext<ThemeContextType | null>(null);
+const defaultThemeContext: ThemeContextType = {
+    theme: tavernDarkTheme,
+    mode: "dark",
+    toggleTheme: () => {}
+};
+
+const ThemeContext = createContext<ThemeContextType>(defaultThemeContext);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [mode, setMode] = useState<"light" | "dark">("dark")
@@ -30,10 +36,11 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useTheme() {
-    const context = useContext(ThemeContext)
-    if (!context) {
-        throw new Error("useTheme must be used within a ThemeProvider")
-    }
 
-    return context;
+    try {
+        return useContext(ThemeContext);
+    } catch (error) {
+
+        return defaultThemeContext;
+    }
 }
