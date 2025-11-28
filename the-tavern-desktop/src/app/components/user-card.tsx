@@ -1,6 +1,6 @@
 "use client"
 
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 import type { User } from "@packages/types/user";
 
 interface UserCardProps {
@@ -10,7 +10,7 @@ interface UserCardProps {
 export function UserCard({ 
   user, 
 }: UserCardProps) {
-  const theme = useTheme();
+  const { theme } = useTheme();
   
   return (
     <a 

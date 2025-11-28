@@ -3,12 +3,12 @@
 import { useState, useEffect } from 'react';
 import type { LayoutProps } from 'rwsdk/router'
 import NavButton from '../components/navigation/nav-button';
-import { useTheme } from '@packages/ui/useTheme';
+import { ThemeProvider, useTheme } from '@packages/ui/ThemeProvider';
 import { useUser } from '@packages/hooks/useUser';
 import { UserProvider } from '@packages/contexts/UserContext';
 
 function AppLayoutContent({ children }: { children: React.ReactNode }) {
-  const theme = useTheme();
+  const { theme } = useTheme();
   const { user, logout } = useUser();
   
   const [currentPath, setCurrentPath] = useState('');
@@ -79,7 +79,9 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
 export function AppLayout({ children }: LayoutProps) {
   return (
     <UserProvider>
-      <AppLayoutContent>{children}</AppLayoutContent>
+      <ThemeProvider>
+        <AppLayoutContent>{children}</AppLayoutContent>
+      </ThemeProvider>
     </UserProvider>
   );
 }

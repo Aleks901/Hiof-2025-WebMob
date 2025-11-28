@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import ChatroomList from '@/components/tavern-chat/chatroom-list';
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 import { Chatroom } from '@packages/types/chat-room';
 import { useState, useEffect } from 'react';
 
@@ -11,7 +11,7 @@ async function fetchChatrooms(): Promise<Chatroom[]> {
 }
 
 export default function HomeScreen() {
-  const theme = useTheme();
+  const { theme } = useTheme();
   const [chats, setChats] = useState<Chatroom[] | null>(null);
 
   useEffect(() => {

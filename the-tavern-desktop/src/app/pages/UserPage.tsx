@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { useTheme } from "@packages/ui/useTheme"
+import { useTheme } from "@packages/ui/ThemeProvider"
 import { User } from "@packages/types/user"
 import { ProtectedRoute } from '../components/protected-route';
 
@@ -15,7 +15,7 @@ export function UserPage() {
 
 function UserPageContent() {
   const { id } = useParams()
-  const theme = useTheme()
+  const { theme } = useTheme()
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)

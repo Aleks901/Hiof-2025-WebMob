@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 import { View, StyleSheet, TextInput, Button, Text } from "react-native";
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 import { ChatMessage } from "@packages/types/chat-message";
 import { useEffect, useState, useCallback } from "react";
 import ChatList from "@/components/tavern-chat/chat-list";
@@ -27,7 +27,7 @@ export default function ChatRoom() {
   const chatId = Array.isArray(id) ? id[0] : id;
   const { user } = useUser();
 
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [newMessage, setNewMessage] = useState("");

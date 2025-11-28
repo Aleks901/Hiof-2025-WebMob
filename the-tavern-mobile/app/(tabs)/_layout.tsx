@@ -1,12 +1,12 @@
 import { Tabs, useRouter } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 import { Image, TouchableOpacity } from "react-native";
 import { ProtectedRoute } from "@/components/protected-route";
 import { useUser } from "@packages/hooks/useUser";
 
 export default function TabsLayout() {
-  const theme = useTheme();
+  const { theme } = useTheme();
   const router = useRouter();
   const { logout } = useUser();
 

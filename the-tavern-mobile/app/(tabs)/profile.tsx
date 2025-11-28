@@ -2,6 +2,11 @@ import { View, Text, ScrollView, ActivityIndicator, StyleSheet, RefreshControl }
 import { useState, useEffect, useCallback } from "react";
 import { useTheme } from "@packages/ui/useTheme";
 import { User } from "@packages/types/user";
+import { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import UserCard from '@/components/user-card';
+import { User } from '@packages/types/user';
+import { useTheme } from '@packages/ui/ThemeProvider';
 import { useUser } from '@packages/hooks/useUser';
 import { UserCard, UserInfoPanel, EditProfileSection, AboutSection } from '@/components/profile';
 
@@ -13,6 +18,8 @@ interface ApiResponse<T> {
 
 export default function CurrentUserProfile() {
   const theme = useTheme();
+export default function UserProfile() {
+  const { theme } = useTheme();
   const { user: currentUser } = useUser();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);

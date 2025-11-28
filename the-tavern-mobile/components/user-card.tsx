@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Link } from 'expo-router';
 import BasicButton from './basic-button';
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 import type { User } from '@packages/types/user';
 
 type UserCardProps = {
@@ -13,7 +13,7 @@ export default function UserCard({
   user, 
   href = '(home)/chat'
 }: UserCardProps) {
-  const theme = useTheme();
+  const { theme } = useTheme();
   const styles = createStyles(theme);
 
   return (
