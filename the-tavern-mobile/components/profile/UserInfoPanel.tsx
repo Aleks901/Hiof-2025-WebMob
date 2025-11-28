@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from "react-native";
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 import { User } from "@packages/types/user";
 
 interface UserInfoPanelProps {
@@ -7,7 +7,7 @@ interface UserInfoPanelProps {
 }
 
 export function UserInfoPanel({ user }: UserInfoPanelProps) {
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   return (
     <View style={[styles.infoPanel, { backgroundColor: theme.card, borderColor: theme.mutedText }]}>

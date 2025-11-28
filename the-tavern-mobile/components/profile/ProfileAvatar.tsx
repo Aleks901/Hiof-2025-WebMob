@@ -1,12 +1,12 @@
 import { View, Text, StyleSheet } from "react-native";
-import { useTheme } from "@packages/ui/useTheme";
+import { useTheme } from "@packages/ui/ThemeProvider";
 
 interface ProfileAvatarProps {
   name: string;
 }
 
 export function ProfileAvatar({ name }: ProfileAvatarProps) {
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   return (
     <View style={[styles.avatar, { backgroundColor: theme.highlight }]}>
