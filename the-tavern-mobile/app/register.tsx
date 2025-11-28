@@ -3,10 +3,10 @@ import { Link, useRouter } from 'expo-router';
 import { BasicForm } from '@/components/basic-form';
 import React from 'react';
 import { useUser } from '@packages/hooks/useUser';
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 
 export default function RegisterScreen() {
-  const theme = useTheme();
+  const { theme } = useTheme();
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');

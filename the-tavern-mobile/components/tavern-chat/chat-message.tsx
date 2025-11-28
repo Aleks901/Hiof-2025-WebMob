@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { ChatMessage } from '../../../packages/types/chat-message'
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 // moving on for now though. I'm busy.
 export default function ChatMessageCard(props: Props) {
 
-    const theme = useTheme();
+    const { theme } = useTheme();
 
     const { message } = props;
 

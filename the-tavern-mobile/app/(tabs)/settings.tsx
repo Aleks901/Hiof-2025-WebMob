@@ -1,11 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useTheme } from '@packages/ui/useTheme';
+import { useTheme } from '@packages/ui/ThemeProvider';
 import { useUser } from '@packages/hooks/useUser';
 import { useRouter } from 'expo-router';
 
 export default function Settings() {
-  const theme = useTheme();
+  const { theme, mode, toggleTheme } = useTheme();
   const { user, logout } = useUser();
   const router = useRouter();
 
@@ -82,9 +82,12 @@ export default function Settings() {
 
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>Appearance</Text>
-        <View style={styles.option}>
-          <Text style={styles.optionText}>Theme Settings</Text>
-        </View>
+
+        <TouchableOpacity style={styles.option} onPress={toggleTheme}>
+          <Text style={styles.optionText}>
+            Switch to {mode === "light" ? "Dark" : "Light"} Mode
+          </Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.section}>
