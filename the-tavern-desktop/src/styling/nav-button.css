@@ -1,0 +1,16 @@
+.nav-button {
+    padding-bottom: 4px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.nav-button-active {
+    font-weight: 600;
+    border-bottom-width: 2px;
+    border-bottom-style: solid;
+}
+
+.nav-button-inactive {
+    font-weight: 400;
+    border-bottom: none;
+}

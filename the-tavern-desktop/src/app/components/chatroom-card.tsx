@@ -1,5 +1,7 @@
-import { useTheme } from "@packages/ui/ThemeProvider";
+"use client"
+
 import BasicCard from "./basic-card";
+import '../../styling/chatroom-card.css';
 
 type ChatroomCardProps = {
     id: string;
@@ -9,56 +11,16 @@ type ChatroomCardProps = {
 }
 
 export default function ChatroomCard({id, name, description, image }: ChatroomCardProps) {
+    
     return (
-        <div style={styles.chatcardContainer}>
-    <a href={`/chat/${id}`}>
-        
-        <BasicCard
-        image={image}
-        title={name}
-        description={description}
-        />
-        </a>
-
-        
+        <div className="chatroom-card-container">
+            <a href={`/chat/${id}`} className="chatroom-card-link">
+                <BasicCard
+                    image={image}
+                    title={name}
+                    description={description}
+                />
+            </a>
         </div>
     );
 }
-
-const { theme } = useTheme();
-
-const styles: { [key: string]: React.CSSProperties } = {
-    chatcardContainer: {
-    display: "flex",
-    flexDirection: "column",
-    width: 180,
-    margin: 0,
-    padding: 10,
-    boxSizing: "border-box",
-    borderRadius: 12,
-    border: `1px solid ${theme.highlight}`,
-    backgroundColor: theme.background,
-    color: theme.text,
-  },
-
-  link: {
-    textDecoration: "none",
-    color: "inherit",
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-
-  image: {
-    width: "100%",
-  },
-
-  title: {
-
-  },
-
-  description: {
-
-  },
-};

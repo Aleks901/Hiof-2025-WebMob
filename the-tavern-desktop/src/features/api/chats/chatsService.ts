@@ -1,3 +1,5 @@
+"use server"
+
 import { ChatService } from "@packages/types/api/chats/chat-service";
 import { Chatroom } from "@packages/types/chat-room";
 import { createChatRepository } from "./chatsRepository";

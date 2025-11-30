@@ -85,7 +85,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "The Tavern Testroom",
           description: "Test Chatroom for test purposes..",
-          imgref: "https://digitalpress.fra1.cdn.digitaloceanspaces.com/g06yzna/2023/10/lwg-tavern-encs-cover-1.jpg"
+          imgref: "/assets/tavern.jpg"
         })
       .returning();
 
@@ -94,7 +94,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "Call of Duty",
           description: "Test Chatroom for 1337 gaming purposes..",
-          imgref: "https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Call_of_Duty_Modern_Warfare_2_%282009%29_cover.png/250px-Call_of_Duty_Modern_Warfare_2_%282009%29_cover.png"
+          imgref: "/assets/mw2.png"
         })
       .returning();
 
@@ -103,7 +103,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "World of Warcraft",
           description: "For those with no life",
-          imgref: "https://upload.wikimedia.org/wikipedia/en/thumb/6/65/World_of_Warcraft.png/250px-World_of_Warcraft.png"
+          imgref: "/assets/World_of_warcraft.png"
         })
       .returning();
 
@@ -112,7 +112,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "Realm of the Mad God",
           description: "For those with their mother's credit card",
-          imgref: "https://upload.wikimedia.org/wikipedia/en/f/fd/Realm_of_the_Mad_God_Exalt_title_screen.png"
+          imgref: "/assets/rotmg.jpg"
         })
       .returning();
 
@@ -121,7 +121,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "Minecraft",
           description: "For those with crafty ideas",
-          imgref: "https://image.api.playstation.com/vulcan/ap/rnd/202407/0401/670c294ded3baf4fa11068db2ec6758c63f7daeb266a35a1.png"
+          imgref: "/assets/mc.png"
         })
       .returning();
 
@@ -130,7 +130,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "League of Legends",
           description: "For those with too much time on their hands",
-          imgref: "https://i0.wp.com/highschool.latimes.com/wp-content/uploads/2021/09/league-of-legends.jpeg?fit=1200%2C668&ssl=1"
+          imgref: "/assets/league.jpg"
         })
       .returning();
 
@@ -139,7 +139,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "Diablo 2",
           description: "For those looking for neat loot and spooky monsters",
-          imgref: "https://upload.wikimedia.org/wikipedia/en/d/d5/Diablo_II_Coverart.png"
+          imgref: "/assets/D2.png"
         })
       .returning();
 
@@ -148,7 +148,7 @@ export default defineScript(async ({ env }) => {
         .values({
           name: "Super Mario 64",
           description: "..Yeah I don't know anymore lines to put here",
-          imgref: "https://upload.wikimedia.org/wikipedia/en/e/e9/Super_Mario_64.png"
+          imgref: "/assets/m64.png"
         })
       .returning();
 

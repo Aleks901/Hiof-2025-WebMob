@@ -1,3 +1,5 @@
+"use server"
+
 import { UserService } from "@packages/types/api/users/user-service";
 import { User } from "@packages/types/user";
 import { UserRepository } from "@packages/types/api/users/user-repository";

@@ -1,11 +1,10 @@
 import { defineApp } from "rwsdk/worker";
 import { layout, prefix, render, route } from "rwsdk/router";
 import { Document } from "@/app/Document";
-import { User, users } from "./db/schema/user-schema";
+import { users } from "./db/schema/user-schema";
 import { setCommonHeaders } from "./app/headers";
 import { env } from "cloudflare:workers";
 import { drizzle } from "drizzle-orm/d1";
-import { About } from "./app/pages/About";
 import { Friends } from "./app/pages/Friends"
 import { AppLayout } from "./app/layouts/AppLayout";
 import { userRoutes } from "./features/api/users/usersRoutes";
@@ -58,7 +57,6 @@ export default defineApp([
           </div>
         );
       }),
-      route("/about", About),
       route("/friends", Friends),
       route("/user/:id", UserPage),
       route("/chat/:id", ChatPage),

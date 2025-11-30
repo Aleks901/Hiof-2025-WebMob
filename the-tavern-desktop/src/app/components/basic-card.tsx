@@ -1,3 +1,4 @@
+import '../../styling/basic-card.css';
 
 type BasicCardProps = {
     image?: string;
@@ -13,34 +14,23 @@ export default function BasicCard({
     children,
 }: BasicCardProps) {
     return (
-        <div style={styles.card}>
-            {image && <img src={image} alt={title} style={styles.image}/>}
-            <h3 style={styles.title}>{title}</h3>
-            {description && <p style={styles.description}>{description}</p>}
-            {children && <div style={styles.children}> {children}</div>}
+        <div className="basic-card">
+            {image && (
+                <img 
+                    src={image} 
+                    alt={title} 
+                    className="basic-card-image"
+                />
+            )}
+            <div className="basic-card-content">
+                <h3 className="basic-card-title">{title}</h3>
+                {description && (
+                    <p className="basic-card-description">{description}</p>
+                )}
+                {children && (
+                    <div className="basic-card-children">{children}</div>
+                )}
+            </div>
         </div>
-    )
-}
-
-const styles = {
-    card: {
-
-    },
-
-    image: {
-
-    }, 
-
-    title: {                            //Current skeleton placeholder for future styling
-
-    },
-
-    description: {
-
-    },
-
-    children: {
-
-    }
-
+    );
 }

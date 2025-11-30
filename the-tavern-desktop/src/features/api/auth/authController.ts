@@ -1,3 +1,5 @@
+"use server"
+
 import { AuthService } from "@packages/types/api/auth/auth-service";
 import { RequestInfo } from "rwsdk/worker";
 

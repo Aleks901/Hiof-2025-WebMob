@@ -4,6 +4,7 @@ export function BasicForm({
     children, 
     title, 
     formStyles,
+    formClasses,
     onSubmit}: {
         children: React.ReactNode; 
         title: string;
@@ -11,6 +12,11 @@ export function BasicForm({
           titleStyle?: React.CSSProperties
           formStyle?: React.CSSProperties
           buttonStyle?: React.CSSProperties
+        };
+        formClasses?: {
+          formClass?: string
+          titleClass?: string
+          buttonClass?: string
         };
         onSubmit?: (e: React.FormEvent) => void}) {
   
@@ -22,13 +28,13 @@ export function BasicForm({
   };
 
   return (
-    <form style={formStyles?.formStyle} onSubmit={handleSubmit}>
+    <form className={formClasses?.formClass} style={formStyles?.formStyle} onSubmit={handleSubmit}>
         
-      <h1 style={formStyles?.titleStyle}>{title}</h1>
+      <h1 className={formClasses?.titleClass} style={formStyles?.titleStyle}>{title}</h1>
 
       {children}
 
-      <BasicButton type="submit" buttonStyle={formStyles?.buttonStyle}>
+      <BasicButton type="submit" className={formClasses?.buttonClass} buttonStyle={formStyles?.buttonStyle}>
         Submit
       </BasicButton>
 

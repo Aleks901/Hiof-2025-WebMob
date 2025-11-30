@@ -48,18 +48,12 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
                 <div className='flex space-x-4 col-start-3 justify-center'>
                     <NavButton href="/home" className='hover:underline' isActive={isActive('/home')}>Home</NavButton>
                     <NavButton href="/friends" className='hover:underline' isActive={isActive('/friends')}>Friends</NavButton>
-                    <NavButton href="/about" className='hover:underline' isActive={isActive('/about')}>About Us</NavButton>
                     <NavButton href={`/user/${user.id}`} className='hover:underline' isActive={isActive('/user')}>User</NavButton>
                     <button 
                       onClick={handleLogout} 
                       className='hover:underline'
                       style={{
-                        color: theme.text,
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        fontSize: 'inherit',
-                        fontFamily: 'inherit'
+                        ...styles(theme).logoutButton
                       }}
                     >
                       Logout
@@ -87,6 +81,16 @@ export function AppLayout({ children }: LayoutProps) {
 }
 
 const styles = (theme: any) => ({
+  logoutButton: {
+    color: theme.text,
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: 'inherit',
+    fontFamily: 'inherit',
+    paddingBottom: 6
+  },
+
   header: {
     backgroundColor: theme.card,
     color: theme.text

@@ -1,10 +1,10 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { useTheme } from '@packages/ui/ThemeProvider';
 import { Chatroom } from '@packages/types/chat-room';
 import ChatroomCard from '../components/chatroom-card';
 import { ProtectedRoute } from '../components/protected-route';
+import '../../styling/home.css';
 
 async function fetchChatrooms(): Promise<Chatroom[]> {
   const response = await fetch('/api/v2/chats');
@@ -13,7 +13,6 @@ async function fetchChatrooms(): Promise<Chatroom[]> {
 }
 
 export function Home() {
-  const { theme } = useTheme();
   const [chats, setChats] = useState<Chatroom[] | null>(null);
 
   useEffect(() => {
@@ -25,28 +24,34 @@ export function Home() {
   if (chats.length === 0)
     return (
       <ProtectedRoute>
-        <div>
-          <p>Welcome to The Tavern!</p>
-          <p>No chatrooms available.</p>
+        <div className="home-container">
+          <div className="home-header">
+            <h1 className="home-title">Welcome to The Tavern!</h1>
+            <p className="home-subtitle">No chatrooms available.</p>
+          </div>
         </div>
       </ProtectedRoute>
     )
 
   return (
     <ProtectedRoute>
-      <div>
-        <p>Welcome to The Tavern!</p>
-        <p>Pick a table!</p>
+      <div className="home-container">
+        <div className="home-header">
+          <h1 className="home-title">Welcome to The Tavern!</h1>
+          <p className="home-subtitle">Pick a table!</p>
+        </div>
 
-        {chats.map((chat) => (
-        <ChatroomCard 
-          key={chat.id} 
-          id={String(chat.id)} 
-          name={chat.name} 
-          image={chat.imgref}
-          description={chat.description}
-        />
-        ))}
+        <div className="chatroom-grid">
+          {chats.map((chat) => (
+            <ChatroomCard 
+              key={chat.id} 
+              id={String(chat.id)} 
+              name={chat.name} 
+              image={chat.imgref}
+              description={chat.description}
+            />
+          ))}
+        </div>
       </div>
     </ProtectedRoute>
   )

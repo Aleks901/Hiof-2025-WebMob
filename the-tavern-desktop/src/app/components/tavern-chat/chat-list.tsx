@@ -3,6 +3,7 @@
 import { ChatMessage } from "@packages/types/chat-message";
 import ChatMessageCard from "./chat-message";
 import { useRef, useEffect, useState } from "react";
+import '../../../styling/chat-list.css';
 
 type ChatListProps = {
   messages: ChatMessage[];
@@ -32,7 +33,6 @@ export default function ChatList({ messages, myUserId }: ChatListProps) {
   };
 
   useEffect(() => {
-    // Only auto-scroll if user is near bottom AND there are new messages
     const hasNewMessages = messages.length > previousMessageCountRef.current;
     if (hasNewMessages && isNearBottom) {
       scrollToBottom(true);
@@ -44,28 +44,8 @@ export default function ChatList({ messages, myUserId }: ChatListProps) {
     scrollToBottom(false);
   }, []);
 
-  const styles: { [key: string]: React.CSSProperties } = {
-    container: {
-      flex: 1,
-      overflowY: "auto",
-      padding: "24px 0",
-      display: "flex",
-      flexDirection: "column",
-      gap: "16px",
-    },
-    messageWrapper: {
-      width: "100%",
-      display: "flex",
-      padding: "0 8px",
-    },
-    messageContent: {
-      maxWidth: "65%",
-      minWidth: "300px",
-    },
-  };
-
   return (
-    <div ref={listRef} style={styles.container} onScroll={checkIfNearBottom}>
+    <div ref={listRef} className="chat-list-container" onScroll={checkIfNearBottom}>
       {messages.map((item) => {
         const isMine =
           ((item as any).user?.id ?? (item as any).userId ?? (item as any).authorId) ===
@@ -73,12 +53,9 @@ export default function ChatList({ messages, myUserId }: ChatListProps) {
         return (
           <div
             key={item.id}
-            style={{
-              ...styles.messageWrapper,
-              justifyContent: isMine ? "flex-end" : "flex-start",
-            }}
+            className={`chat-list-message-wrapper ${isMine ? 'chat-list-message-mine' : 'chat-list-message-theirs'}`}
           >
-            <div style={styles.messageContent}>
+            <div className="chat-list-message-content">
               <ChatMessageCard message={item} />
             </div>
           </div>

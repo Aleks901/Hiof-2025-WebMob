@@ -1,3 +1,5 @@
+"use server"
+
 import { ChatRepository } from "@packages/types/api/chats/chat-repository";
 import { Chatroom } from "@/db/schema/chatroom-schema";
 import { chatrooms, messages, userChatrooms, users } from "@/db/schema"

@@ -1,3 +1,5 @@
+"use server"
+
 import { UserService } from "@packages/types/api/users/user-service";
 import { usersService } from "./usersService";
 import { RequestInfo } from "rwsdk/worker";
