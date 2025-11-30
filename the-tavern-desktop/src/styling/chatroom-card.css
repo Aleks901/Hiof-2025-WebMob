@@ -1,0 +1,44 @@
+.chatroom-card-container {
+    width: 220px;
+    transition: transform 0.2s ease;
+}
+
+.chatroom-card-container:hover {
+    transform: scale(1.02);
+}
+
+.chatroom-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.chatroom-card-container .basic-card {
+    height: 100%;
+    border-width: 2px;
+    border-style: solid;
+}
+
+.chatroom-card-container .basic-card-image {
+    height: 240px;
+}
+
+.chatroom-card-container .basic-card-content {
+    padding: 8px;
+}
+
+.chatroom-card-container .basic-card-title {
+    font-size: 14px;
+    text-align: center;
+    min-height: 36px;
+    margin: 0 0 4px 0;
+}
+
+.chatroom-card-container .basic-card-description {
+    font-size: 11px;
+    text-align: center;
+    color: inherit;
+    opacity: 0.8;
+    min-height: 40px;
+    margin: 0;
+}

@@ -1,6 +1,7 @@
 "use client"
 
 import { useTheme } from '@packages/ui/ThemeProvider';
+import '../../../styling/nav-button.css';
 
 export default function NavButton({
     children,
@@ -18,12 +19,10 @@ export default function NavButton({
     return (
         <a 
             href={href} 
-            className={className}
+            className={`nav-button ${isActive ? 'nav-button-active' : 'nav-button-inactive'} ${className || ''}`}
             style={{
                 color: isActive ? theme.highlight : theme.text,
-                fontWeight: isActive ? '600' : '400',
-                borderBottom: isActive ? `2px solid ${theme.highlight}` : 'none',
-                paddingBottom: '4px',
+                borderBottomColor: isActive ? theme.highlight : 'transparent',
             }}
         >
             {children}

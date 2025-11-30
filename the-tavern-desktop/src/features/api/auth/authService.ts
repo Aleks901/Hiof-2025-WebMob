@@ -1,3 +1,5 @@
+"use server"
+
 import { AuthRepository } from "@packages/types/api/auth/auth-repository";
 import { AuthService } from "@packages/types/api/auth/auth-service";
 

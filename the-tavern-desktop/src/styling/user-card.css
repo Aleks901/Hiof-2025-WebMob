@@ -1,0 +1,68 @@
+.user-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.2s ease;
+}
+
+.user-card {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    gap: 16px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.user-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+.user-card-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.user-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-card-name {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0 0 4px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.user-card-role {
+    font-size: 14px;
+    margin: 0 0 2px 0;
+    text-transform: capitalize;
+}
+
+.user-card-joined {
+    font-size: 12px;
+    margin: 0;
+}
+
+.user-card-action {
+    flex-shrink: 0;
+}
+
+.user-card-arrow {
+    font-size: 16px;
+}

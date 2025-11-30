@@ -1,3 +1,5 @@
+"use server"
+
 import { UserRepository } from "@packages/types/api/users/user-repository";
 import { User } from "@/db/schema/user-schema";
 import { messages, userChatrooms, userFriends, users } from "@/db/schema"

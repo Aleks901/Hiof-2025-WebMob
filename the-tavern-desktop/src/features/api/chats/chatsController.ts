@@ -1,6 +1,7 @@
+"use server"
+
 import { chatsService } from "./chatsService";
 import { ChatService } from "@packages/types/api/chats/chat-service";
-import { ChatMessage } from "@packages/types/chat-message";
 import { Chatroom } from "@packages/types/chat-room";
 import { RequestInfo } from "rwsdk/worker";
 

@@ -1,0 +1,51 @@
+.home-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.home-header {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.home-title {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+}
+
+.home-subtitle {
+    font-size: 18px;
+    margin: 0;
+    opacity: 0.8;
+}
+
+.chatroom-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    justify-items: center;
+}
+
+@media (max-width: 768px) {
+    .chatroom-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chatroom-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .home-title {
+        font-size: 24px;
+    }
+    
+    .home-subtitle {
+        font-size: 16px;
+    }
+}

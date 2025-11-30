@@ -1,11 +1,9 @@
 "use client"
 
 import { useEffect, useState } from 'react';
-import { useUser } from '@packages/hooks/useUser';
 import { errorRedirect } from '@/middleware/actions';
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
-    const { user } = useUser();
     const [isReady, setIsReady] = useState(false);
 
     useEffect(() => {

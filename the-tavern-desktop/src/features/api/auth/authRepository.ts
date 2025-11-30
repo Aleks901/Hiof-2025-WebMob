@@ -1,4 +1,5 @@
-import { User } from "@/db/schema/user-schema";
+"use server"
+
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { type DB } from "@/db";
