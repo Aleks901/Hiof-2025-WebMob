@@ -3,7 +3,7 @@
 import {chatrooms, users, messages, userChatrooms, userFriends } from './schema';
 import { defineScript } from "rwsdk/worker";
 import { getDb, setupDb } from ".";
-import { hashPassword } from "@/lib/password";
+import { hashPassword } from "@/middleware/password";
 
 export default defineScript(async ({ env }) => {
   try {

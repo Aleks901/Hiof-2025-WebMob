@@ -6,6 +6,7 @@ import { ChatMessage } from "@packages/types/chat-message";
 import ChatList from "../components/tavern-chat/chat-list";
 import { useUser } from "@packages/hooks/useUser";
 import { User } from "@packages/types/user";
+import { ProtectedRoute } from "../components/protected-route";
 
 async function fetchChatMessages(chatId: string): Promise<ChatMessage[]> {
   const response = await fetch(`/api/v2/chats/${chatId}/messages`);
@@ -70,7 +71,7 @@ export function ChatPage() {
   );
 
   if (!user) {
-    return <div style={{ padding: "20px", color: theme.text }}>Loading...</div>;
+    return <ProtectedRoute><div style={{ padding: "20px", color: theme.text }}>Loading...</div></ProtectedRoute>;
   }
 
   const styles: { [key: string]: React.CSSProperties } = {
@@ -132,42 +133,42 @@ export function ChatPage() {
   };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.chatLists}>
-        <ChatList messages={messages} myUserId={user.id} />
+      <div style={styles.page}>
+        <div style={styles.chatLists}>
+          <ChatList messages={messages} myUserId={user.id} />
+        </div>
+        <form style={styles.chatForm} onSubmit={sendMessage}>
+          <input
+            style={styles.textInput}
+            placeholder="Say something!"
+            value={newMessage}
+            onChange={handleNewMessage}
+            disabled={isSending}
+            onFocus={(e) => e.currentTarget.style.borderColor = theme.highlight}
+            onBlur={(e) => e.currentTarget.style.borderColor = theme.mutedText}
+          />
+          <button
+            type="submit"
+            style={{
+              ...styles.sendButton,
+              ...(isSending ? styles.sendButtonDisabled : {}),
+            }}
+            disabled={isSending}
+            onMouseEnter={(e) => {
+              if (!isSending) {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
+              }
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
+            }}
+          >
+            Send
+          </button>
+        </form>
       </div>
-      <form style={styles.chatForm} onSubmit={sendMessage}>
-        <input
-          style={styles.textInput}
-          placeholder="Say something!"
-          value={newMessage}
-          onChange={handleNewMessage}
-          disabled={isSending}
-          onFocus={(e) => e.currentTarget.style.borderColor = theme.highlight}
-          onBlur={(e) => e.currentTarget.style.borderColor = theme.mutedText}
-        />
-        <button
-          type="submit"
-          style={{
-            ...styles.sendButton,
-            ...(isSending ? styles.sendButtonDisabled : {}),
-          }}
-          disabled={isSending}
-          onMouseEnter={(e) => {
-            if (!isSending) {
-              e.currentTarget.style.transform = 'translateY(-2px)';
-              e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.3)';
-            }
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.transform = 'translateY(0)';
-            e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
-          }}
-        >
-          Send
-        </button>
-      </form>
-    </div>
   );
 }
 

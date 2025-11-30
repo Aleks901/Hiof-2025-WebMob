@@ -2,7 +2,7 @@ import { User } from "@/db/schema/user-schema";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { type DB } from "@/db";
-import { verifyPassword } from "@/lib/password";
+import { verifyPassword } from "@/middleware/password";
 import { AuthRepository } from "@packages/types/api/auth/auth-repository";
 
 export function createAuthRepository(db: DB): AuthRepository {

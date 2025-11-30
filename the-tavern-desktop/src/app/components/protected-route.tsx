@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useUser } from '@packages/hooks/useUser';
+import { errorRedirect } from '@/middleware/actions';
 
 export function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user } = useUser();
@@ -13,7 +14,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
             
             const storedUser = localStorage.getItem('user');
             if (!storedUser) {
-                window.location.href = '/';
+                return errorRedirect("NOT ALLOWED: NO LOGIN DETECTED")
             } else {
                 setIsReady(true);
             }
