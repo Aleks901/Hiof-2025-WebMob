@@ -17,6 +17,7 @@ import LoginForm from "./app/components/login-form";
 import { Home } from "./app/pages/Home";
 import { setupDb, type DB} from "@/db"
 import { chatrooms } from "./db/schema";
+import { ErrorPage } from "./app/pages/ErrorPage";
 
 
 export interface Env {
@@ -61,7 +62,8 @@ export default defineApp([
       route("/friends", Friends),
       route("/user/:id", UserPage),
       route("/chat/:id", ChatPage),
-      route("/home", Home)
+      route("/home", Home),
+      route("/error", ErrorPage)
     ]),
   ])
 ]);

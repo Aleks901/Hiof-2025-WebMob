@@ -3,7 +3,7 @@ import { User } from "@/db/schema/user-schema";
 import { messages, userChatrooms, userFriends, users } from "@/db/schema"
 import { eq } from "drizzle-orm";
 import {type DB} from "@/db"
-import { hashPassword } from "@/lib/password";
+import { hashPassword } from "@/middleware/password";
 
 export function createUserRepository(db: DB): UserRepository {
 
