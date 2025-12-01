@@ -12,6 +12,7 @@ export function createChatController(chatsService: ChatService) {
         async listChats(context: RequestInfo) {
             try {
                 const dataFromService = await chatsService.listChats();
+                console.info("[API]", "Fetching chatrooms..")
                 return new Response(
                 JSON.stringify({
                     ...dataFromService,
@@ -22,6 +23,7 @@ export function createChatController(chatsService: ChatService) {
                 }
                 );
             } catch (error) {
+                console.error("[API]", "Failed to list chats", error);
                 return new Response(
                     JSON.stringify({
                         message: "Failed to list chats",
@@ -38,6 +40,7 @@ export function createChatController(chatsService: ChatService) {
           try {
             const { id } = context.params;
             const dataFromService = await chatsService.getChatById(Number(id));
+            console.info("[API]", `Fetching chat with id ${id}..`)
             return new Response(
               JSON.stringify({
                 ...dataFromService,
@@ -48,6 +51,7 @@ export function createChatController(chatsService: ChatService) {
               }
             );
           } catch (error) {
+            console.error("[API]", "Failed to get chat", error);
             return new Response(
               JSON.stringify({
                 message: "Failed to get chat",
@@ -65,6 +69,7 @@ export function createChatController(chatsService: ChatService) {
           try {
             const data = await context.request.json() as Chatroom;
             const dataFromService = await chatsService.createChat(data);
+            console.info("[API]", "Creating a new chat..")
             return new Response(
               JSON.stringify({
                 ...dataFromService,
@@ -75,6 +80,7 @@ export function createChatController(chatsService: ChatService) {
               }
             );
           } catch (error) {
+            console.error("[API]", "Failed to create chat", error);
             return new Response(
               JSON.stringify({
                 message: "Failed to create chat",
@@ -92,6 +98,7 @@ export function createChatController(chatsService: ChatService) {
               const { id } = context.params;
               const data = await context.request.json() as Chatroom;
               const dataFromService = await chatsService.updateChat(Number(id), data);
+              console.info("[API]", `Updating chat with id ${id}..`)
               return new Response(
                 JSON.stringify({
                   ...dataFromService,
@@ -102,6 +109,7 @@ export function createChatController(chatsService: ChatService) {
                 }
               );
             } catch (error) {
+              console.error("[API]", "Failed to update chat", error);
               return new Response(
                 JSON.stringify({
                   message: "Failed to update chat",
@@ -119,6 +127,7 @@ export function createChatController(chatsService: ChatService) {
               const { id } = context.params;
               const dataFromService = await chatsService.deleteChat(Number(id));
               if (dataFromService == null){
+                console.error("[API]", `Chat with id ${id} doesn't exist`);
                 return new Response(
                   JSON.stringify({
                     message: "Chat doesn't exist",
@@ -130,6 +139,7 @@ export function createChatController(chatsService: ChatService) {
                   }
                 );
               }
+              console.info("[API]", `Deleting chat with id ${id}..`)
               return new Response(
                 JSON.stringify({
                   message: "Chat deleted successfully",
@@ -141,6 +151,7 @@ export function createChatController(chatsService: ChatService) {
                 }
               );
             } catch (error) {
+              console.error("[API]", "Failed to delete chat", error);
               return new Response(
                 JSON.stringify({
                   message: "Failed to delete chat",
@@ -162,6 +173,7 @@ export function createChatController(chatsService: ChatService) {
               const userId = Number(body.userId);
 
               if (!Number.isInteger(chatId) || !Number.isInteger(userId)) {
+                console.error("[API]", "Invalid chatId or userId");
                 return new Response(
                   JSON.stringify({
                     message: "Invalid chatId or userId",
@@ -175,6 +187,7 @@ export function createChatController(chatsService: ChatService) {
               }
 
               const dataFromService = await chatsService.addUserToChat(chatId, userId);
+              console.info("[API]", `Adding user ${userId} to chat ${chatId}..`)
               return new Response(
                 JSON.stringify({
                   ...dataFromService,
@@ -185,6 +198,7 @@ export function createChatController(chatsService: ChatService) {
                 }
               );
             } catch (error) {
+              console.error("[API]", "Failed to add user to chat", error);
               return new Response(
                 JSON.stringify({
                   message: "Failed to add user to chat",
@@ -201,6 +215,7 @@ export function createChatController(chatsService: ChatService) {
         async listChatUsers(context: RequestInfo) {
             try {
                 const { id } = context.params;
+                console.info("[API]", `Listing users for chat with id ${id}..`);
                 const dataFromService = await chatsService.listChatUsers(Number(id));
                 return new Response(
                 JSON.stringify({
@@ -212,6 +227,7 @@ export function createChatController(chatsService: ChatService) {
                 }
                 );
             } catch (error) {
+                console.error("[API]", "Failed to list chat users", error);
                 return new Response(
                     JSON.stringify({
                         message: "Failed to list chat users",
@@ -245,6 +261,7 @@ export function createChatController(chatsService: ChatService) {
                     }
                 );
             } catch (error) {
+                console.error("[API]", "Failed to list chat messages", error);
                 return new Response(
                     JSON.stringify({
                         message: "Failed to list chat messages",
@@ -270,6 +287,7 @@ export function createChatController(chatsService: ChatService) {
                   body.message.trim() !== "";
 
                 if (!validMessage) {
+                  console.error("[API]", "Invalid chatId, userId or message");
                   return new Response(
                     JSON.stringify({
                       message: "Invalid chatId, userId or message",
@@ -288,6 +306,7 @@ export function createChatController(chatsService: ChatService) {
                 } as any;
 
                 const dataFromService = await chatsService.createChatMessage(chatId, messageData);
+                console.info("[API]", `User with ID: ${messageData.user.id} is attempting to create message in chat with id ${chatId}. Message content: "${messageData.message}"`);
                 return new Response(
                     JSON.stringify({
                         ...dataFromService,
@@ -298,6 +317,7 @@ export function createChatController(chatsService: ChatService) {
                     }
                 );
             } catch (error) {
+                console.error("[API]", "Failed to create chat message", error);
                 return new Response(
                     JSON.stringify({
                         message: "Failed to create chat message",

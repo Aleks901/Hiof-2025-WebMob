@@ -29,13 +29,6 @@ export type AppContext = {
 
 export default defineApp([
   setCommonHeaders(),
-  // Below is a relic of the past upon which many windows users have fallen..
-  // It is kept around in case the rwsdk team neglects us once more..
-  /* route("/api/seed", async () => {
-    const result = await seedData(env);
-    return Response.json({ success: true, ...result});
-  }), */
-
   async function setup({ ctx }) {
     ctx.db = await setupDb(env.DB);
   },

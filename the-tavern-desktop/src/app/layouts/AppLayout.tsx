@@ -34,7 +34,7 @@ function AppLayoutContent({ children }: { children: React.ReactNode }) {
 
   return (
     <div className='min-h-screen flex flex-col' style={{ ...styles(theme).header }}>
-        <header>
+        <header style={styles(theme).headerBorder}>
           <nav className="grid grid-cols-3 items-center p-4 bg-gray-800 text-white" style={{ ...styles(theme).nav }}>
               <div className='col-start-1'>
                   <NavButton href='/home' className='hover:underline'>
@@ -89,6 +89,10 @@ const styles = (theme: any) => ({
     fontSize: 'inherit',
     fontFamily: 'inherit',
     paddingBottom: 6
+  },
+
+  headerBorder: {
+    borderBottom: '2px solid #C6A472'
   },
 
   header: {

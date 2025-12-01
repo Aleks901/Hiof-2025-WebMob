@@ -40,10 +40,8 @@ export function setupDb(d1Database: D1Database) {
 
 export async function getDb(): Promise<DrizzleD1Database<typeof schema>> {
   if (!dbInstance) {
-    console.log("No database instance found, creating one..")
     dbInstance = createDatabase(await getWorkerEnv());
   }
-  console.log("Database connected.")
   return dbInstance;
 }
 
