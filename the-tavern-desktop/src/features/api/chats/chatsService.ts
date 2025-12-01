@@ -7,7 +7,7 @@ import { getDb, type DB } from "@/db";
 import { User } from "@packages/types/user";
 import { ChatRepository } from "@packages/types/api/chats/chat-repository";
 
-// TODO: Make business logic :p
+const badWords = ["BadWord1", "BadWord2"];
 
 export function createChatService(chatsRepository: ChatRepository): ChatService {
     return {
@@ -60,6 +60,17 @@ export function createChatService(chatsRepository: ChatRepository): ChatService 
             };
         },
         async createChatMessage(chatId: Chatroom["id"], messageData) {
+            const containsBadWord = badWords.some(badWord => messageData.message.includes(badWord));
+            if (containsBadWord) {
+                console.error("[CHAT SERVICE]", "Someone attempted to create chat message with inappropriate content in chat ID:", chatId);
+                return {
+                    error: {
+                        message: "Message contains inappropriate content.",
+                        code: 403
+                    },
+                    success: false
+                };
+            }
             const repositoryResult = await chatsRepository.createChatMessage(chatId, messageData);
             return {
                 ...repositoryResult,

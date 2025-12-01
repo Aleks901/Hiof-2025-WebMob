@@ -33,6 +33,7 @@ export function createUserService(userRepository: UserRepository): UserService {
             // But you get the gist.
             const invalidName = blackListedWords.includes(userData.name)
             if (invalidName){
+                console.error("[USER SERVICE]", `Attempted to create user with invalid name: ${userData.name}`);
                 return {
                     error: {
                         message: "That's a bad word! How dare you!",
