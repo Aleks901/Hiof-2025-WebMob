@@ -15,7 +15,7 @@ export function UserPage() {
 
 function UserPageContent() {
   const { id } = useParams()
-  const { theme } = useTheme()
+  const { theme, mode, toggleTheme } = useTheme()
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -263,6 +263,21 @@ function UserPageContent() {
           </div>
         </div>
       </div>
+
+      <button
+        onClick={toggleTheme}
+        style={{
+          padding: "10px 16px",
+          borderRadius: "6px",
+          border: "1px solid",
+          borderColor: theme.highlight,
+          backgroundColor: theme.card,
+          color: theme.text,
+          cursor: "pointer",
+          marginBottom: "16px"
+        }}>
+        Toggle to {mode === 'light' ? 'Dark' : 'Light'} Mode
+      </button>
       
       <div style={{
         ...styles.editSection,
