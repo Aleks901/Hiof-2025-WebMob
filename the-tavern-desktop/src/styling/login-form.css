@@ -49,7 +49,8 @@
 }
 
 .login-form-toggle-button {
-    margin-top: 16px;
+    margin-top: 5px;
+    margin-bottom: 8px;
     padding: 8px 16px;
     background: transparent;
     border-width: 1px;

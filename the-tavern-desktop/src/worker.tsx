@@ -39,13 +39,8 @@ export default defineApp([
   render(Document, [
     layout(AppLayout, [
       route("/", async () => {
-        const userResult = await drizzle(env.DB).select().from(users);
-        const chatResult = await drizzle(env.DB).select().from(chatrooms);
         return (
           <div style={{ padding: "2rem", maxWidth: "600px", margin: "0 auto" }}>
-            <h1>Start</h1>
-            <p>Velkommen til eksempel</p>
-            <p>Databasen har {userResult.length} brukere og {chatResult.length} chatrooms aktive.</p>
             <LoginForm/>
           </div>
         );
