@@ -271,8 +271,8 @@ function UserPageContent() {
           borderRadius: "6px",
           border: "1px solid",
           borderColor: theme.highlight,
-          backgroundColor: theme.card,
-          color: theme.text,
+          backgroundColor: theme.buttonBackground,
+          color: theme.buttonText,
           cursor: "pointer",
           marginBottom: "16px"
         }}>
